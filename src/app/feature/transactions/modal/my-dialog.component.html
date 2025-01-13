@@ -1,0 +1,57 @@
+<div class="container-fluid">
+    <div class="row p-3">
+        <div class="col-xxl-12">
+            <div class="card card-body ">
+                <input class="form-check-input" type="checkbox" id="checkAll" [(ngModel)]="selected.selected">
+                <div class="table-responsive">
+                    <h6 class="mb-sm-0"> ITC Total :- {{ itcTotal }} </h6>
+                    <table class="table align-middle position-relative table-nowrap">
+                        <thead class="table-active">
+                            <tr>
+                                <th scope="col">GSTIN of supplier</th>
+                                <th scope="col">Trade/Legal name</th>
+                                <th scope="col">Invoice number</th>
+                                <th scope="col">Invoice Value(₹)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="task-list">
+                            <tr *ngFor="let users of selected.listOfReconMatchingVoITC">
+                                <td>{{ users.gstinOfSupplier }}</td>
+                                <td>{{ users.legalName }}</td>
+                                <td>{{ users.invoiceNumber }}</td>
+                                <td>{{ users.invoiceValue }}</td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-responsive">
+                    <h6 class="mb-sm-0"> GSTR Total :- {{ gstrTotal }} </h6>
+                    <table class="table align-middle position-relative table-nowrap">
+                        <thead class="table-active">
+                            <tr>
+                                <th scope="col">GSTIN of supplier</th>
+                                <th scope="col">Trade/Legal name</th>
+                                <th scope="col">Invoice number</th>
+                                <th scope="col">Invoice Value(₹)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="task-list">
+                            <tr *ngFor="let users of selected.listOfReconMatchingVoGSTR">
+                                <td>{{ users.gstinOfSupplier }}</td>
+                                <td>{{ users.legalName }}</td>
+                                <td>{{ users.invoiceNumber }}</td>
+                                <td>{{ users.invoiceValue }}</td>
+                              </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" (click)="onNoClick()" class="btn btn-danger" data-bs-dismiss="modal"
+                style="margin-right: 1%;">Close</button>
+            <button type="button" class="btn btn-primary" (click)="submit()">Submit</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+.card{
+    padding: 1rem;
+}
+.text-right{
+    text-align: right;
+}
+
+//   input {
+//     position: absolute;
+//     font-size: 50px;
+//     opacity: 0;
+//     right: 0;
+//     top: 0;
+//   }
+.nav-success.nav-tabs-custom .nav-link.active {
+    color: #6691e7 !important;
+}
+.madatroy::after {
+    content: "*";
+    color: red;
+    margin-left: 5px;
+  }

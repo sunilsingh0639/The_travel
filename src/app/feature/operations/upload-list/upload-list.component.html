@@ -1,0 +1,118 @@
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0"> Uploaded Files</h4>
+
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <li class="breadcrumb-item"><a href="javascript: void(0);">Operations</a></li>
+                                <li class="breadcrumb-item active"> Uploaded Files</li>
+                            </ol>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="d-flex align-items-center">
+                            <div class="card-body">
+                                <form [formGroup]="searchForm">
+                                    <div class="row g-3">
+                                        <div class="col-md-4">
+                                            <div class="search-box">
+                                                <input type="text" class="form-control search"
+                                                    (keyup)="search(searchForm.value.keyword)"
+                                                    placeholder="Search file..." fdprocessedid="xwpsf"
+                                                    formControlName="keyword">
+                                                <i class="ri-search-line search-icon"></i>
+                                            </div>
+                                        </div>
+                                        <!--end col-->
+                                        <div class="col-xl-2 col-sm-4">
+                                            <button type="button" class="btn btn-primary" onclick="SearchData();">
+                                                Search
+                                            </button>
+                                        </div>
+                                        <!--end col-->
+                                    </div>
+                                    <!--end row-->
+                                </form>
+                            </div>
+                            <div class="flex-shrink-0">
+                                <div style="margin-right: 15px;">
+                                    <!-- <button class="btn btn-danger" id="remove-actions" onclick="deleteMultiple()"><i
+                                            class="ri-delete-bin-2-line"></i></button> -->
+
+                                    <!-- <div class="d-flex gap-2 flex-wrap"> -->
+                                    <!-- <button type="file" href="" *ngIf="showAddNew" class="btn btn-primary"><i
+                                                class="ri-add-line align-bottom me-1"></i>Upload File</button> -->
+                                    <!-- </div> -->
+                                    <div routerLink="/app/operations/upload/file" class="d-flex gap-2 flex-wrap">
+                                        <!-- <input id="profile-foreground-img-file-input" type="file"
+                                            class="profile-foreground-img-file-input" style="display: none;" > -->
+                                        <label for="profile-foreground-img-file-input"
+                                            class="profile-photo-edit btn btn-primary mt-2">
+                                            <i class="ri-add-line align-bottom me-1"></i>
+                                            Upload File
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-9">
+                        <app-list-view [title]="'Users'" (viewEvent)="viewClient($event)"
+                            (deleteEvent)=" deleteUplodeFile($event)" [data]="filteredFilesList"
+                            [headers]="headers" [showCheckbox]="true"
+                            [showMultipleDelete]="false" [addNewLabel]="'Client'" [hideSearchForm]="true"
+                            (editEvent)="editUplodeFile($event)" [showAddNewButton]="true"></app-list-view>
+                    </div>
+
+                    <div class="col-xl-3">
+                        <div class="card" id="contact-view-detail">
+                          
+                            <div class="card-body">
+                                <h6 class="text-muted text-uppercase fw-semibold mb-3">Uploaded File Details</h6>
+                                <div class="table-responsive table-card">
+                                    <table class="table table-borderless mb-0">
+                                        <tbody>
+                                            <tr>
+                                                <td class="fw-medium" scope="row">ID</td>
+                                                <td>{{selectedClient?.id }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="fw-medium" scope="row">UPLOADED ON</td>
+                                                <td>{{ selectedClient?.uploadedOn  }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="fw-medium" scope="row">FILE</td>
+                                                <td>{{ selectedClient?.fileName }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="fw-medium" scope="row">Last Status</td>
+                                                <td class="badge-soft-success text-uppercase">
+                                                    {{ selectedClient?.status }}
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--end container fluid-->
+            </div>
+
+        </div>
+    </div>
+</div>

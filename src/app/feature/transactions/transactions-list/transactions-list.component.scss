@@ -1,0 +1,50 @@
+@media (min-width: 992px) {
+    .file-manager-sidebar {
+        min-width: 173px !important;
+        max-width: 300px;
+        height: calc(100vh - 70px - 60px - 8px);
+    }
+}
+
+.row{
+    width: 95%;
+    .col-3{
+        padding-right: 0px !important
+
+    }
+}
+.select2-container .select2-selection--single{
+    height:34px !important;
+}
+.select2-container--default .select2-selection--single{
+         border: 1px solid #ccc !important; 
+     border-radius: 0px !important; 
+}
+.dropdown {
+    position: relative;
+    display: inline-block;
+    margin-left: 0.5rem;
+  }
+  
+  .dropbtn {
+    background-color: #6691e7;
+    color: white;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+  }
+  ::ng-deep .select2-container .select2-selection--single .select2-selection__rendered {
+    line-height: 36px;
+    padding-left: 12px;
+    color: white !important;
+    background: #6691e7 !important;
+}
+::ng-deep .select2-container .select2-selection--single {
+    height: auto !important;
+}
+.search{
+    margin: 5px;
+    border: 1px solid gray;
+    padding: 5px;
+}

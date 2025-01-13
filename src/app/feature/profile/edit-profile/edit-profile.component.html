@@ -1,0 +1,576 @@
+<div class="page-content">
+    <div class="container-fluid">
+
+        <div class="position-relative mx-n4 mt-n4">
+            <div class="profile-wid-bg profile-setting-img">
+                <img src="assets/images/profile-bg.jpg" class="profile-wid-img" alt="">
+                <div class="overlay-content">
+                    <div class="text-end p-3">
+
+
+                        <!-- <div class="p-0 ms-auto rounded-circle profile-photo-edit">
+                            <input id="profile-foreground-img-file-input" type="file" class="profile-foreground-img-file-input">
+                            <label for="profile-foreground-img-file-input" class="profile-photo-edit btn btn-light">
+                                <i class="ri-image-edit-line align-bottom me-1"></i> Change Cover
+                            </label>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xxl-3">
+                <div class="card mt-n5">
+                    <div class="card-body p-4">
+                        <div class="text-center">
+                            <div class="profile-user position-relative d-inline-block mx-auto  mb-4">
+                                <img src="{{ proFileImage}}"
+                                    class="rounded-circle avatar-xl img-thumbnail user-profile-image  shadow"
+                                    alt="user-profile-image">
+                                <div class="avatar-xs p-0 rounded-circle profile-photo-edit">
+                                    <input id="profile-img-file-input" accept="image/png, image/gif, image/jpeg" (change)="uploadProfilePic($event)" type="file" class="profile-img-file-input">
+                                    <label for="profile-img-file-input" class="profile-photo-edit avatar-xs">
+                                        <span class="avatar-title rounded-circle bg-light text-body shadow">
+                                            <i class="ri-camera-fill"></i>
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+                            <h5 class="fs-16 mb-1">{{profileData?.fullName}}</h5>
+                            <p class="text-muted mb-0"></p>
+                        </div>
+                    </div>
+                </div>
+                <!--end card-->
+                <!-- <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-5">
+                            <div class="flex-grow-1">
+                                <h5 class="card-title mb-0">Complete Your Profile</h5>
+                            </div>
+                            <div class="flex-shrink-0">
+                                <a href="javascript:void(0);" class="badge bg-light text-primary fs-12"><i
+                                        class="ri-edit-box-line align-bottom me-1"></i> Edit</a>
+                            </div>
+                        </div>
+                        <div class="progress animated-progress custom-progress progress-label">
+                            <div class="progress-bar bg-danger" role="progressbar" style="width: 30%" aria-valuenow="30"
+                                aria-valuemin="0" aria-valuemax="100">
+                                <div class="label">30%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+
+                <!--end card-->
+            </div>
+            <!--end col-->
+            <div class="col-xxl-9">
+                <div class="card mt-xxl-n5">
+                    <div class="card-header">
+                        <ul class="nav nav-tabs-custom rounded card-header-tabs border-bottom-0" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link active" data-bs-toggle="tab" href="#personalDetails" role="tab"
+                                    aria-selected="true">
+                                    <i class="fas fa-home"></i> Personal Details
+                                </a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link" data-bs-toggle="tab" href="#changePassword" role="tab"
+                                    aria-selected="false" tabindex="-1">
+                                    <i class="far fa-user"></i> Change Password
+                                </a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link" data-bs-toggle="tab" href="#experience" role="tab"
+                                    aria-selected="false" tabindex="-1">
+                                    <i class="far fa-envelope"></i> Privileges
+                                </a>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div class="card-body p-4">
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="personalDetails" role="tabpanel">
+                                <form action="javascript:void(0);" [formGroup]="editProfileForm">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
+                                                <label for="firstnameInput" class="form-label">First Name</label>
+                                                <input type="text" class="form-control" id="firstnameInput"
+                                                    appTrimValidator placeholder="Enter your firstname"
+                                                    formControlName="firstName" maxlength="30">
+                                                <!-- <div *ngIf="editform['firstName'].invalid && (editform['firstName'].dirty || editform['firstName'].touched)"
+                                                    class="form-text text-danger">
+                                                    <div *ngIf="editform['firstName'].errors?.['required']">
+                                                        First Name is required.
+                                                    </div>
+                                                    <div *ngIf="editform['firstName'].errors?.['minlength']">
+                                                        Minimum 3 characters are required.
+                                                    </div>
+                                                </div> -->
+                                            </div>
+                                        </div>
+                                        <!--end col-->
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
+                                                <label for="middlenameInput" class="form-label">Middle Name</label>
+                                                <input type="text" class="form-control" id="middlenameInput"
+                                                    appTrimValidator placeholder="Enter your Middle name"
+                                                    formControlName="middleName">
+                                                <!-- <div *ngIf="editform['middleName'].invalid && (editform['middleName'].dirty || editform['middleName'].touched)"
+                                                    class="form-text text-danger">
+                                                    <div *ngIf="editform['middleName'].errors?.['required']">
+                                                        Middle Name is required.
+                                                    </div>
+                                                    <div *ngIf="editform['middleName'].errors?.['minlength']">
+                                                        Minimum 3 characters are required.
+                                                    </div>
+                                                </div> -->
+                                            </div>
+                                        </div>
+                                        <!--end col-->
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
+                                                <label for="lastnameInput" class="form-label">Last Name</label>
+                                                <input type="text" class="form-control" id="lastnameInput"
+                                                    appTrimValidator placeholder="Enter your lastname"
+                                                    formControlName="lastName" maxlength="30">
+                                                <!-- <div *ngIf="editform['lastName'].invalid && (editform['lastName'].dirty || editform['lastName'].touched)"
+                                                    class="form-text text-danger">
+                                                    <div *ngIf="editform['lastName'].errors?.['required']">
+                                                        Last Name is required
+                                                    </div>
+                                                    <div *ngIf="editform['lastName'].errors?.['minlength']">
+                                                        Minimum 3 characters are required.
+                                                    </div>
+                                                </div> -->
+                                            </div>
+                                        </div>
+                                        <!--end col-->
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
+                                                <div>
+                                                    <label for="websiteUrl" class="form-label">Gender</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="gender"
+                                                        id="inlineRadio1" value="MALE" formControlName="gender">
+                                                    <label class="form-check-label" for="inlineRadio1">Male</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="gender"
+                                                        id="inlineRadio2" value="FEMALE" formControlName="gender">
+                                                    <label class="form-check-label" for="inlineRadio2">Female</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="gender"
+                                                        id="inlineRadio3" value="OTHERS" formControlName="others"
+                                                        >
+                                                    <label class="form-check-label"
+                                                        for="inlineRadio3" > Others</label>
+                                                </div>
+                                                <!-- <div *ngIf="editform['gender'].invalid && (editform['gender'].dirty || editform['gender'].touched)"
+                                                    class="form-text text-danger">
+                                                    <div *ngIf="editform['gender'].errors?.['required']">
+                                                        Gender is required.
+                                                    </div>
+                                                </div> -->
+                                            </div>
+                                        </div>
+                                        <!--end col-->
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
+                                                <label for="phonenumberInput" class="form-label">Contact Number</label>
+                                                <input appNumberOnly type="text" class="form-control"
+                                                    id="phonenumberInput" placeholder="Enter your phone number"
+                                                    maxlength="10" formControlName="mobile">
+                                                <!-- <div *ngIf="editform['mobile'].invalid && (editform['mobile'].dirty || editform['mobile'].touched)"
+                                                    class="form-text text-danger">
+                                                    <div *ngIf="editform['mobile'].errors?.['required']">
+                                                        Contact Number is required.
+                                                    </div>
+
+                                                </div> -->
+                                            </div>
+                                        </div>
+                                        <!--end col-->
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
+                                                <label for="emailInput" class="form-label">Email </label>
+                                                <input type="email" class="form-control" id="emailInput"
+                                                    placeholder="Enter your email" formControlName="email">
+                                                <!-- <div *ngIf="email.invalid && (email.dirty || email.touched)"
+                                                    class="form-text text-danger">
+                                                    <div *ngIf="email.errors?.['required']">
+                                                        Email is required.
+                                                    </div>
+                                                    <div *ngIf="email.errors?.['pattern']">
+                                                        Email pattern is not valid.
+                                                    </div>
+                                                </div> -->
+                                            </div>
+                                        </div>
+                                        <!--end col-->
+
+
+                                        <div class="col-lg-12 mb-3">
+                                            <label for="websiteUrl" class="form-label">Role</label>
+
+                                            <select class="form-control" formControlName="role">
+                                                <option value="1" [selected]="1">Admin</option>
+                                                <option value="2">Subscriber</option>
+                                                <option value="2">User</option>
+                                            </select>
+
+                                        </div>
+
+
+                                        <div class="col-lg-12">
+                                            <div class="hstack gap-2 justify-content-end">
+                                                <button type="button" routerLink="/app/profile" class="btn btn-danger">Cancel</button>
+                                                <button type="submit" [disabled]="editProfileForm.invalid"
+                                                    (click)="updateData()" class="btn btn-primary">
+                                                    Update
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <!--end col-->
+                                    </div>
+                                    <!--end row-->
+                                </form>
+                            </div>
+                            <!--end tab-pane-->
+                            <div class="tab-pane" id="changePassword" role="tabpanel">
+                                <form action="javascript:void(0);" [formGroup]="changePasswordForm">
+                                    <div class="row g-2">
+                                        <div class="col-lg-4">
+                                            <div>
+                                                <label for="oldpasswordInput" class="form-label">Old Password*</label>
+                                                <input type="password" class="form-control" id="oldpasswordInput"
+                                                    placeholder="Enter current password" formControlName="password">
+                                                <!-- <div *ngIf="password.invalid && (password.dirty || password.touched)"
+                                                    class="form-text text-danger">
+                                                    <div *ngIf="password.errors?.['required']">
+                                                        Password is required.
+                                                    </div>
+                                                    <div *ngIf="password.errors?.['pattern']">
+                                                        Password must contain at least one number, one uppercase and a
+                                                        lowercase letter
+                                                        and at least 8 characters<br>Password cannot contain whitespace
+                                                    </div>
+                                                </div> -->
+                                            </div>
+                                        </div>
+                                        <!--end col-->
+                                        <div class="col-lg-4">
+                                            <div>
+                                                <label for="newpasswordInput" class="form-label">New Password*</label>
+                                                <input type="password" class="form-control" id="newpasswordInput"
+                                                    placeholder="Enter new password" formControlName="newPassword"
+                                                    [ngClass]="matchPassword">
+                                                <!-- <div *ngIf="newPassword.invalid && (newPassword.dirty || newPassword.touched)"
+                                                    class="form-text text-danger">
+                                                    <div *ngIf="newPassword.errors?.['required']">
+                                                        New Password is required.
+                                                    </div>
+                                                    <div *ngIf="newPassword.errors?.['pattern']">
+                                                        New Password must contain at least one number, one uppercase and
+                                                        a
+                                                        lowercase letter
+                                                        and at least 8 characters<br>Password cannot contain whitespace
+                                                    </div>
+                                                </div> -->
+                                            </div>
+                                        </div>
+                                        <!--end col-->
+                                        <div class="col-lg-4">
+                                            <div>
+                                                <label for="confirmpasswordInput" class="form-label">Confirm
+                                                    Password*</label>
+                                                <input type="password" class="form-control" id="confirmpasswordInput"
+                                                    placeholder="Confirm password" formControlName="confirmPassword"
+                                                    [ngClass]="matchPassword">
+                                                <div class="form-text text-danger" *ngIf="unmatched == true">
+                                                    New Password & Confirm Password must match.
+                                                </div>
+                                                <!-- <div *ngIf="confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)"
+                                                    class="form-text text-danger">
+                                                    <div *ngIf="confirmPassword.errors?.['required']">
+                                                        Confirm Password is required.
+                                                    </div>
+                                                    <div *ngIf="confirmPassword.errors?.['pattern']">
+                                                        Confirm Password must contain at least one number, one uppercase
+                                                        and a
+                                                        lowercase letter
+                                                        and at least 8 characters<br>Password cannot contain whitespace
+                                                    </div>
+                                                </div> -->
+                                            </div>
+                                            <!--end col-->
+                                            <!-- <div class="col-lg-12">
+                                                <div class="mb-3">
+                                                    <a href="javascript:void(0);"
+                                                        class="link-primary text-decoration-underline">Forgot Password
+                                                        ?</a>
+                                                </div>
+                                            </div> -->
+                                            <!--end col-->
+                                            <div class="col-lg-12">
+
+                                                <div class="hstack gap-2 justify-content-end mt-3">
+                                                    <button type="button" routerLink="/app/profile" class="btn btn-danger">Cancel</button>
+                                                    <button type="submit" [disabled]="changePasswordForm.invalid"
+                                                    (click)="changePassword()" class="btn btn-primary">
+                                                        Change
+                                                        Password
+                                                    </button>
+                                                </div>
+
+                               
+                                            </div>
+                                            <!--end col-->
+                                        </div>
+                                    </div>
+                                    <!--end row-->
+                                </form>
+                                <!-- <div class="mt-4 mb-3 border-bottom pb-2">
+                                    <div class="float-end">
+                                        <a href="javascript:void(0);" class="link-primary">All Logout</a>
+                                    </div>
+                                    <h5 class="card-title">Login History</h5>
+                                </div>
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="flex-shrink-0 avatar-sm">
+                                        <div class="avatar-title bg-light text-primary rounded-3 fs-18 shadow">
+                                            <i class="ri-smartphone-line"></i>
+                                        </div>
+                                    </div>
+                                    <div class="flex-grow-1 ms-3">
+                                        <h6>iPhone 12 Pro</h6>
+                                        <p class="text-muted mb-0">Los Angeles, United States - March 16 at 2:47PM</p>
+                                    </div>
+                                    <div>
+                                        <a href="javascript:void(0);">Logout</a>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="flex-shrink-0 avatar-sm">
+                                        <div class="avatar-title bg-light text-primary rounded-3 fs-18 shadow">
+                                            <i class="ri-tablet-line"></i>
+                                        </div>
+                                    </div>
+                                    <div class="flex-grow-1 ms-3">
+                                        <h6>Apple iPad Pro</h6>
+                                        <p class="text-muted mb-0">Washington, United States - November 06 at 10:43AM
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <a href="javascript:void(0);">Logout</a>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="flex-shrink-0 avatar-sm">
+                                        <div class="avatar-title bg-light text-primary rounded-3 fs-18 shadow">
+                                            <i class="ri-smartphone-line"></i>
+                                        </div>
+                                    </div>
+                                    <div class="flex-grow-1 ms-3">
+                                        <h6>Galaxy S21 Ultra 5G</h6>
+                                        <p class="text-muted mb-0">Conneticut, United States - June 12 at 3:24PM</p>
+                                    </div>
+                                    <div>
+                                        <a href="javascript:void(0);">Logout</a>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <div class="flex-shrink-0 avatar-sm">
+                                        <div class="avatar-title bg-light text-primary rounded-3 fs-18 shadow">
+                                            <i class="ri-macbook-line"></i>
+                                        </div>
+                                    </div>
+                                    <div class="flex-grow-1 ms-3">
+                                        <h6>Dell Inspiron 14</h6>
+                                        <p class="text-muted mb-0">Phoenix, United States - July 26 at 8:10AM</p>
+                                    </div>
+                                    <div>
+                                        <a href="javascript:void(0);">Logout</a>
+                                    </div>
+                                </div> -->
+                            </div>
+                            <!--end tab-pane-->
+                            <div class="tab-pane" id="experience" role="tabpanel">
+                                <div>
+                                    <div class="d-flex align-items-center py-3" *ngFor="let privilage of allPrivilages">
+                                        <!-- <div class="avatar-xs flex-shrink-0 me-3">
+                                            <img src="assets/images/users/avatar-3.jpg" alt="" class="img-fluid rounded-circle shadow">
+                                        </div> -->
+                                        <div class="flex-grow-1">
+                                            <div>
+                                                <h5 class="fs-14 mb-1">{{privilage.name}}</h5>
+                                                <p class="fs-13 text-muted mb-0">{{privilage.description}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="flex-shrink-0 ms-2">
+                                            <!-- <i style="    color: red;
+                                            font-size: xx-large;" class="mdi mdi-close-circle-outline"></i> -->
+                                            <button type="button" class="btn btn-sm btn-outline-success shadow-none"><i class="ri-user-add-line align-middle"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end tab-pane-->
+                            <div class="tab-pane" id="privacy" role="tabpanel">
+                                <div class="mb-4 pb-2">
+                                    <h5 class="card-title text-decoration-underline mb-3">Security:</h5>
+                                    <div class="d-flex flex-column flex-sm-row mb-4 mb-sm-0">
+                                        <div class="flex-grow-1">
+                                            <h6 class="fs-14 mb-1">Two-factor Authentication</h6>
+                                            <p class="text-muted">Two-factor authentication is an enhanced security
+                                                meansur. Once enabled, you'll be required to give two types of
+                                                identification when you log into Google Authentication and SMS are
+                                                Supported.</p>
+                                        </div>
+                                        <div class="flex-shrink-0 ms-sm-3">
+                                            <a href="javascript:void(0);" class="btn btn-sm btn-success">Enable
+                                                Two-facor Authentication</a>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column flex-sm-row mb-4 mb-sm-0 mt-2">
+                                        <div class="flex-grow-1">
+                                            <h6 class="fs-14 mb-1">Secondary Verification</h6>
+                                            <p class="text-muted">The first factor is a password and the second commonly
+                                                includes a text with a code sent to your smartphone, or biometrics using
+                                                your fingerprint, face, or retina.</p>
+                                        </div>
+                                        <div class="flex-shrink-0 ms-sm-3">
+                                            <a href="javascript:void(0);" class="btn btn-sm btn-success">Set up
+                                                secondary method</a>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column flex-sm-row mb-4 mb-sm-0 mt-2">
+                                        <div class="flex-grow-1">
+                                            <h6 class="fs-14 mb-1">Backup Codes</h6>
+                                            <p class="text-muted mb-sm-0">A backup code is automatically generated for
+                                                you when you turn on two-factor authentication through your iOS or
+                                                Android Twitter app. You can also generate a backup code on twitter.com.
+                                            </p>
+                                        </div>
+                                        <div class="flex-shrink-0 ms-sm-3">
+                                            <a href="javascript:void(0);" class="btn btn-sm btn-success">Generate backup
+                                                codes</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <h5 class="card-title text-decoration-underline mb-3">Application Notifications:
+                                    </h5>
+                                    <ul class="list-unstyled mb-0">
+                                        <li class="d-flex">
+                                            <div class="flex-grow-1">
+                                                <label for="directMessage" class="form-check-label fs-14">Direct
+                                                    messages</label>
+                                                <p class="text-muted">Messages from people you follow</p>
+                                            </div>
+                                            <div class="flex-shrink-0">
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" type="checkbox" role="switch"
+                                                        id="directMessage" checked="">
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="d-flex mt-2">
+                                            <div class="flex-grow-1">
+                                                <label class="form-check-label fs-14" for="desktopNotification">
+                                                    Show desktop notifications
+                                                </label>
+                                                <p class="text-muted">Choose the option you want as your default
+                                                    setting. Block a site: Next to "Not allowed to send notifications,"
+                                                    click Add.</p>
+                                            </div>
+                                            <div class="flex-shrink-0">
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" type="checkbox" role="switch"
+                                                        id="desktopNotification" checked="">
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="d-flex mt-2">
+                                            <div class="flex-grow-1">
+                                                <label class="form-check-label fs-14" for="emailNotification">
+                                                    Show email notifications
+                                                </label>
+                                                <p class="text-muted"> Under Settings, choose Notifications. Under
+                                                    Select an account, choose the account to enable notifications for.
+                                                </p>
+                                            </div>
+                                            <div class="flex-shrink-0">
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" type="checkbox" role="switch"
+                                                        id="emailNotification">
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="d-flex mt-2">
+                                            <div class="flex-grow-1">
+                                                <label class="form-check-label fs-14" for="chatNotification">
+                                                    Show chat notifications
+                                                </label>
+                                                <p class="text-muted">To prevent duplicate mobile notifications from the
+                                                    Gmail and Chat apps, in settings, turn off Chat notifications.</p>
+                                            </div>
+                                            <div class="flex-shrink-0">
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" type="checkbox" role="switch"
+                                                        id="chatNotification">
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="d-flex mt-2">
+                                            <div class="flex-grow-1">
+                                                <label class="form-check-label fs-14" for="purchaesNotification">
+                                                    Show purchase notifications
+                                                </label>
+                                                <p class="text-muted">Get real-time purchase alerts to protect yourself
+                                                    from fraudulent charges.</p>
+                                            </div>
+                                            <div class="flex-shrink-0">
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" type="checkbox" role="switch"
+                                                        id="purchaesNotification">
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h5 class="card-title text-decoration-underline mb-3">Delete This Account:</h5>
+                                    <p class="text-muted">Go to the Data &amp; Privacy section of your profile Account.
+                                        Scroll to "Your data &amp; privacy options." Delete your Profile Account. Follow
+                                        the instructions to delete your account :</p>
+                                    <div>
+                                        <input type="password" class="form-control" id="passwordInput"
+                                            placeholder="Enter your password" value="make@321654987"
+                                            style="max-width: 265px;">
+                                    </div>
+                                    <div class="hstack gap-2 mt-3">
+                                        <a href="javascript:void(0);" class="btn btn-soft-danger">Close &amp; Delete
+                                            This Account</a>
+                                        <a href="javascript:void(0);" class="btn btn-light">Cancel</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end tab-pane-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--end col-->
+        </div>
+        <!--end row-->
+
+    </div>
+    <!-- container-fluid -->
+</div>

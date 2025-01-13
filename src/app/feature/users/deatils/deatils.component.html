@@ -1,0 +1,551 @@
+<div class="page-content">
+  <div class="container-fluid">
+    <div class="profile-foreground position-relative mx-n4 mt-n4">
+      <div class="profile-wid-bg">
+        <img src="assets/images/profile-bg.jpg" alt="" class="profile-wid-img">
+      </div>
+    </div>
+    <div class="pt-4 mb-4 mb-lg-3 pb-lg-4">
+      <div class="row g-4">
+        <div class="col-auto">
+          <div class="avatar-lg">
+            <img src="assets/images/users/avatar-1.jpg" alt="user-img" class="img-thumbnail rounded-circle">
+          </div>
+        </div>
+        <!--end col-->
+        <div class="col">
+          <div class="p-2">
+            <h3 class="text-white mb-1">{{selectedUser?.firstName}}</h3>
+            <p class="text-white-75">{{selectedUser?.role?.name}}</p>
+            <div class="hstack text-white-50 gap-1">
+              <div class="me-2"><i class="ri-map-pin-user-line me-1 text-white-75 fs-16 align-middle"></i>{{selectedUser?.mobile}}
+              </div>
+              <div>
+                <i class="ri-building-line me-1 text-white-75 fs-16 align-middle"></i>{{selectedUser?.email}}
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--end col-->
+        <div class="col-12 col-lg-auto order-last order-lg-0">
+          <div class="row text text-white-50 text-center">
+            <div class="col-lg-6 col-4">
+              <div class="p-2">
+                <h4 class="text-white mb-1">24/12/22</h4>
+                <p class="fs-14 mb-0">Created</p>
+              </div>
+            </div>
+            <div class="col-lg-6 col-4">
+              <div class="p-2">
+                <h4 class="text-white mb-1">15/01/23</h4>
+                <p class="fs-14 mb-0">Last Login</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--end col-->
+
+      </div>
+      <!--end row-->
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12">
+        <div>
+          <div class="d-flex">
+            <!-- Nav tabs -->
+            <ul class="nav nav-pills animation-nav profile-nav gap-2 gap-lg-3 flex-grow-1" role="tablist">
+              <li class="nav-item" role="presentation">
+                <a class="nav-link fs-14 active" data-bs-toggle="tab" href="#overview-tab" role="tab"
+                  aria-selected="true">
+                  <i class="ri-airplay-fill d-inline-block d-md-none"></i> <span
+                    class="d-none d-md-inline-block">Overview</span>
+                </a>
+              </li>
+              <li class="nav-item" role="presentation">
+                <a class="nav-link fs-14" data-bs-toggle="tab" href="#activities" role="tab" aria-selected="false"
+                  tabindex="-1">
+                  <i class="ri-list-unordered d-inline-block d-md-none"></i> <span
+                    class="d-none d-md-inline-block">Activities</span>
+                </a>
+              </li>
+              <li class="nav-item" role="presentation">
+                <a class="nav-link fs-14" data-bs-toggle="tab" href="#subs" role="tab" aria-selected="false"
+                  tabindex="-1">
+                  <i class="ri-list-unordered d-inline-block d-md-none"></i> <span
+                    class="d-none d-md-inline-block">Subscription Notification </span>
+                </a>
+              </li>
+            </ul>
+            <div class="flex-shrink-0">
+              <a routerLink="/app/profile/edit" class="btn btn-primary"><i class="ri-edit-box-line align-bottom"></i>
+                Edit Profile</a>
+            </div>
+          </div>
+          <!-- Tab panes -->
+          <div class="tab-content pt-4 text-muted">
+            <div class="tab-pane active show" id="overview-tab" role="tabpanel">
+              <div class="row">
+                <div class="col-xxl-3">
+            
+
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title mb-3">Info</h5>
+                      <div class="table-responsive">
+                        <table class="table table-borderless mb-0">
+                        <!-- *ngFor="let users of userList" -->
+                          <tbody>
+                            <tr>
+                              <th class="ps-0" scope="row">Full Name :</th>
+                              <td class="text-muted">{{selectedUser?.name}}</td>
+                            </tr>
+                            <tr>
+                              <th class="ps-0" scope="row">Mobile :</th>
+                              <td class="text-muted">{{selectedUser?.mobile}}</td>
+                            </tr>
+                            <tr>
+                              <th class="ps-0" scope="row">E-mail :</th>
+                              <td class="text-muted">{{selectedUser?.email}}</td>
+                            </tr>
+                            <tr>
+                              <th class="ps-0" scope="row">Gender :</th>
+                              <td class="text-muted">{{selectedUser?.gender}}
+                              </td>
+                            </tr>
+                            <tr>
+                              <th class="ps-0" scope="row">Role :</th>
+                              <td class="text-muted">{{selectedUser?.role?.name}}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div><!-- end card body -->
+                  </div><!-- end card -->
+
+
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="d-flex align-items-center mb-4">
+                        <div class="flex-grow-1">
+                          <h5 class="card-title mb-0">Privileges</h5>
+                        </div>
+                        <div class="flex-shrink-0">
+                          <div class="dropdown">
+                            <a  role="button" id="dropdownMenuLink2"
+                              data-bs-toggle="dropdown" aria-expanded="false">
+
+                              <i class="ri-more-2-fill fs-14"></i>
+                            </a>
+
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink2">
+                              <li><a class="dropdown-item" >View</a></li>
+                              <li><a class="dropdown-item" >Edit</a></li>
+                              <li><a class="dropdown-item"  >Delete</a></li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                      <div>
+                        <div class="d-flex align-items-center py-3">
+                          <!-- <div class="avatar-xs flex-shrink-0 me-3">
+                                                        <img src="assets/images/users/avatar-3.jpg" alt="" class="img-fluid rounded-circle shadow">
+                                                    </div> -->
+                          <div class="flex-grow-1">
+                            <div>
+                              <h5 class="fs-14 mb-1">View Clients</h5>
+                              <p class="fs-13 text-muted mb-0">User can access list of clients</p>
+                            </div>
+                          </div>
+                          <div class="flex-shrink-0 ms-2">
+                            <i style="    color: red;
+                                                        font-size: xx-large;" class="mdi mdi-close-circle-outline"></i>
+                            <!-- <button type="button" class="btn btn-sm btn-outline-success shadow-none"><i class="ri-user-add-line align-middle"></i></button> -->
+                          </div>
+                        </div>
+                        <div class="d-flex align-items-center py-3">
+                          <!-- <div class="avatar-xs flex-shrink-0 me-3">
+                                                        <img src="assets/images/users/avatar-3.jpg" alt="" class="img-fluid rounded-circle shadow">
+                                                    </div> -->
+                          <div class="flex-grow-1">
+                            <div>
+                              <h5 class="fs-14 mb-1">Privilege2</h5>
+                              <p class="fs-13 text-muted mb-0">User can access list of clients</p>
+                            </div>
+                          </div>
+                          <div class="flex-shrink-0 ms-2">
+                            <i style="    color: green;
+                                                        font-size: xx-large;"
+                              class="mdi mdi-checkbox-marked-circle-outline"></i>
+                          </div>
+                        </div>
+                        <div class="d-flex align-items-center py-3">
+                          <!-- <div class="avatar-xs flex-shrink-0 me-3">
+                                                        <img src="assets/images/users/avatar-3.jpg" alt="" class="img-fluid rounded-circle shadow">
+                                                    </div> -->
+                          <div class="flex-grow-1">
+                            <div>
+                              <h5 class="fs-14 mb-1">Privilege3</h5>
+                              <p class="fs-13 text-muted mb-0">User can access list of clients</p>
+                            </div>
+                          </div>
+                          <div class="flex-shrink-0 ms-2">
+                            <i style="    color: green;
+                                                        font-size: xx-large;"
+                              class="mdi mdi-checkbox-marked-circle-outline"></i>
+                            <!-- <button type="button" class="btn btn-sm btn-outline-success shadow-none"><i class="ri-user-add-line align-middle"></i></button> -->
+                          </div>
+                        </div>
+                      </div>
+                    </div><!-- end card body -->
+                  </div>
+                  <!--end card-->
+
+
+                  <!--end card-->
+                </div>
+
+              </div>
+              <!--end row-->
+            </div>
+            <div class="tab-pane fade" id="activities" role="tabpanel">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title mb-3">Activities</h5>
+                  <div class="acitivity-timeline">
+                    <div class="acitivity-item d-flex">
+                      <div class="flex-shrink-0">
+                        <img src="assets/images/users/avatar-1.jpg" alt=""
+                          class="avatar-xs rounded-circle acitivity-avatar shadow">
+                      </div>
+                      <div class="flex-grow-1 ms-3">
+                        <h6 class="mb-1">Oliver Phillips <span
+                            class="badge bg-soft-primary text-primary align-middle">New</span></h6>
+                        <p class="text-muted mb-2">We talked about a project on linkedin.</p>
+                        <small class="mb-0 text-muted">Today</small>
+                      </div>
+                    </div>
+                    <div class="acitivity-item py-3 d-flex">
+                      <div class="flex-shrink-0 avatar-xs acitivity-avatar">
+                        <div class="avatar-title bg-soft-success text-success rounded-circle shadow">
+                          N
+                        </div>
+                      </div>
+                      <div class="flex-grow-1 ms-3">
+                        <h6 class="mb-1">Nancy Martino <span
+                            class="badge bg-soft-secondary text-secondary align-middle">In Progress</span></h6>
+                        <p class="text-muted mb-2"><i class="ri-file-text-line align-middle ms-2"></i> Create new
+                          project Buildng product</p>
+                        <div class="avatar-group mb-2">
+                          <a href="javascript: void(0);" class="avatar-group-item shadow" data-bs-toggle="tooltip"
+                            data-bs-placement="top" title="" data-bs-original-title="Christi">
+                            <img src="assets/images/users/avatar-4.jpg" alt="" class="rounded-circle avatar-xs">
+                          </a>
+                          <a href="javascript: void(0);" class="avatar-group-item shadow" data-bs-toggle="tooltip"
+                            data-bs-placement="top" title="" data-bs-original-title="Frank Hook">
+                            <img src="assets/images/users/avatar-3.jpg" alt="" class="rounded-circle avatar-xs">
+                          </a>
+                          <a href="javascript: void(0);" class="avatar-group-item shadow" data-bs-toggle="tooltip"
+                            data-bs-placement="top" title="" data-bs-original-title=" Ruby">
+                            <div class="avatar-xs">
+                              <div class="avatar-title rounded-circle bg-light text-primary">
+                                R
+                              </div>
+                            </div>
+                          </a>
+                          <a href="javascript: void(0);" class="avatar-group-item shadow" data-bs-toggle="tooltip"
+                            data-bs-placement="top" title="" data-bs-original-title="more">
+                            <div class="avatar-xs">
+                              <div class="avatar-title rounded-circle">
+                                2+
+                              </div>
+                            </div>
+                          </a>
+                        </div>
+                        <small class="mb-0 text-muted">Yesterday</small>
+                      </div>
+                    </div>
+                    <div class="acitivity-item py-3 d-flex">
+                      <div class="flex-shrink-0">
+                        <img src="assets/images/users/avatar-2.jpg" alt=""
+                          class="avatar-xs rounded-circle acitivity-avatar shadow">
+                      </div>
+                      <div class="flex-grow-1 ms-3">
+                        <h6 class="mb-1">Natasha Carey <span
+                            class="badge bg-soft-success text-success align-middle">Completed</span>
+                        </h6>
+                        <p class="text-muted mb-2">Adding a new event with attachments</p>
+                        <div class="row">
+                          <div class="col-xxl-4">
+                            <div class="row border border-dashed gx-2 p-2 mb-2">
+                              <div class="col-4">
+                                <img src="assets/images/small/img-2.jpg" alt="" class="img-fluid rounded shadow">
+                              </div>
+                              <!--end col-->
+                              <div class="col-4">
+                                <img src="assets/images/small/img-3.jpg" alt="" class="img-fluid rounded shadow">
+                              </div>
+                              <!--end col-->
+                              <div class="col-4">
+                                <img src="assets/images/small/img-4.jpg" alt="" class="img-fluid rounded shadow">
+                              </div>
+                              <!--end col-->
+                            </div>
+                            <!--end row-->
+                          </div>
+                        </div>
+                        <small class="mb-0 text-muted">25 Nov</small>
+                      </div>
+                    </div>
+                    <div class="acitivity-item py-3 d-flex">
+                      <div class="flex-shrink-0">
+                        <img src="assets/images/users/avatar-6.jpg" alt=""
+                          class="avatar-xs rounded-circle acitivity-avatar shadow">
+                      </div>
+                      <div class="flex-grow-1 ms-3">
+                        <h6 class="mb-1">Bethany Johnson</h6>
+                        <p class="text-muted mb-2">added a new member to velzon dashboard</p>
+                        <small class="mb-0 text-muted">19 Nov</small>
+                      </div>
+                    </div>
+                    <div class="acitivity-item py-3 d-flex">
+                      <div class="flex-shrink-0">
+                        <div class="avatar-xs acitivity-avatar">
+                          <div class="avatar-title rounded-circle bg-soft-danger text-danger shadow">
+                            <i class="ri-shopping-bag-line"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="flex-grow-1 ms-3">
+                        <h6 class="mb-1">Your order is placed <span
+                            class="badge bg-soft-danger text-danger align-middle ms-1">Out of Delivery</span></h6>
+                        <p class="text-muted mb-2">These customers can rest assured their order has been placed.</p>
+                        <small class="mb-0 text-muted">16 Nov</small>
+                      </div>
+                    </div>
+                    <div class="acitivity-item py-3 d-flex">
+                      <div class="flex-shrink-0">
+                        <img src="assets/images/users/avatar-7.jpg" alt=""
+                          class="avatar-xs rounded-circle acitivity-avatar shadow">
+                      </div>
+                      <div class="flex-grow-1 ms-3">
+                        <h6 class="mb-1">Lewis Pratt</h6>
+                        <p class="text-muted mb-2">They all have something to say
+                          beyond the words on the page. They can come across as
+                          casual or neutral, exotic or graphic. </p>
+                        <small class="mb-0 text-muted">22 Oct</small>
+                      </div>
+                    </div>
+                    <div class="acitivity-item py-3 d-flex">
+                      <div class="flex-shrink-0">
+                        <div class="avatar-xs acitivity-avatar">
+                          <div class="avatar-title rounded-circle bg-soft-info text-info shadow">
+                            <i class="ri-line-chart-line"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="flex-grow-1 ms-3">
+                        <h6 class="mb-1">Monthly sales report</h6>
+                        <p class="text-muted mb-2">
+                          <span class="text-danger">2 days left</span> notification to submit the monthly sales report.
+                          <a href="javascript:void(0);" class="link-warning text-decoration-underline">Reports
+                            Builder</a>
+                        </p>
+                        <small class="mb-0 text-muted">15 Oct</small>
+                      </div>
+                    </div>
+                    <div class="acitivity-item d-flex">
+                      <div class="flex-shrink-0">
+                        <img src="assets/images/users/avatar-8.jpg" alt=""
+                          class="avatar-xs rounded-circle acitivity-avatar shadow">
+                      </div>
+                      <div class="flex-grow-1 ms-3">
+                        <h6 class="mb-1">New ticket received <span
+                            class="badge bg-soft-success text-success align-middle">Completed</span></h6>
+                        <p class="text-muted mb-2">User <span class="text-secondary">Erica245</span> submitted a ticket.
+                        </p>
+                        <small class="mb-0 text-muted">26 Aug</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--end card-body-->
+              </div>
+              <!--end card-->
+            </div>
+            <!--end tab-pane-->
+            <div class="tab-pane fade" id="subs" role="tabpanel">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex align-items-center mb-4">
+                    <h5 class="card-title flex-grow-1 mb-0">Subscription Notification</h5>
+
+                  </div>
+
+                  <div class="row">
+                    <div class="col-xxl-9">
+                      <div id="job-list">
+                        <div class="card joblist-card">
+                          <div class="card-body">
+                            <div class="d-flex mb-4">
+                              <div class="avatar-sm">
+                                <div class="avatar-title bg-light rounded"> <img src="assets/images/companies/img-7.png"
+                                    alt="" class="avatar-xxs companyLogo-img"> </div>
+                              </div>
+                              <div class="ms-3 flex-grow-1"> <img src="assets/images/small/img-8.jpg" alt=""
+                                  class="d-none cover-img"> <a href="#!">
+                                  <h5 class="job-title">Product Designer</h5>
+                                </a>
+                                <p class="company-name text-muted mb-0">Themesbrand</p>
+                              </div>
+                              <div> <button type="button" class="btn btn-ghost-primary btn-icon custom-toggle"
+                                  data-bs-toggle="button"> <span class="icon-on"><i class="ri-bookmark-line"></i></span>
+                                  <span class="icon-off"><i class="ri-bookmark-fill"></i></span> </button> </div>
+                            </div>
+                            <p class="text-muted job-description">A UI/UX designer's job is to create user-friendly
+                              interfaces that enable users to understand how to use complex technical products. If
+                              you're passionate about the latest technology trends and devices, you'll find great
+                              fulfillment in being involved in the design process for the next hot gadget.</p>
+                            <div><span class="badge badge-soft-primary me-1">Design</span><span
+                                class="badge badge-soft-primary me-1">Remote</span><span
+                                class="badge badge-soft-primary me-1">UI/UX Designer</span><span
+                                class="badge badge-soft-primary me-1">Designer</span></div>
+                          </div>
+                          <div class="card-footer border-top-dashed">
+                            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+                              <div><i class="ri-briefcase-2-line align-bottom me-1"></i> <span class="job-type">Full
+                                  Time</span></div>
+                              <div class="d-none"><span class="job-experience">1 - 2 Year</span></div>
+                              <div><i class="ri-map-pin-2-line align-bottom me-1"></i> <span class="job-location">United
+                                  Kingdom</span></div>
+                              <div><i class="ri-user-3-line align-bottom me-1"></i> 74 Applied</div>
+                              <div><i class="ri-time-line align-bottom me-1"></i> <span class="job-postdate">15 Sep,
+                                  2022</span></div>
+                              <div><a href="#!" class="btn btn-success viewjob-list">View More <i
+                                    class="ri-arrow-right-line align-bottom ms-1"></i></a></div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="card joblist-card">
+                          <div class="card-body">
+                            <div class="d-flex mb-4">
+                              <div class="avatar-sm">
+                                <div class="avatar-title bg-light rounded"> <img src="assets/images/companies/img-6.png"
+                                    alt="" class="avatar-xxs companyLogo-img"> </div>
+                              </div>
+                              <div class="ms-3 flex-grow-1"> <img src="assets/images/small/img-3.jpg" alt=""
+                                  class="d-none cover-img"> <a href="#!">
+                                  <h5 class="job-title">Project Manager</h5>
+                                </a>
+                                <p class="company-name text-muted mb-0">Syntyce Solutions</p>
+                              </div>
+                              <div> <button type="button" class="btn btn-ghost-primary btn-icon custom-toggle"
+                                  data-bs-toggle="button"> <span class="icon-on"><i class="ri-bookmark-line"></i></span>
+                                  <span class="icon-off"><i class="ri-bookmark-fill"></i></span> </button> </div>
+                            </div>
+                            <p class="text-muted job-description">In a free hour, when our power of choice is
+                              untrammelled and when nothing prevents our being able to do what we like best. But in
+                              certain circumstances and owing to the claims of duty or the obligations of business it
+                              will frequently occur that pleasures have to be repudiated.</p>
+                            <div><span class="badge badge-soft-primary me-1">Design</span><span
+                                class="badge badge-soft-primary me-1">Remote</span><span
+                                class="badge badge-soft-primary me-1">UI/UX Designer</span><span
+                                class="badge badge-soft-primary me-1">Designer</span></div>
+                          </div>
+                          <div class="card-footer border-top-dashed">
+                            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+                              <div><i class="ri-briefcase-2-line align-bottom me-1"></i> <span
+                                  class="job-type">Freelance</span></div>
+                              <div class="d-none"><span class="job-experience">1 Year</span></div>
+                              <div><i class="ri-map-pin-2-line align-bottom me-1"></i> <span
+                                  class="job-location">Stordorf, Germany</span></div>
+                              <div><i class="ri-user-3-line align-bottom me-1"></i> 36 Applied</div>
+                              <div><i class="ri-time-line align-bottom me-1"></i> <span class="job-postdate">14 Sep,
+                                  2022</span></div>
+                              <div><a href="#!" class="btn btn-success viewjob-list">View More <i
+                                    class="ri-arrow-right-line align-bottom ms-1"></i></a></div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="card joblist-card">
+                          <div class="card-body">
+                            <div class="d-flex mb-4">
+                              <div class="avatar-sm">
+                                <div class="avatar-title bg-light rounded"> <img src="assets/images/companies/img-5.png"
+                                    alt="" class="avatar-xxs companyLogo-img"> </div>
+                              </div>
+                              <div class="ms-3 flex-grow-1"> <img src="assets/images/small/img-7.jpg" alt=""
+                                  class="d-none cover-img"> <a href="#!">
+                                  <h5 class="job-title">Product Sales Specialist</h5>
+                                </a>
+                                <p class="company-name text-muted mb-0">Digitech Galaxy</p>
+                              </div>
+                              <div> <button type="button" class="btn btn-ghost-primary btn-icon custom-toggle"
+                                  data-bs-toggle="button"> <span class="icon-on"><i class="ri-bookmark-line"></i></span>
+                                  <span class="icon-off"><i class="ri-bookmark-fill"></i></span> </button> </div>
+                            </div>
+                            <p class="text-muted job-description">Sed ut perspiciatis unde omnis iste natus error sit
+                              voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo
+                              inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim
+                              ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.</p>
+                            <div><span class="badge badge-soft-primary me-1">Design</span><span
+                                class="badge badge-soft-primary me-1">Remote</span><span
+                                class="badge badge-soft-primary me-1">UI/UX Designer</span><span
+                                class="badge badge-soft-primary me-1">Designer</span></div>
+                          </div>
+                          <div class="card-footer border-top-dashed">
+                            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+                              <div><i class="ri-briefcase-2-line align-bottom me-1"></i> <span class="job-type">Part
+                                  Time</span></div>
+                              <div class="d-none"><span class="job-experience">0 - 5 Year</span></div>
+                              <div><i class="ri-map-pin-2-line align-bottom me-1"></i> <span
+                                  class="job-location">Cullera, Spain</span></div>
+                              <div><i class="ri-user-3-line align-bottom me-1"></i> 79 Applied</div>
+                              <div><i class="ri-time-line align-bottom me-1"></i> <span class="job-postdate">14 Sep,
+                                  2022</span></div>
+                              <div><a href="#!" class="btn btn-success viewjob-list">View More <i
+                                    class="ri-arrow-right-line align-bottom ms-1"></i></a></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row g-0 justify-content-end mb-4" id="pagination-element">
+                        <!-- end col -->
+                        <div class="col-sm-6">
+                          <div
+                            class="pagination-block pagination pagination-separated justify-content-center justify-content-sm-end mb-sm-0">
+                            <div class="page-item disabled">
+                              <a href="javascript:void(0);" class="page-link" id="page-prev">Previous</a>
+                            </div>
+                            <span id="page-num" class="pagination">
+                              <div class="page-item active"><a class="page-link clickPageNumber"
+                                  href="javascript:void(0);">1</a></div>
+                              <div class="page-item"><a class="page-link clickPageNumber"
+                                  href="javascript:void(0);">2</a></div>
+                            </span>
+                            <div class="page-item">
+                              <a href="javascript:void(0);" class="page-link" id="page-next">Next</a>
+                            </div>
+                          </div>
+                        </div><!-- end col -->
+                      </div>
+                      <!-- end row -->
+
+                    </div><!--end col-->
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--end tab-pane-->
+          </div>
+          <!--end tab-content-->
+        </div>
+      </div>
+      <!--end col-->
+    </div>
+    <!--end row-->
+
+  </div><!-- container-fluid -->
+</div>

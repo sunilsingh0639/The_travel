@@ -1,0 +1,910 @@
+<div class="page-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+          <h4 class="mb-sm-0">Recon Detail</h4>
+          <div class="page-title-right">
+            <ol class="breadcrumb m-0">
+              <li class="breadcrumb-item">
+                <a routerLink="/app/operations/recon">Operations</a>
+              </li>
+              <li class="breadcrumb-item">
+                <a routerLink="/app/operations/recon">Recon</a>
+
+              </li>
+              <li class="breadcrumb-item active">Detail</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-12 card">
+        <div class="" id="demo">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="card-body p-4">
+                <div class="row g-3 p-4">
+                  <div class="col-lg-4 col-6">
+                    <p class="text-muted mb-2 text-uppercase fw-semibold">ID</p>
+                    <h5 class="fs-14 mb-0">
+                      <span id="invoice-no"> {{ selectedRecon?.id }}</span>
+                    </h5>
+                  </div>
+                  <!--end col-->
+                  <div class="col-lg-4 col-6">
+                    <p class="text-muted mb-2 text-uppercase fw-semibold">
+                      Client
+                    </p>
+                    <h5 class="fs-14 mb-0">
+                      <span id="client-name">
+                        {{ selectedRecon?.client?.name }}</span>
+                    </h5>
+                  </div>
+                  <!--end col-->
+                  <div class="col-lg-4 col-6">
+                    <p class="text-muted mb-2 text-uppercase fw-semibold">
+                      GSTIN
+                    </p>
+                    <h5 class="fs-14 mb-0">
+                      <span id="gstin"> {{ selectedRecon?.gstin }}</span>
+                    </h5>
+                  </div>
+                  <!--end col-->
+                </div>
+                <!--end row-->
+                <div class="row g-3 p-4">
+                  <div class="col-lg-4 col-6">
+                    <p class="text-muted mb-2 text-uppercase fw-semibold">
+                      Recon
+                    </p>
+                    <h5 class="fs-14 mb-0">
+                      <span id="recon">{{ selectedRecon?.name }}</span>
+                    </h5>
+                  </div>
+                  <!--end col-->
+                  <div class="col-lg-4 col-6">
+                    <p class="text-muted mb-2 text-uppercase fw-semibold">
+                      Created On
+                    </p>
+                    <h5 class="fs-14 mb-0">
+                      <span id="invoice-date">{{selectedRecon?.createdOn}}</span><small class="text-muted" id="invoice-time">
+                        </small>
+                    </h5>
+                  </div>
+                  <!--end col-->
+                  <div class="col-lg-4 col-6">
+                    <p class="text-muted mb-2 text-uppercase fw-semibold">
+                      Last Execution
+                    </p>
+                    <h5 class="fs-14 mb-0">
+                      <span id="invoice-date">{{selectedRecon?.lastExecution}}</span><small class="text-muted" id="invoice-time">
+                        </small>
+                    </h5>
+                  </div>
+                  <!--end col-->
+                </div>
+              </div>
+              <!--end card-body-->
+            </div>
+            <!--end col-->
+
+            <!--end col-->
+          </div>
+          <!--end row-->
+        </div>
+        <!--end card-->
+      </div>
+      <!--end col-->
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-2 card card-body">
+        <div class="">
+          <ul class="to-do-menu list-unstyled" id="projectlist-data">
+            <li>
+              <a class="nav-link fs-14"
+                (click)="selected = 'fileValidation' ;checkFileValidationByReconId();editButton=false;defultSelected='defult'"
+                [ngClass]="{ active: (selected == 'fileValidation')||(selected == 'fileValidationForm') }"
+                id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tabContent" type="button"
+                role="tab" aria-controls="v-pills-home" aria-selected="true">File Validation</a>
+            </li>
+            <li>
+              <a class="nav-link fs-14 collapsed" id="v-pills-home-tab" data-bs-toggle="pill"
+                data-bs-target="#v-pills-tabContent" type="button" role="tab" aria-controls="v-pills-home"
+                aria-selected="true"
+                (click)="fileDataValidationByReconId();selected = 'fileDataValidation';editButton=false;defultSelected='defult'"
+                [ngClass]="{ active: (selected == 'fileDataValidation')||(selected == 'fileDataValidationForm') }">File
+                Data Validation</a>
+            </li>
+            <li>
+              <a class="nav-link fs-14 collapsed" id="v-pills-home-tab" data-bs-toggle="pill"
+                data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home"
+                aria-selected="true"
+                (click)="selected = 'fileDuplicateCheck';dataDuplicateCheck(); editButton=false;defultSelected='defult'"
+                [ngClass]="{ active: (selected == 'fileDuplicateCheck')||(selected == 'fileDuplicateCheckForm') }">File
+                Duplicate Check</a>
+            </li>
+            <li>
+              <a class="nav-link fs-14 collapsed" id="v-pills-home-tab" data-bs-toggle="pill"
+                data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home"
+                aria-selected="true" (click)="selected = 'recordMatching';recordMatching(); editButton=false;"
+                [ngClass]="{ active: (selected == 'recordMatching')||(selected == 'recordMatchingForm') }">Record
+                Matching</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-10 card card-body">
+        <div class="">
+          <div class="tab-content" id="v-pills-tabContent">
+            <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+              <div class="row g-3">
+                <div
+                  *ngIf="(selected == 'fileValidationForm')||(selected == 'fileDataValidationForm')||(selected == 'fileDuplicateCheckForm')"
+                  class="col-12" style="text-align: right">
+                  <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#copy"
+                    style="margin-left: 10px">
+                    Copy
+                  </button>
+                </div>
+                <div
+                  *ngIf="(selected == 'fileValidation' && !isFileValidationAvilable && editButton==false&& defultSelected=='defult')"
+                  class="text-center ">
+                  <h6>
+                    File validation is not configured for recon recon name, Default file validatioh will be
+                    applicable. <span>
+                       <a class="nav-link fs-14 collapsed text-primary" id="v-pills-home-tab"
+                        data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab"
+                        aria-controls="v-pills-home" aria-selected="true" (click)="defultSelected = 'defultShow';getDefaultFileValidation()">
+                        View default file validation configuration
+                       </a>
+                        <a class="nav-link fs-14 collapsed text-primary"
+                        id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button"
+                        role="tab" aria-controls="v-pills-home" aria-selected="true"
+                        (click)="selected = 'fileValidationForm'">Configure file validation for this recon. 
+                      </a> 
+                    </span>
+                  </h6>
+                </div>
+
+                <div
+                  *ngIf="(selected == 'fileValidation' && isFileValidationAvilable)||(defultSelected =='defultShow' && !isFileValidationAvilable)">
+                  <div class="row mb-3">
+                    <ul class="nav nav-tabs nav-tabs-custom nav-success nav-justified mb-3" role="tablist">
+                      <li class="nav-item" role="presentation" (click)="selectedTab='GSTR2B'">
+                        <a class="nav-link " data-bs-toggle="tab" href="#home1" role="tab"
+                          [ngClass]="{'active': selectedTab=='GSTR2B'}" aria-selected="true">
+                          GSTR2B
+                        </a>
+                      </li>
+                      <li class="nav-item" role="presentation" (click)="selectedTab='ITC';">
+                        <a class="nav-link" data-bs-toggle="tab" href="#profile1" role="tab"
+                          [ngClass]="{'active': selectedTab=='ITC'}" aria-selected="false" tabindex="-1">
+                          ITC
+                        </a>
+                      </li>
+                    </ul>
+                    <div
+                      *ngIf="(fileValidationResponseGSTR2B.length>0 && selectedTab=='GSTR2B' )||(fileValidationResponseITC.length>0 && selectedTab=='ITC')"
+                      class="col-lg-12 col-12 text-end">
+                      <div *ngIf="isFileValidationAvilable" class="btn btn-primary" (click)="edit()">
+                        Edit
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div *ngIf="selectedTab=='GSTR2B'">
+
+                    <div *ngIf="fileValidationResponseGSTR2B?.length==0" class="row mb-3">
+                      <div class="col-lg-8">
+                        <h4> <a (click)="edit()">gstr2b data not found</a> </h4>
+                      </div>
+
+                    </div>
+                    <div *ngIf="fileValidationResponseGSTR2B?.length >0">
+                      <div class="row mb-3">
+                        <div class="col-lg-8">
+                          <label for="nameInput" class="text-muted mb-2 text-uppercase fw-semibold">Type</label>
+                        </div>
+                        <div class="col-lg-4">
+                          <label for="nameInput" class="form-label "> </label>{{fileValidationResponseGSTR2B[0]?.type}}
+                        </div>
+
+                      </div>
+                      <div class="row mb-3">
+                        <div class="col-lg-8">
+                          <label for="nameInput" class="text-muted mb-2 text-uppercase fw-semibold">Discard if exists
+                            data
+                            more than number</label>
+                        </div>
+                        <div class="col-lg-4">
+                          <label for="nameInput"
+                            class="form-label ">{{fileValidationResponseGSTR2B[0]?.discardIfExistsDataMTN
+                            }}</label>
+
+                        </div>
+
+                      </div>
+                      <div class="row mb-3">
+                        <div class="col-lg-8">
+                          <label for="nameInput" class="text-muted mb-2 text-uppercase fw-semibold">Discard if invalid
+                            data
+                            more than
+                            number</label>
+                        </div>
+                        <div class="col-lg-3">
+                          <label for="nameInput"
+                            class="form-label ">{{fileValidationResponseGSTR2B[0]?.discardIfInvalidDataMTN}}</label>
+                        </div>
+
+
+                      </div>
+                      <div class="row mb-3">
+                        <div class="col-lg-8">
+                          <label for="nameInput" class="text-muted mb-2 text-uppercase fw-semibold">Discard if
+                            duplicate
+                            records more than</label>
+                        </div>
+                        <div class="col-lg-4">
+                          <label for="nameInput"
+                            class="form-label ">{{fileValidationResponseGSTR2B[0]?.discardIfDuplicateRecordsMTN}}</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div *ngIf="selectedTab=='ITC'">
+
+                    <div *ngIf="fileValidationResponseITC?.length==0" class="row mb-3">
+                      <div class="col-lg-8">
+                        <a class="nav-link fs-14 collapsed text-primary"
+                        id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button"
+                        role="tab" aria-controls="v-pills-home" aria-selected="true"
+                        (click)="edit()">Configure file data validation for this recon.
+                      </a>
+                      </div>
+
+                    </div>
+                    <div *ngIf="fileValidationResponseITC?.length >0">
+                      <div class="row mb-3">
+                        <div class="col-lg-8">
+                          <label for="nameInput" class="text-muted mb-2 text-uppercase fw-semibold">Type</label>
+                        </div>
+                        <div class="col-lg-4">
+                          <label for="nameInput" class="form-label "> </label>{{fileValidationResponseITC[0]?.type}}
+                        </div>
+
+                      </div>
+                      <div class="row mb-3">
+                        <div class="col-lg-8">
+                          <label for="nameInput" class="text-muted mb-2 text-uppercase fw-semibold">Discard if exists
+                            data
+                            more than number</label>
+                        </div>
+                        <div class="col-lg-4">
+                          <label for="nameInput"
+                            class="form-label ">{{fileValidationResponseITC[0]?.discardIfExistsDataMTN}}</label>
+                        </div>
+
+                      </div>
+                      <div class="row mb-3">
+                        <div class="col-lg-8">
+                          <label for="nameInput" class="text-muted mb-2 text-uppercase fw-semibold">Discard if invalid
+                            data
+                            more than
+                            number</label>
+                        </div>
+                        <div class="col-lg-3">
+                          <label for="nameInput"
+                            class="form-label ">{{fileValidationResponseITC[0]?.discardIfInvalidDataMTN}}</label>
+                        </div>
+
+
+                      </div>
+                      <div class="row mb-3">
+                        <div class="col-lg-8">
+                          <label for="nameInput" class="text-muted mb-2 text-uppercase fw-semibold">Discard if
+                            duplicate
+                            records more than</label>
+                        </div>
+                        <div class="col-lg-4">
+                          <label for="nameInput"
+                            class="form-label ">{{fileValidationResponseITC[0]?.discardIfDuplicateRecordsMTN}}</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <form [formGroup]="fileValidationForm">
+                  <div
+                    *ngIf="(selected == 'fileValidation'&& editButton==true)||(selected == 'fileValidationForm'&& editButton==false)">
+                    <ul class="nav nav-tabs nav-tabs-custom nav-success nav-justified mb-3" role="tablist">
+                      <li class="nav-item" role="presentation" (click)="selectedTab='GSTR2B';gstr2bValuePatch()">
+                        <a class="nav-link " data-bs-toggle="tab" href="#home1" role="tab"
+                          [ngClass]="{'active': selectedTab=='GSTR2B'}" aria-selected="true">
+                          GSTR2B
+                        </a>
+                      </li>
+                      <li class="nav-item" role="presentation" (click)="selectedTab='ITC';itcValuePatch()">
+                        <a class="nav-link" data-bs-toggle="tab" href="#profile1" role="tab"
+                          [ngClass]="{'active': selectedTab=='ITC'}" aria-selected="false" tabindex="-1">
+                          ITC
+                        </a>
+                      </li>
+                    </ul>
+                    <div class="row mb-3">
+                      <div class="col-lg-4">
+                        <label for="nameInput" class="form-label madatroy">Type</label>
+                      </div>
+                      <div class="col-lg-8">
+                        <div class="row">
+                          <div class="col">
+                            <div class="form-check">
+                              <input class="form-check-input" formControlName="type" type="radio" value="CSV"
+                                id="defaultCheck1">
+                              <label class="form-check-label" for="defaultCheck1">
+                                CSV
+                              </label>
+                            </div>
+                          </div>
+                          <div class="col">
+                            <div class="form-check">
+                              <input class="form-check-input" formControlName="type" type="radio" value="XLX"
+                                id="defaultCheck1">
+                              <label class="form-check-label" for="defaultCheck1">
+                                XLS
+                              </label>
+                            </div>
+                          </div>
+                          <div class="col">
+                            <div class="form-check">
+                              <input class="form-check-input" formControlName="type" type="radio" value="XLSX"
+                                id="defaultCheck1" checked>
+                              <label class="form-check-label" for="defaultCheck1">
+                                XLSX
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-lg-4">
+                        <label for="nameInput" class="form-label madatroy">Discard if exists
+                          data more
+                          than
+                          number </label>
+                      </div>
+                      <div class="col-lg-8">
+                        <input appNumberOnly type="url" class="form-control" id="websiteUrl"
+                          formControlName="discardIfExistsDataMTN" placeholder="Number">
+
+                      </div>
+
+                    </div>
+
+                    <div class="row mb-3">
+                      <div class="col-lg-4">
+                        <label for="nameInput" class="form-label madatroy">Discard if invalid
+                          data more
+                          than
+                          number</label>
+                      </div>
+                      <div class="col-lg-8">
+                        <input appNumberOnly type="url" class="form-control" id="websiteUrl"
+                          formControlName="discardIfInvalidDataMTN" placeholder="Number">
+
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-lg-4">
+                        <label for="nameInput" class="form-label madatroy">Discard if duplicate
+                          records
+                          more
+                          than</label>
+                      </div>
+                      <div class="col-lg-8">
+                        <input appNumberOnly type="url" class="form-control" id="websiteUrl"
+                          formControlName="discardIfDuplicateRecordsMTN" placeholder="Number">
+
+                      </div>
+                    </div>
+                  </div>
+                </form>
+                <div
+                  *ngIf="selected =='fileDataValidation' && !isFileDataCheckAvilable && editButton==false&& defultSelected=='defult' "
+                  class="text-center ">
+
+                  <h6>
+                    File data validation is not configured for recon recon name, Default file data validatioh will be
+                    applicable. <span> <a class="nav-link fs-14 collapsed text-primary" id="v-pills-home-tab"
+                        data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab"
+                        aria-controls="v-pills-home" aria-selected="true" (click)="defultSelected= 'defultDataShow'; getDefaultFileDataValidation()">
+                        View
+                        default file data validation configuration </a><a class="nav-link fs-14 collapsed text-primary"
+                        id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button"
+                        role="tab" aria-controls="v-pills-home" aria-selected="true"
+                        (click)="selected = 'fileDataValidationForm'">Configure file data validation for this recon.
+                      </a> </span>
+                  </h6>
+                </div>
+                <div
+                  *ngIf="(selected=='fileDataValidation'&& editButton==true)|| (selected=='fileDataValidationForm'&& editButton==false) ">
+                  <ul class="nav nav-tabs nav-tabs-custom nav-success nav-justified mb-3" role="tablist">
+                    <li class="nav-item" role="presentation" (click)="selectedTab='GSTR2B';gstr2bValuePatch()">
+                        <a class="nav-link " data-bs-toggle="tab" href="#home1" role="tab"
+                            [ngClass]="{'active': selectedTab=='GSTR2B'}" aria-selected="true">
+                            GSTR2B
+                        </a>
+                    </li>
+                    <li class="nav-item" role="presentation" (click)="selectedTab='ITC';itcValuePatch()">
+                        <a class="nav-link" data-bs-toggle="tab" href="#profile1" role="tab"
+                            [ngClass]="{'active': selectedTab=='ITC'}" aria-selected="false" tabindex="-1">
+                            ITC
+                        </a>
+                    </li>
+                </ul>
+                  <form [formGroup]="fileDataValidationForm">
+                    <div class="tab-content text-muted">
+                      <div class="tab-pane active show" id="nav-border-top-home" role="tabpanel">
+                        <div class="d-flex">
+                          <div class="flex-shrink-0">
+                            <i class="ri-checkbox-circle-line text-primary"></i>
+                          </div>
+                          <div class="flex-grow-1 ms-2">
+                            Trust fund seitan letterpress, keytar raw denim keffiyeh etsy
+                            art
+                            party before they sold out master cleanse gluten-free squid
+                            scenester freegan cosby sweater. Fanny pack portland seitan DIY,
+                            art
+                            party locavore wolf cliche high life echo park Austin. Cred
+                            vinyl
+                            keffiyeh DIY salvia PBR.
+                            <div class="mt-2">
+                            </div>
+                            <div class="row">
+                              <div class="table-responsive">
+                                <div>
+                                  <table class="table align-middle position-relative table-nowrap">
+                                    <thead class="table-active">
+
+                                      <tr>
+
+                                        <th class="madatroy" scope="col">Column No</th>
+                                        <th class="madatroy" scope="col">Column Name</th>
+                                        <th class="madatroy" scope="col">Column Type</th>
+                                        <th class="madatroy" scope="col">Column Format</th>
+                                        <th class="madatroy" scope="col">Mandatory</th>
+                                        <th scope="col"></th>
+                                      </tr>
+                                    </thead>
+                                    <tbody formArrayName="addColumnValidationRules" id="task-list">
+                                      <tr [formGroupName]="i"
+                                        *ngFor="let gst of columnValidationRules.controls; let i = index">
+
+                                        <td>{{i+1}}</td>
+                                        <td><input class="form-control mb-3" type="text" formControlName="columnName"
+                                            placeholder="Column Name"> </td>
+                                        <td>
+
+                                          <select class="form-select mb-3" aria-label="Default select example"
+                                            formControlName="type">
+
+                                            <option value="">
+                                              Select Type
+                                            </option>
+                                            <option value="NUMBER">
+                                              NUMBER
+                                            </option>
+                                            <option value="StRING">
+                                              STRING
+                                            </option>
+                                            <option value="DATE">
+                                              DATE
+                                            </option>
+                                            <option value="ALPHANUMERIC">
+                                              ALPHANUMERIC
+                                            </option>
+
+                                          </select>
+                                          <!-- <div *ngIf="(gst.value.type).length == 0 "
+                                                class="form-text text-danger">
+                                                Type is required.
+                                            </div>  -->
+
+                                        </td>
+
+                                        <td> <select class="form-select mb-3" aria-label="Default select example"
+                                            formControlName="format">
+                                            <option value="">Select Format
+                                            </option>
+                                            
+                                            <option format="CSV">CSV
+                                            </option>
+                                            <option format="XLX">
+                                              XLX
+                                            </option>
+                                            <option format="XLSX">
+                                              XLSX
+                                            </option>
+                                          </select></td>
+                                        <td> <select class="form-select mb-3" aria-label="Default select example"
+                                            formControlName="mandatory">
+
+                                            <!-- <option value="">
+                                                    Choose..
+                                                </option> -->
+                                            <option [value]="true">
+                                              Yes
+                                            </option>
+                                            <option [value]="false">
+                                              No
+                                            </option>
+                                          </select></td>
+                                        <td> <a class=" remove-item-btn" (click)=" removeValidation(i)">
+                                            <div class="text-muted" style="display: block; "> <i
+                                                class="fs-2 ri-delete-bin-fill text-muted"></i>
+                                            </div>
+                                          </a></td>
+
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </form>
+                </div>
+                <div
+                  *ngIf="(selected=='fileDataValidation'&& isFileDataCheckAvilable)||(defultSelected=='defultDataShow'&& !isFileDataCheckAvilable)">
+                  <ul class="nav nav-tabs nav-tabs-custom nav-success nav-justified mb-3" role="tablist">
+                    <li class="nav-item" role="presentation" (click)="selectedTab='GSTR2B'">
+                        <a class="nav-link " data-bs-toggle="tab" href="#home1" role="tab"
+                            [ngClass]="{'active': selectedTab=='GSTR2B'}" aria-selected="true">
+                            GSTR2B
+                        </a>
+                    </li>
+                    <li class="nav-item" role="presentation" (click)="selectedTab='ITC'">
+                        <a class="nav-link" data-bs-toggle="tab" href="#profile1" role="tab"
+                            [ngClass]="{'active': selectedTab=='ITC'}" aria-selected="false" tabindex="-1">
+                            ITC
+                        </a>
+                    </li>
+                </ul>
+                  <div class="col-lg-12 col-12 mb-2 text-end">
+                    <div *ngIf="defultSelected !=='defultDataShow'" class="btn btn-primary mb-2" (click)="edit()">
+                      Edit
+                    </div>
+                  </div>
+
+                  <div *ngIf="selectedTab=='GSTR2B'" class="row">
+
+                    <table class="table align-middle position-relative table-nowrap">
+                      <thead class="table-active">
+                        <tr>
+                          <th colspan="3" scope="col">Column No</th>
+                          <th colspan="3" scope="col">Column Name</th>
+                          <th colspan="3" scope="col">Column Type</th>
+                          <th colspan="3" scope="col">Column Format</th>
+                          <th colspan="3" scope="col">Mandatory</th>
+                        </tr>
+                      </thead>
+                      <tbody id="task-list">
+                        <tr *ngFor=" let item of columnValidationRulesDataGstr2b">
+                          <td colspan="3">{{item.id}}</td>
+                          <td colspan="3">{{item.columnName}}</td>
+                          <td colspan="3">{{item.type}}</td>
+                          <td colspan="3">{{item.format}}</td>
+                          <td colspan="3">{{item.mandatory}}</td>
+
+                        </tr>
+                      </tbody>
+                    </table>
+
+                  </div>
+                  <div *ngIf="selectedTab=='ITC'" class="row">
+
+                    <table style="width:100% ;" class="table align-middle position-relative table-nowrap">
+                      <thead class="table-active">
+                        <tr>
+                          <th colspan="3" scope="col">Column No</th>
+                          <th colspan="3" scope="col">Column Name</th>
+                          <th colspan="3" scope="col">Column Type</th>
+                          <th colspan="3" scope="col">Column Format</th>
+                          <th colspan="3" scope="col">Mandatory</th>
+                        </tr>
+                      </thead>
+                      <tbody id="task-list">
+                        <tr *ngFor=" let item of columnValidationRulesDataItc">
+                          <td colspan="3">{{item.id}}</td>
+                          <td colspan="3">{{item.columnName}}</td>
+                          <td colspan="3">{{item.type}}</td>
+                          <td colspan="3">{{item.format}}</td>
+                          <td colspan="3">{{item.mandatory}}</td>
+
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div
+                  *ngIf="selected == 'fileDuplicateCheck' && !isDuplicateCheckAvilable && editButton==false&& defultSelected=='defult'"
+                  class="text-center">
+                  <h6>
+                    File duplicate check is not configured for recon recon name, Default file duplicate check will be
+                    applicable. <span> <a class="nav-link fs-14 collapsed text-primary" id="v-pills-home-tab"
+                        data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab"
+                        aria-controls="v-pills-home" aria-selected="true"
+                        (click)="defultSelected = 'defultDuplicteCheck'; getDefaultFileDuplicate()">
+                        View
+                        default file duplicate check configuration </a><a class="nav-link fs-14 collapsed text-primary"
+                        id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button"
+                        role="tab" aria-controls="v-pills-home" aria-selected="true"
+                        (click)="selected = 'fileDuplicateCheckForm'">Configure file duplicate check for this recon.
+                      </a> </span>
+                  </h6>
+                </div>
+
+                <div
+                  *ngIf="(selected == 'fileDuplicateCheck' && isDuplicateCheckAvilable && editButton==false)||(defultSelected=='defultDuplicteCheck'&&!isDuplicateCheckAvilable)">
+                  <div class="row ">
+                    <div class="col-lg-12 col-12">
+                      <ul class="nav nav-tabs nav-tabs-custom nav-success nav-justified mb-3" role="tablist">
+                        <li class="nav-item" role="presentation" (click)="selectedTab='GSTR2B'">
+                          <a class="nav-link active" data-bs-toggle="tab" href="#home1" role="tab" aria-selected="true">
+                            GSTR2B
+                          </a>
+                        </li>
+                        <li class="nav-item" role="presentation" (click)="selectedTab='ITC'">
+                          <a class="nav-link" data-bs-toggle="tab" href="#profile1" role="tab" aria-selected="false"
+                            tabindex="-1">
+                            ITC
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div class="col-lg-12 col-12 text-end">
+                      <div *ngIf="defultSelected !=='defultDuplicteCheck'" class="btn btn-primary" (click)="edit()">
+                        Edit
+                      </div>
+                    </div>
+                    <div *ngIf="selected == 'fileDuplicateCheck' && selectedTab == 'GSTR2B'" class="col-lg-12 col-12 ">
+                      <label class="form-check-label text-muted" for="defaultCheck1">
+                        Match Using Column GSTR2B
+                      </label><br>
+                      <span class="badge bg-primary" *ngFor="let item of duplicateCheckColumnsGSTR2B?.duplicateCriterias">{{item.column}}</span>
+                    </div>
+                    <div *ngIf="selected == 'fileDuplicateCheck' && selectedTab == 'ITC'" class="col-lg-12 col-12 ">
+                      <label class="form-check-label text-muted" for="defaultCheck1">
+                        Match Using Column ITC
+                      </label><br>
+                      <span class="badge bg-primary" *ngFor="let item of duplicateCheckColumnsITC?.duplicateCriterias">{{item.column}}</span>
+                    </div>
+
+                  </div>
+
+                </div>
+                <form [formGroup]=fileDuplicateCheckForm>
+                  <div
+                    *ngIf="(selected=='fileDuplicateCheck'&& editButton==true)||(selected=='fileDuplicateCheckForm'&& editButton==false )">
+                    <ul class="nav nav-tabs nav-tabs-custom nav-success nav-justified mb-3" role="tablist">
+                      <li class="nav-item" role="presentation" (click)="selectedTab='GSTR2B'">
+                        <a class="nav-link active" data-bs-toggle="tab" href="#home1" role="tab" aria-selected="true">
+                          GSTR2B
+                        </a>
+                      </li>
+                      <li class="nav-item" role="presentation" (click)="selectedTab='ITC'">
+                        <a class="nav-link" data-bs-toggle="tab" href="#profile1" role="tab" aria-selected="false"
+                          tabindex="-1">
+                          ITC
+                        </a>
+                      </li>
+                    </ul>
+                    <div formArrayName="duplicateCriterias">
+                      <div *ngFor="let card of duplicateCriterias.controls;let i=index" class="card joblist-card">
+                        <div [formGroupName]="i">
+                          <div class="modal fade zoomIn" id="deleteModal" tabindex="-1" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <button type="button" class="btn-close" id="delete-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body p-5 text-center">
+                                  <div class="mt-4 text-center">
+                                    <h4 class="fs-semibold">Are You Sure to Delete it?</h4>
+                                    <p class="text-muted fs-14 mb-4 pt-1"> If you Deleting your
+                                      column,you may lose your information</p>
+                                    <div class="hstack gap-2 justify-content-center remove">
+                                      <button class="btn btn-link link-success fw-medium text-decoration-none"
+                                        id="deleteRecord-close" data-bs-dismiss="modal"><i
+                                          class="ri-close-line me-1 align-middle "></i>
+                                        Close</button>
+                                      <button class="btn btn-danger" (click)="delete(i)" id="delete-record"
+                                        data-bs-dismiss="modal">Yes,
+                                        Delete
+                                        It!!</button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <!--end delete modal -->
+
+                          <div class="row"> <label for="nameInput" class="form-label madatroy">Match Using
+                              Column</label>
+                            <div class="col-lg-6">
+
+                              <ng-select [items]="gstr2bColumnList" bindLabel="column" placeholder="Select Column" appendTo="body"
+                                [multiple]="true" formControlName="column">
+                              </ng-select>
+
+                            </div>
+                            <div class="col-lg-1">
+                              <a class="dropdown-item remove-item-btn" data-bs-toggle="modal" href="#deleteModal">
+                                <div class="text-muted" id="remove-actions" style="display: block; "> <i
+                                    class="fs-2 ri-delete-bin-fill text-muted"></i>
+                                </div>
+                              </a>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+
+
+                    </div>
+                  </div>
+                </form>
+                <form [formGroup]=recordMatchForm>
+                  <div
+                    *ngIf="(selected=='recordMatchingForm' && editButton ==false)||(selected=='recordMatching' && editButton ==true)||(selected=='defultRecordMatching' && editButton ==false) ">
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <label style="margin-left:16px ;" for="nameInput" class="form-label ">Rules</label>
+                      </div>
+                    </div>
+                    <div class="card-body " formArrayName="recordMatch">
+                      <div [formGroupName]="i" class="row mb-3" *ngFor="let item of recordMatch.controls;let i=index">
+                        <div class="col-lg-6">
+                          <select class="form-select" id="inlineFormSelectPref" formControlName="recordMatch">
+                            <option value="">Select Rule</option>
+                            <option [value]="item.id" *ngFor="let item of allRules">{{item.name}}</option>
+                          </select>
+                        </div>
+                        <div style="width:40px ;" class="col-lg-1 mb-2">
+                          <a data-bs-toggle="modal" href="#deleteModalRule" class=" delete-icon"
+                            (click)="removeRule(i)">
+                            <i class="ri-delete-bin-fill text-muted"></i>
+                          </a>
+                        </div>
+                        <div style="width:20px ;" class="col-lg-1">
+                          <div class=" eye-icon" (click)="viewRule(item)">
+                            <i class="mdi mdi-eye text-muted"></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+                <div *ngIf="selected=='recordMatching'&& editButton==false&& isRecordMatchingAvilable">
+                  <div class="row">
+                    <div class="col-lg-12 text-end">
+                      <div *ngIf="defultSelected !=='defultRecordMatching'" class="btn btn-primary" (click)="edit()">
+                        Edit
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-lg-12">
+                        <label style="margin-left:16px ;" for="nameInput" class="form-label ">Rules</label> <br>
+                        <div class="badge badge-primary" *ngFor="let rule of recordMatchingData">
+                          {{rule.name}}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+                <div *ngIf="selected == 'recordMatching'&& !isRecordMatchingAvilable && editButton==false"
+                  class="text-center">
+                  <h6>
+                    Record matching is not configured for recon recon name, Default record matching will be
+                    applicable. <span> <a class="nav-link fs-14 collapsed text-primary" id="v-pills-home-tab"
+                        data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab"
+                        aria-controls="v-pills-home" aria-selected="true"
+                        (click)="defultSelected = 'defultRecordMatching'">
+                        View
+                        default record matching configuration </a>
+                        <a class="nav-link fs-14 collapsed text-primary"
+                        id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button"
+                        role="tab" aria-controls="v-pills-home" aria-selected="true"
+                        (click)="selected = 'defultRecordMatching';addMoreRecord()">Configure record matching for this
+                        recon. </a> </span>
+                  </h6>
+                </div>
+          
+                <div class="col-12" style="text-align: right">
+                  <button
+                    *ngIf="(selected=='fileDuplicateCheck' && editButton==true)|| (selected=='fileDuplicateCheckForm'&& editButton==false)"
+                    (click)="addFileDuplicate()" class="btn btn-primary" style="margin-left: 10px; float: left">
+                    <i class="ri-add-line align-bottom me-1"></i>
+                    Add
+                  </button>
+                  <button
+                    *ngIf="(selected=='recordMatching' && editButton==true)||(selected=='recordMatchingForm' && editButton==false)||(selected=='defultRecordMatching' && editButton==false)"
+                    (click)="addMoreRecord()" class="btn btn-primary" style="margin-left: 16px;float: left;">
+                    <i class="ri-add-line align-bottom me-1"></i>
+                    Add</button>
+                  <button
+                    *ngIf="(selected=='fileDataValidation'&& editButton==true)|| (selected=='fileDataValidationForm'&& editButton==false)"
+                    (click)=" addFileDataValidation()" class="btn btn-primary" style="margin-left: 16px;float: left;">
+                    <i class="ri-add-line align-bottom me-1"></i>
+                    Add</button>
+                  <div
+                    *ngIf="(selected == 'fileValidation'&& editButton==true)||(selected == 'fileDataValidation'&& editButton==true)||(selected == 'fileDuplicateCheck'&& editButton==true)||(selected == 'recordMatchingForm' && editButton==false)||(selected == 'fileValidationForm'&& editButton==false)||(selected == 'fileDataValidationForm'&& editButton==false)||(selected=='fileDuplicateCheckForm'&& editButton==false)||(selected == 'recordMatching' && editButton==true)||(selected == 'defultRecordMatching'&& editButton==false)">
+                    <button class="btn btn-danger" routerLink="/app/operations/recon">Cancel</button>
+                    <button type="submit" (click)="onSave(fileValidationForm.value)" class="btn btn-primary"
+                      style="margin-left: 10px">
+                      Save
+                    </button>
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="copy" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Copy</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" [formGroup]="fileValidationByreconForm">
+        <div class="row">
+          <div class="col">
+            <label for="formGroupExampleInput" class="form-label">Client</label>
+            <select class="form-select" aria-label="Default select example" formControlName="clientId">
+              <option *ngFor="let client of allClients?.data" [value]="client.id">
+                {{ client.clientName }}
+              </option>
+            </select>
+          </div>
+          <div class="col">
+            <label for="formGroupExampleInput" class="form-label">Recon</label>
+            <select class="form-select" aria-label="Default select example" formControlName="reconId">
+              <option *ngFor="let recon of allRecon" [value]="recon.id">
+                {{ recon.name }}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+          Cancel
+        </button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="getFileValidations()">
+          Ok
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

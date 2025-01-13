@@ -1,0 +1,252 @@
+<!-- Default Modals -->
+<div id="myModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
+            </div>
+            <div class="modal-body">
+               
+                <p class="text-muted">Are you sure you want to unreconciled invoice no 
+                    <span *ngFor="let item of listOfReconMatchingVoITC; let i = index">
+                        {{item.invoiceNumber}} <span *ngIf="i+1 !== listOfReconMatchingVoITC.length">,</span>
+                    </span>
+                    <span *ngFor="let item of listOfReconMatchingVoGSTR2B; let i = index">
+                        {{item.invoiceNumber}} <span *ngIf="i+1 !== listOfReconMatchingVoGSTR2B.length">,</span>
+                    </span>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary " data-bs-dismiss="modal" (click)="discardTrasistion()">Confirm</button>
+            </div>
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+<!-- edit ITC Button Model -->
+
+<div class="live-preview">
+
+    <div>
+        <!-- Scrollable modal -->
+       
+   
+        <div class="modal fade" id="exampleModalScrollable" tabindex="-1" style="display: none;" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalScrollableTitle">ITC
+                            </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        
+                                <div class="row">
+
+                                    <table class="table table-nowrap">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">GSTIN of Supplier</th>
+                                                <th scope="col">Trade/Legal Name</th>
+                                                <th scope="col">Invoice Number</th>
+                                                <th scope="col">Invoice Type</th>
+                                                <th scope="col">Invoice Date</th>
+                                                <th scope="col">Invoice Value(₹)</th>
+                                                <th scope="col">Place of Supply</th>
+                                                <th scope="col">Rate(%)</th>
+                                                <th scope="col">Taxable Value (₹)</th>
+                                                <th scope="col">Integrated Tax(₹)</th>
+                                                <th scope="col">Central Tax(₹)</th>
+                                                <th scope="col">State/UT Tax(₹)</th>
+
+                                              
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                           
+                                            
+                                            <tr *ngFor="let item of listOfReconMatchingVoITC">
+                                                <td><input maxlength="15" type="text" class="form-control" id="project-title-input" [(ngModel)]="item.gstinOfSupplier" name="gstinOfSupplier"></td>
+                                                <td> <input type="text" class="form-control" id="project-title-input" [(ngModel)]="item.legalName"></td>
+                                                <td> <input type="text" class="form-control" id="project-title-input" [(ngModel)]="item.invoiceNumber"></td>
+                                                <td> 
+                                                    <select class="form-control  mb-3" #state aria-label="Default select example"  [(ngModel)]="item.invoiceType">
+                                    
+                                                        <option *ngFor="let invoice of invoiceTypeList" [value]="invoice.value">
+                                                            {{invoice.label}}</option>
+                                                    </select>
+                                                </td>
+                                                <td> 
+                                                    <input type="date" class="form-control" id="project-title-input" [(ngModel)]="item.invoiceDateNew">
+                                                </td>
+
+                                                <td><input type="text" class="form-control" id="project-title-input" [(ngModel)]="item.invoiceValue"></td>
+                                                <td> <input type="text" class="form-control" id="project-title-input" [(ngModel)]="item.placeOfSupply"></td>
+                                                <td> <input type="text" class="form-control" id="project-title-input" [(ngModel)]="item.rate"></td>
+                                                <td> <input type="text" class="form-control" id="project-title-input" [(ngModel)]="item.taxableValue"></td>
+                                                <td><input type="text" class="form-control" id="project-title-input" [(ngModel)]="item.integratedTax"></td>
+                                                <td> <input type="text" class="form-control" id="project-title-input" [(ngModel)]="item.centralTax"></td>
+                                                <td> <input type="text" class="form-control" id="project-title-input" [(ngModel)]="item.stateTax"></td>
+                                                 </tr>
+                                        
+                                        </tbody>
+                                    </table>
+
+                                </div>
+
+
+
+
+                               
+                               
+                            
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="updateItc()">Update</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+    </div>
+
+</div>
+
+<!-- edit GSTR Button Model -->
+
+
+<div class="live-preview">
+
+    <div>
+        <!-- Scrollable modal -->
+       
+   
+        <div class="modal fade" id="exampleModalScrollables" tabindex="-1" style="display: none;" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalScrollableTitle">GSTR2B
+                            </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        
+
+                        
+                            
+                              
+                                <div class="row">
+
+                                    <table class="table table-nowrap">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">GSTIN of supplier</th>
+                                                <th scope="col">Trade/Legal name</th>
+                                                <th scope="col">Invoice number</th>
+                                                <th scope="col">Invoice type</th>
+                                                <th scope="col">Invoice Date</th>
+                                                <th scope="col">Invoice Value(₹)</th>
+                                                <th scope="col">Place of supply</th>
+                                                <td scope="col">Supply Attract Reverse Charge</td>
+                                                <th scope="col">Rate(%)</th>
+                                                <th scope="col">Taxable Value (₹)</th>
+                                                <th scope="col">Integrated Tax(₹)</th>
+                                                <th scope="col">Central Tax(₹)</th>
+                                                <th scope="col">State/UT Tax(₹)</th>
+                                                <th scope="col">Cess(₹)</th>
+                                                <th scope="col">GSTR-1/IFF/GSTR-5 Period</th>
+                                                <th scope="col">GSTR-1/IFF/GSTR-5 Filing Date</th>
+                                                <th scope="col">ITC Availability</th>
+                                                <th scope="col">Reason</th>
+                                                <th scope="col">Applicable % of Tax Rate</th>
+                                                <th scope="col">Source</th>
+                                                <th scope="col">IRN</th>
+                                                <th scope="col">IRN Date</th>
+                                          
+
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        
+                                            <tr *ngFor="let item of listOfReconMatchingVoGSTR2B">
+                                                <td><input type="text" maxlength="15" class="form-control" id="project-title-input" [(ngModel)]="item.gstinOfSupplier" name="gstinOfSupplier"></td>
+                                                <td> <input type="text" class="form-control" id="project-title-input" [(ngModel)]="item.legalName"></td>
+                                                <td> <input type="text" class="form-control" id="project-title-input" [(ngModel)]="item.invoiceNumber"></td>
+                                                <td>
+                                                    <select class="form-control  mb-3" #state aria-label="Default select example"  [(ngModel)]="item.invoiceType">
+                                    
+                                    <option *ngFor="let invoice of invoiceTypeList" [value]="invoice.value">
+                                        {{invoice.label}}</option>
+                                </select>
+                                               <td> <input type="date" class="form-control" id="project-title-input" [(ngModel)]="item.invoiceDateNew"></td>
+
+                                                <td><input type="text" class="form-control" id="project-title-input" [(ngModel)]="item.invoiceValue"></td>
+                                                <td> <input type="text" class="form-control" id="project-title-input" [(ngModel)]="item.placeOfSupply"></td>
+                                                <td> 
+                                                    <select class="form-control  mb-3" #status aria-label="Default select example"  [(ngModel)]="item.reverseCharge">
+                                    
+                                                        <option *ngFor="let status of booleanStatusList" [value]="status.value">
+                                                            {{status.label}}</option>
+                                                    </select>
+                                                   
+                                                </td>
+                                                <td> <input type="text" class="form-control" id="project-title-input" [(ngModel)]="item.rate"></td>
+                                                <td> <input type="text" class="form-control" id="project-title-input" [(ngModel)]="item.taxableValue"></td>
+
+                                                <td><input type="text" class="form-control" id="project-title-input" [(ngModel)]="item.integratedTax"></td>
+                                                <td> <input type="text" class="form-control" id="project-title-input" [(ngModel)]="item.centralTax"></td>
+                                                <td> <input type="text" class="form-control" id="project-title-input" [(ngModel)]="item.stateTax"></td>
+                                                <td> <input type="text" class="form-control" id="project-title-input" [(ngModel)]="item.cess"></td>
+                                                <td> <input type="date" class="form-control" id="project-title-input" [(ngModel)]="item.periodNew"></td>
+
+                                                <td><input type="date" class="form-control" id="project-title-input" [(ngModel)]="item.fillingDateNew"></td>
+                                                <td> 
+                                                    <select class="form-control  mb-3" #status aria-label="Default select example"  [(ngModel)]="item.itcAvailability">
+                                    
+                                                        <option *ngFor="let status of booleanStatusList" [value]="status.value">
+                                                            {{status.label}}</option>
+                                                    </select>
+                                                    </td>
+                                                <td> <input type="text" class="form-control" id="project-title-input" [(ngModel)]="item.reason"></td>
+                                                <td> <input type="text" class="form-control" id="project-title-input" [(ngModel)]="item.applicableTax"></td>
+                                                <td> <input type="text" class="form-control" id="project-title-input" [(ngModel)]="item.source"></td>
+                                                <td> <input type="text" class="form-control" id="project-title-input" style="padding: 7px;
+                                                    width: 100px;" [(ngModel)]="item.irn" [value]="item.irn"></td>
+                                                <td> <input type="date" class="form-control" id="project-title-input" [(ngModel)]="item.irnDateNew"></td>
+                                               
+                                                
+                                              
+                                          </tr>
+                                        
+                                        </tbody>
+                                    </table>
+
+                                </div>
+
+
+
+
+                               
+                               
+                            
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-success"  data-bs-dismiss="modal" (click)="updateGSTR()">Update</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+    </div>
+
+</div>

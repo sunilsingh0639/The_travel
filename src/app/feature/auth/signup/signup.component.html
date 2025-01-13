@@ -1,0 +1,632 @@
+<div class="auth-page-wrapper pt-5">
+    <!-- auth page bg -->
+    <div class="auth-one-bg-position auth-one-bg" id="auth-particles">
+        <div class="bg-overlay"></div>
+
+        <div class="shape">
+            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"
+                viewBox="0 0 1440 120">
+                <path d="M 0,36 C 144,53.6 432,123.2 720,124 C 1008,124.8 1296,56.8 1440,40L1440 140L0 140z"></path>
+            </svg>
+        </div>
+        <canvas class="particles-js-canvas-el" width="700" height="380" style="width: 100%; height: 100%;"></canvas>
+    </div>
+
+    <!-- auth page content -->
+    <div class="auth-page-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="text-center mt-sm-5 mb-4 text-white-50">
+                        <div>
+                            <a href="index.html" class="d-inline-block auth-logo">
+                                <h2 style="color: white;">TAX PORTAL</h2>
+                                <!-- <img src="assets/images/logo-dark.png" alt="" height="20"> -->
+                            </a>
+                        </div>
+                        <p class="mt-3 fs-15 fw-medium">Welcome to our tax portal</p>
+                    </div>
+                </div>
+            </div>
+            <!-- end row -->
+
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card">
+
+                        <div class="card-body">
+                            <form action="#" class="form-steps" autocomplete="off" [formGroup]="sigupForm">
+                                <div class="text-center pt-3 pb-4 mb-1">
+                                    <h5>Sign Up Your Account</h5>
+                                </div>
+                                <div id="custom-progress-bar" class="progress-nav mb-4">
+                                    <div class="progress" style="height: 1px;">
+                                        <div class="progress-bar" role="progressbar" style="width: 0%;"
+                                            aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+
+                                    <ul class="nav nav-pills progress-bar-tab custom-nav" role="tablist">
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link rounded-pill active"
+                                                data-progressbar="custom-progress-bar" id="pills-gen-info-tab"
+                                                data-bs-toggle="pill" data-bs-target="#pills-gen-info" type="button"
+                                                role="tab" aria-controls="pills-gen-info"
+                                                aria-selected="true">1</button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link rounded-pill" [ngClass]="{'active' : step>1}"
+                                                data-progressbar="custom-progress-bar" id="pills-info-desc-tab"
+                                                data-bs-toggle="pill" data-bs-target="#pills-info-desc" type="button"
+                                                role="tab" aria-controls="pills-info-desc"
+                                                aria-selected="false">2</button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link rounded-pill" [ngClass]="{'active' : step>2}"
+                                                data-progressbar="custom-progress-bar" id="pills-success-tab"
+                                                data-bs-toggle="pill" data-bs-target="#pills-success" type="button"
+                                                role="tab" aria-controls="pills-success"
+                                                aria-selected="false">3</button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link rounded-pill" [ngClass]="{'active' : step>3}"
+                                                data-progressbar="custom-progress-bar" id="pills-success-tab"
+                                                data-bs-toggle="pill" data-bs-target="#pills-success" type="button"
+                                                role="tab" aria-controls="pills-success"
+                                                aria-selected="false">4</button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link rounded-pill" [ngClass]="{'active' : step>4}"
+                                                data-progressbar="custom-progress-bar" id="pills-success-tab"
+                                                data-bs-toggle="pill" data-bs-target="#pills-success" type="button"
+                                                role="tab" aria-controls="pills-success"
+                                                aria-selected="false">5</button>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div class="tab-content">
+                                    <div *ngIf="step==1" class="tab-pane fade show active" id="pills-gen-info"
+                                        role="tabpanel" aria-labelledby="pills-gen-info-tab">
+                                        <div>
+                                            <div class="mb-4">
+                                                <div>
+                                                    <h5 class="mb-1">Plans & Pricing
+                                                    </h5>
+                                                    <p class="text-muted">Choose your plan
+
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="row" >
+                                                <div class="col-xxl-4 col-lg-4" *ngFor="let plan of planList">
+                                                    <div class="card pricing-box selected" [ngClass]="{'selected' : plan?.planName==selected?.planName}">
+                                                        <div class="card-body bg-light m-2 p-4">
+                                                            <div class="d-flex align-items-center mb-3">
+                                                                <div class="flex-grow-1">
+                                                                    <h5 class="mb-0 fw-semibold">{{plan.planName}}</h5>
+                                                                </div>
+                                                                <div class="ms-auto">
+                                                                    <h2 class="month mb-0" style="display: block;">{{plan.price}}
+                                                                        <small class="fs-13 text-muted">/Month</small>
+                                                                    </h2>
+                                                                    <h2 class="annual mb-0" style="display: none;">
+                                                                        <small class="fs-16"><del>₹{{plan.price}}</del></small>
+                                                                        ₹{{plan.price*12}} <small
+                                                                            class="fs-13 text-muted">/Year</small>
+                                                                    </h2>
+                                                                </div>
+                                                            </div>
+
+                                                            <p class="text-muted">The perfect way to get started and get
+                                                                used to our tools.</p>
+                                                            <ul class="list-unstyled vstack gap-3">
+                                                                <li>
+                                                                    <div class="d-flex">
+                                                                        <div class="flex-shrink-0 text-success me-1">
+                                                                            <i
+                                                                                class="ri-checkbox-circle-fill fs-15 align-middle"></i>
+                                                                        </div>
+                                                                        <div class="flex-grow-1">
+                                                                            <b>3</b> Projects
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                                <li>
+                                                                    <div class="d-flex">
+                                                                        <div class="flex-shrink-0 text-success me-1">
+                                                                            <i
+                                                                                class="ri-checkbox-circle-fill fs-15 align-middle"></i>
+                                                                        </div>
+                                                                        <div class="flex-grow-1">
+                                                                            <b>299</b> Customers
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                                <li>
+                                                                    <div class="d-flex">
+                                                                        <div class="flex-shrink-0 text-success me-1">
+                                                                            <i
+                                                                                class="ri-checkbox-circle-fill fs-15 align-middle"></i>
+                                                                        </div>
+                                                                        <div class="flex-grow-1">
+                                                                            Scalable Bandwidth
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                                <li>
+                                                                    <div class="d-flex">
+                                                                        <div class="flex-shrink-0 text-success me-1">
+                                                                            <i
+                                                                                class="ri-checkbox-circle-fill fs-15 align-middle"></i>
+                                                                        </div>
+                                                                        <div class="flex-grow-1">
+                                                                            <b>5</b> FTP Login
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                                <li>
+                                                                    <div class="d-flex">
+                                                                        <div class="flex-shrink-0 text-danger me-1">
+                                                                            <i
+                                                                                class="ri-close-circle-fill fs-15 align-middle"></i>
+                                                                        </div>
+                                                                        <div class="flex-grow-1">
+                                                                            <b>24/7</b> Support
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                                <li>
+                                                                    <div class="d-flex">
+                                                                        <div class="flex-shrink-0 text-danger me-1">
+                                                                            <i
+                                                                                class="ri-close-circle-fill fs-15 align-middle"></i>
+                                                                        </div>
+                                                                        <div class="flex-grow-1">
+                                                                            <b>Unlimited</b> Storage
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                                <li>
+                                                                    <div class="d-flex">
+                                                                        <div class="flex-shrink-0 text-danger me-1">
+                                                                            <i
+                                                                                class="ri-close-circle-fill fs-15 align-middle"></i>
+                                                                        </div>
+                                                                        <div class="flex-grow-1">
+                                                                            Domain
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                            </ul>
+                                                            <div class="mt-3 pt-2">
+                                                               
+                                                                    <button class="btn btn-primary w-100"  (click)="step=2;selected=plan;subscriptionStep1()">CHOOSE PLAN</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--end col-->
+ </div>
+                                        </div>
+                                        <!-- <div class="d-flex align-items-start gap-3 mt-4">
+                                            <button type="button" (click)="step=2" class="btn btn-success btn-label right ms-auto nexttab nexttab" data-nexttab="pills-info-desc-tab"><i class="ri-arrow-right-line label-icon align-middle fs-16 ms-2"></i>Next</button>
+                                        </div> -->
+                                    </div>
+                                    <!-- end tab pane -->
+  <div *ngIf="step==2" class="tab-pane fade show active" id="pills-info-desc"
+                                        role="tabpanel" aria-labelledby="pills-info-desc-tab">
+
+
+
+                                        <div>
+                                            <h5>Company Info</h5>
+                                            <p class="text-muted">
+                                            Please Fill Up The Mandatory Information
+                                            </p>
+                                        </div>
+                                        <div>
+                                            <div class="row mb-3 form-group">
+                                                <div class="col-lg-3">
+                                                    <label for="nameInput" class="form-label madatroy">Company Name</label>
+                                                </div>
+                                                <div class="col-lg-9 form-group">
+                                                    <input type="url" class="form-control" id="websiteUrl" appTrimValidator
+                                                        placeholder="Company Name" name="companyName"
+                                                        formControlName="companyName">
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="row mb-3">
+                                                <div class="col-lg-3">
+                                                    <label for="nameInput" class="form-label madatroy">Contact Number</label>
+                                                </div>
+                                                <div class="col-lg-9">
+                                                    <input type="url" class="form-control" appNumberOnly
+                                                        id="websiteUrl" placeholder="Contact Number"
+                                                        formControlName="contactPerson" name="contactPerson"
+                                                        minlength="10" maxlength="10">
+                                                </div>
+
+                                            </div>
+                                            <div class="row mb-3">
+                                                <div class="col-lg-3">
+                                                    <label for="nameInput" class="form-label madatroy">Email</label>
+                                                </div>
+                                                <div class="col-lg-9">
+                                                    <input type="url" class="form-control" id="websiteUrl"
+                                                        placeholder="Email" formControlName="email">
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <div class="col-lg-3">
+                                                    <label for="nameInput" class="form-label madatroy">Address Line1</label>
+                                                </div>
+                                                <div class="col-lg-9">
+                                                    <input type="url" class="form-control" id="websiteUrl"
+                                                        placeholder="Address Line1" formControlName="addressLine1">
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <div class="col-lg-3">
+                                                    <label for="nameInput" class="form-label madatroy">Address Line2</label>
+                                                </div>
+                                                <div class="col-lg-9">
+                                                    <input type="url" class="form-control" id="websiteUrl"
+                                                        placeholder="Address Line2" formControlName="addressLine2">
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <div class="col-lg-3">
+                                                    <label for="nameInput" class="form-label madatroy">Area</label>
+                                                </div>
+                                                <div class="col-lg-9">
+                                                    <input type="url" class="form-control" id="websiteUrl"
+                                                        placeholder="Area" formControlName="area">
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <div class="col-lg-3">
+                                                    <label for="nameInput" class="form-label madatroy">State</label>
+                                                </div>
+                                                <div class="col-lg-9">
+                                                    <select class="form-control  mb-3" (change)="filterCities()"
+                                                        aria-label="Default select example" formControlName="state">
+                                                        <option value="">Select Your State </option>
+                                                        <option *ngFor="let state of statesList" [value]="state.state">
+                                                        {{state.state}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <div class="col-lg-3">
+                                                    <label for="nameInput" class="form-label madatroy">City</label>
+                                                </div>
+                                                <div class="col-lg-9">
+                                                    <select class="form-control  mb-3"
+                                                        aria-label="Default select example" formControlName="city">
+                                                        <option value="">Select Your City </option>
+                                                        <option *ngFor="let city of cities" [value]="city">{{city}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                          
+                                            <div class="row mb-3">
+                                                <div class="col-lg-3">
+                                                    <label for="nameInput" class="form-label madatroy">Zip</label>
+                                                </div>
+                                                <div class="col-lg-9">
+                                                    <input type="url" appNumberOnly required
+                                                        class="form-control" id="websiteUrl" placeholder="Zip" maxlength="6" minlength="6"
+                                                        formControlName="zipCode">
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="d-flex align-items-start gap-3 mt-4">
+                                            <button type="button" (click)="step=1"
+                                                class="btn btn-link text-decoration-none btn-label previestab"
+                                                data-previous="pills-gen-info-tab"><i
+                                                    class="ri-arrow-left-line label-icon align-middle fs-16 me-2"></i>
+                                                Back to Plan</button>
+
+                                            <button type="button" (click)="subscriptionStep2()" 
+                                                class="btn btn-primary btn-label right ms-auto nexttab nexttab"
+                                                data-nexttab="pills-success-tab"><i
+                                                    class="ri-arrow-right-line label-icon align-middle fs-16 ms-2"></i>Go
+                                                To Admin Info</button>
+                                        </div>
+
+                                    </div>
+                                    <!-- end tab pane -->
+
+
+                                    <div *ngIf="step==3" class="tab-pane fade show active" id="pills-info-desc"
+                                        role="tabpanel" aria-labelledby="pills-info-desc-tab">
+
+                                        <div>
+                                            <h5>Admin Info</h5>
+                                            <p class="text-muted">
+                                                Please Fill Up The Mandatory Information
+                                            </p>
+                                        </div>
+                                        <div>
+                                            <div class="row mb-3">
+                                                <div class="col-lg-3">
+                                                    <label for="nameInput" class="form-label madatroy">First Name</label>
+                                                </div>
+                                                <div class="col-lg-9">
+                                                    <input type="url" class="form-control" id="websiteUrl"
+                                                        placeholder="" formControlName="firstName">
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <div class="col-lg-3">
+                                                    <label for="nameInput" class="form-label">Middle Name</label>
+                                                </div>
+                                                <div class="col-lg-9">
+                                                    <input type="url" class="form-control" id="websiteUrl"
+                                                        placeholder="" formControlName="middleName">
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-3">
+                                                <div class="col-lg-3">
+                                                    <label for="nameInput" class="form-label madatroy">Last Name</label>
+                                                </div>
+                                                <div class="col-lg-9">
+                                                    <input type="url" class="form-control" id="websiteUrl"
+                                                        placeholder="" formControlName="lastName">
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-3">
+                                                <div class="col-lg-3">
+                                                    <label for="nameInput" class="form-label madatroy">Gender</label>
+                                                </div>
+                                                <div class="col-lg-9">
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="gender"
+                                                            id="inlineRadio1" value="MALE" formControlName="gender"
+                                                            >
+                                                        <label class="form-check-label" for="inlineRadio1">Male</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="gender"
+                                                            id="inlineRadio1" value="FEMALE" formControlName="gender"
+                                                            >
+                                                        <label class="form-check-label"
+                                                            for="inlineRadio1">Female</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="gender"
+                                                            id="inlineRadio1" value="OTHERS" formControlName="gender"
+                                                            >
+                                                        <label class="form-check-label"
+                                                            for="inlineRadio1" > Others</label>
+                                                    </div>
+                                                    <!-- <select class="form-select mb-3" aria-label="Default select example">
+                                                        <option selected="">Select your gender </option>
+                                                        <option value="1">Male</option>
+                                                        <option value="2">Female</option>
+                                                    </select>   -->
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <div class="col-lg-3">
+                                                    <label for="nameInput" class="form-label madatroy">Contact Number</label>
+                                                </div>
+                                                <div class="col-lg-9">
+                                                    <input type="text" (keypress)="keyPress($event)"
+                                                        class="form-control" id="cc-name" placeholder="" required
+                                                        formControlName="mobile" minlength="10" maxlength="10">
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <div class="col-lg-3">
+                                                    <label for="nameInput" class="form-label madatroy">Email</label>
+                                                </div>
+                                                <div class="col-lg-9">
+                                                    <input type="text" class="form-control" id="cc-name" placeholder=""
+                                                        required formControlName="emailId">
+                                                </div>
+                                            </div>
+
+                                            <!-- subscriber type -->
+
+
+                                            <div class="row mb-3">
+                                                <div class="col-lg-3">
+                                                    <label for="nameInput" class="form-label madatroy">Subscriber Type</label>
+                                                </div>
+                                                <div class="col-lg-9">
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio"
+                                                            id="inlineRadio1" value="TAX_PROFESSIONAL" formControlName="subscribertype" name="subscribertype"
+                                                            >
+                                                        <label class="form-check-label" for="inlineRadio1"> Tax Professional</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" 
+                                                            id="inlineRadio2" value="INDIVIDUAL_COMPANY" formControlName="subscribertype" name="subscribertype"
+                                                            >
+                                                        <label class="form-check-label"
+                                                            for="inlineRadio2"> Individual Company </label>
+                                                    </div>
+                                                   
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="d-flex align-items-start gap-3 mt-4">
+                                            <button type="button" (click)="step=2"
+                                                class="btn btn-link text-decoration-none btn-label previestab"
+                                                data-previous="pills-gen-info-tab"><i
+                                                    class="ri-arrow-left-line label-icon align-middle fs-16 me-2"></i>
+                                                Back to Company Info</button>
+                                            <button type="button" (click)="subscriptionStep3()" 
+                                                class="btn btn-primary btn-label right ms-auto nexttab nexttab"
+                                                data-nexttab="pills-success-tab"><i
+                                                    class="ri-arrow-right-line label-icon align-middle fs-16 ms-2"></i>Go
+                                                To Payments</button>
+                                        </div>
+
+                                    </div>
+                                    <!-- end tab pane -->
+<div *ngIf="step==4" class="tab-pane fade show active" id="pills-success"
+                                        role="tabpanel" aria-labelledby="pills-success-tab">
+
+                                        <div>
+                                            <div class="tab-pane fade active show" id="v-pills-payment" role="tabpanel"
+                                                aria-labelledby="v-pills-payment-tab">
+                                                <div>
+                                                    <h5>Payment</h5>
+                                                    <p class="text-muted">
+                                                    Please Fill Up The Mandatory Information
+                                                    </p>
+                                                </div>
+
+                                                <div>
+
+                                                    <div class="my-3">
+                                                        <div class="form-check form-check-inline">
+                                                            <input id="credit" name="paymentMethod" type="radio"
+                                                                class="form-check-input" checked="">
+                                                            <label class="form-check-label" for="credit">Credit
+                                                                card</label>
+                                                        </div>
+                                                        <div class="form-check form-check-inline">
+                                                            <input id="debit" name="paymentMethod" type="radio"
+                                                                class="form-check-input" required="">
+                                                            <label class="form-check-label" for="debit">Debit
+                                                                card</label>
+                                                        </div>
+                                                        <div class="form-check form-check-inline">
+                                                            <input id="paypal" name="paymentMethod" type="radio"
+                                                                class="form-check-input" required="">
+                                                            <label class="form-check-label" for="paypal">PayPal</label>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row gy-3">
+                                                        <div class="col-md-12">
+                                                            <label for="cc-name" class="form-label madatroy">Name on card</label>
+                                                            <input type="text" class="form-control" id="cc-name"
+                                                                placeholder="">
+                                                            <small class="text-muted">Full name as displayed on
+                                                                card</small>
+                                                            <div class="invalid-feedback">
+                                                                Name on card is required
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-6">
+                                                            <label for="cc-number" class="form-label madatroy">Credit card
+                                                                number</label>
+                                                            <input type="text" class="form-control" id="cc-number" appNumberOnly
+                                                                placeholder="">
+                                                            <div class="invalid-feedback">
+                                                                Credit card number is required
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-3">
+                                                            <label for="cc-expiration"
+                                                                class="form-label">Expiration</label>
+                                                            <input type="text" class="form-control" id="cc-expiration" appNumberOnly
+                                                                placeholder="">
+                                                            <div class="invalid-feedback">
+                                                                Expiration date required
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-3">
+                                                            <label for="cc-cvv" class="form-label madatroy">CVV</label>
+                                                            <input type="text" class="form-control" id="cc-cvv"
+                                                                placeholder="">
+                                                            <div class="invalid-feedback">
+                                                                Security code required
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="d-flex align-items-start gap-3 mt-4">
+                                                    <button type="button" (click)="step=3"
+                                                        class="btn btn-light btn-label previestab"
+                                                        data-previous="v-pills-bill-address-tab"><i
+                                                            class="ri-arrow-left-line label-icon align-middle fs-16 me-2"></i>
+                                                        Back to Admin Info</button>
+                                                    <button type="button" 
+                                                        (click)="subscription()"
+                                                        class="btn btn-primary btn-label right ms-auto nexttab nexttab"
+                                                        data-nexttab="v-pills-finish-tab"><i
+                                                            class="ri-arrow-right-line label-icon align-middle fs-16 ms-2"></i>
+                                                        Sign Up Complete</button>
+                                                </div>
+
+                                            </div>
+
+
+                                            <!-- <div class="text-center">
+
+                                                <div class="mb-4">
+                                                    <lord-icon src="https://cdn.lordicon.com/lupuorrc.json" trigger="loop" colors="primary:#0ab39c,secondary:#405189" style="width:120px;height:120px"></lord-icon>
+                                                </div>
+                                                <h5>Well Done !</h5>
+                                                <p class="text-muted">You have Successfully Signed Up</p>
+                                            </div> -->
+                                        </div>
+
+                                    </div>
+                                    <!-- end tab pane -->
+ <div *ngIf="step==5" class="tab-pane fade active show" id="pills-success"
+                                        role="tabpanel" aria-labelledby="pills-success-tab">
+                                        <div>
+                                            <div class="text-center">
+
+                                                <div class="mb-4">
+                                                    <!-- <lord-icon src="https://cdn.lordicon.com/lupuorrc.json" trigger="loop" colors="primary:#0ab39c,secondary:#405189" style="width:120px;height:120px"></lord-icon> -->
+                                                </div>
+                                                <h5>Congratulations !</h5>
+                                                <p class="text-muted">You have Successfully onboarded. We have sent your
+                                                    username and temporary password on email.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end tab content -->
+                            </form>
+                        </div>
+                        <!-- end card body -->
+                    </div>
+                    <!-- end card -->
+                </div>
+                <!-- end col -->
+
+
+                <!-- end col -->
+            </div><!-- end row -->
+            <!-- end row -->
+        </div>
+        <!-- end container -->
+    </div>
+    <!-- end auth page content -->
+
+    <!-- footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="text-center">
+                        <p class="mb-0 text-muted">�
+                            <script>document.write(new Date().getFullYear())</script>2023 Tax Portal. Crafted with <i
+                                class="mdi mdi-heart text-danger"></i> by TAX PORTAL
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- end Footer -->
+</div>
+<!-- end auth-page-wrapper -->

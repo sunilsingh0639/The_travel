@@ -1,0 +1,36 @@
+.card{
+    padding: 1rem;
+}
+.text-right{
+    text-align: right;
+}
+.mt-align{
+   // margin-top: 1.5rem;
+    border: none;
+}
+.mr-4{
+    margin-right: 4rem;
+}
+.ml-4{
+    margin-left: 4rem;
+}
+.delete-icon{
+    text-align: center;
+    font-size: x-large;
+    cursor: pointer;
+    
+}
+.avatar-title {
+    align-items: center;
+    background-color: #6691e7;
+    color: #fff;
+    display: flex;
+    font-weight: 400;
+    height: 50%;
+    justify-content: center;
+    width: 100%;
+}.madatroy::after {
+    content: "*";
+    color: red;
+    margin-left: 5px;
+  }

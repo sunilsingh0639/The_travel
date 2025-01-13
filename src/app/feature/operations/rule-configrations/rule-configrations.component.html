@@ -1,0 +1,607 @@
+<div class="page-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+          <h4 class="mb-sm-0">Add New Rule</h4>
+          <div class="page-title-right">
+            <ol class="breadcrumb m-0">
+              <li class="breadcrumb-item">
+                <a routerLink="/app/operations/rule-list">Operations</a>
+              </li>
+              <li class="breadcrumb-item">
+                <a routerLink="/app/operations/rule-list">Rules </a>
+              </li>
+              <li class="breadcrumb-item active">Add New Rule</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <form [formGroup]="ruleForm">
+        <div class="row mb-3">
+          <div class="col-lg-3">
+            <label for="nameInput" class="form-label madatroy">Rule Type</label>
+            <select class="form-select" formControlName="ruleType" id="inlineFormSelectPref">
+              <option value=""> Select Rule Type</option>
+              <option value="KNOCK_OFF">Knock Off</option>
+              <option value="SAME_SIDE_REVERSAL">Same Side Reversal</option>
+              <option value="MATCHING">Matching</option>
+
+            </select>
+          </div>
+          <div class="col-lg-4" *ngIf="type == 'KNOCK_OFF' || type == 'SAME_SIDE_REVERSAL'">
+            <label for="nameInput" class="form-label madatroy">Source</label>
+            <div class="form-control mt-align">
+              <div class="form-check form-check-inline mr-4">
+                <input class="form-check-input " type="radio" name="fileType" id="inlineRadio1" value="GSTR2B"
+                  formControlName="fileType" name="fileType">
+                <label class="form-check-label" for="inlineRadio1">GSTR2B</label>
+              </div>
+              <div class="form-check form-check-inline ml-4">
+                <input class="form-check-input " type="radio" name="fileType" id="inlineRadio2" value="ITC"
+                  formControlName="fileType" name="fileType">
+                <label class="form-check-label" for="inlineRadio2">ITC</label>
+              </div>
+            </div>
+
+          </div>
+
+
+          <div class="col-lg-5" *ngIf="type == 'MATCHING' || type == 'SAME_SIDE_REVERSAL'">
+            <label for="nameInput" class="form-label madatroy">Matching Type</label>
+            <div class="form-control mt-align">
+              <div class="form-check form-check-inline ">
+                <input class="form-check-input " type="radio" name="matchingType" id="inlineRadio1" value="ONE_TO_ONE"
+                  formControlName="matchingType" name="matchingType">
+                <label class="form-check-label" for="inlineRadio1">One To One</label>
+              </div>
+              <div class="form-check form-check-inline ">
+                <input class="form-check-input " type="radio" name="matchingType" id="inlineRadio2" value="ONE_TO_MANY"
+                  formControlName="matchingType" name="matchingType">
+                <label class="form-check-label" for="inlineRadio2">One To Many</label>
+              </div>
+              <div class="form-check form-check-inline ">
+                <input class="form-check-input " type="radio" name="matchingType" id="inlineRadio3" value="MANY_TO_MANY"
+                  formControlName="matchingType" name="matchingType">
+                <label class="form-check-label" for="inlineRadio3">Many To Many</label>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+        <div class="row mb-3">
+          <div class="col-lg-12">
+            <label for="websiteUrl" class="form-label madatroy">Name</label>
+            <input type="url" class="form-control" appTrimValidator id="websiteUrl" placeholder="Name"
+              formControlName="name" name="middleName" minlength="3" maxlength="30">
+
+          </div>
+          <!-- <div class="col-lg-9">
+              <input type="url" class="form-control" appTrimValidator id="websiteUrl" placeholder="Middle Name"
+                formControlName="middleName" name="middleName" minlength="3" maxlength="30">
+            </div> -->
+        </div>
+        <div class="row mb-3">
+          <div class="col-lg-12">
+            <label for="websiteUrl" class="form-label">Description</label>
+            <input type="url" class="form-control" appTrimValidator id="websiteUrl" placeholder="Description"
+              formControlName="description" minlength="3" maxlength="30" name="lastName">
+          </div>
+
+        </div>
+
+        <!-- //  <hr> -->
+        <div *ngIf="type == 'KNOCK_OFF'  || type == 'SAME_SIDE_REVERSAL'" class="card joblist-card">
+          <div class="card-body">
+            <div class="d-flex mb-4">
+              <div class="avatar-sm">
+                <div class="avatar-title bg-light rounded">
+                  <img src="assets/images/companies/img-9.png" alt="" class="avatar-xxs companyLogo-img">
+                </div>
+              </div>
+              <div class="ms-3 flex-grow-1">
+                <a>
+                  <h5 class="job-title">Filters</h5>
+                </a>
+
+              </div>
+
+
+            </div>
+            <div class="row">
+              <div class="col-lg-3">
+                <label for="websiteUrl" class="form-label madatroy">Field</label>
+              </div>
+              <div class="col-lg-4">
+                <label for="websiteUrl" class="form-label madatroy ">Operator</label>
+              </div>
+              <div class="col-lg-4">
+                <label for="websiteUrl" class="form-label madatroy">Value</label>
+              </div>
+            </div>
+            <div formArrayName="listOfRuleFilter">
+              <div class="row mb-3" *ngFor="let item of listOfRuleFilter.controls; let i = index" [formGroupName]="i">
+                <div class="col-lg-3">
+                  <select *ngIf="fileType == 'ITC'" formControlName="fieldName"  class="form-select" id="inlineFormSelectPref">
+                    <option value=""> Select Field</option>
+                    <option [value]="item.columnName" *ngFor="let item of itcColums">{{item.columnName}}</option>                   
+                  </select>
+                  <select *ngIf="fileType == ''" formControlName="fieldName"  class="form-select" id="inlineFormSelectPref">
+                    <option value=""> Select Field</option>
+                    <option [value]="item.columnName" *ngFor="let item of columns">{{item.columnName}}</option>                   
+                  </select>
+                  <select *ngIf="fileType == 'GSTR2B'" formControlName="fieldName"  class="form-select" id="inlineFormSelectPref">
+                    <option value=""> Select Field</option>
+                    <option [value]="item.columnName" *ngFor="let item of gstr2bColumns">{{item.columnName}}</option>                   
+                  </select>
+                </div>
+                <div class="col-lg-4">
+                  <select  formControlName="operatorType" class="form-select" id="inlineFormSelectPref">
+                    <option value="">Select Operator</option>
+                    <option [value]="item.operatorType"  *ngFor="let item of operators">{{item.operatorType}}</option>
+                  </select>
+                </div>
+                <div class="col-lg-4">
+                  <input formControlName="value" type="url" appNumberOnly class="form-control" appTrimValidator id="websiteUrl"
+                    placeholder="Value"  minlength="3" maxlength="30" name="lastName">
+                </div>
+                <div class="col-md-1">
+                  <div class="mb-3 delete-icon" (click)="removeRuleFilter(i)">
+                    <i class="ri-delete-bin-fill text-muted"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+           
+            <div class="row">
+              <div class="col-md-12">
+                <button type="submit" class="btn btn-primary" (click)="addNewRuleFilter()">+ Add </button>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="type == 'MATCHING'" class="card joblist-card">
+          <div class="card-body">
+            <div class="d-flex mb-4">
+              <div class="avatar-sm">
+                <div class="avatar-title bg-light rounded">
+                  <img src="assets/images/companies/img-9.png" alt="" class="avatar-xxs companyLogo-img">
+                </div>
+              </div>
+              <div class="ms-3 flex-grow-1">
+                <a>
+                  <h5 class="job-title">ITC Filters</h5>
+                </a>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-3">
+                <label for="websiteUrl" class="form-label madatroy"> Field</label>
+              </div>
+              <div class="col-lg-4">
+                <label for="websiteUrl" class="form-label madatroy"> Operator</label>
+              </div>
+              <div class="col-lg-4">
+                <label for="websiteUrl" class="form-label madatroy"> Value</label>
+              </div>
+            </div>
+            <div formArrayName="listOfITCFilter">
+              <div class="row mb-3" *ngFor="let item of listOfITCFilter.controls; let i = index" [formGroupName]="i">
+                <div class="col-lg-3">
+                  <select  formControlName="fieldName"  class="form-select" id="inlineFormSelectPref">
+                    <option value=""> Select Field</option>
+                    <option [value]="item.columnName" *ngFor="let item of columns">{{item.columnName}}</option>                   
+                  </select>
+                </div>
+                <div class="col-lg-4">
+                  <select  formControlName="operatorType" class="form-select" id="inlineFormSelectPref">
+                    <option value="">Select Operator</option>
+                    <option [value]="item.operatorType"  *ngFor="let item of operators">{{item.operatorType}}</option>
+                  
+                  </select>
+                </div>
+                <div class="col-lg-4">
+                  <input formControlName="value" type="url" appNumberOnly class="form-control" appTrimValidator id="websiteUrl"
+                    placeholder="Value"  minlength="3" maxlength="30" name="lastName">
+                </div>
+                <div class="col-md-1">
+                  <div class="mb-3 delete-icon" (click)="removeITCFilter(i)">
+                    <i class="ri-delete-bin-fill text-muted"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-12">
+                <button type="submit" class="btn btn-primary" (click)="addNewITCFilter()">+ Add ITC Filter </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="type == 'MATCHING'" class="card joblist-card">
+          <div class="card-body">
+            <div class="d-flex mb-4">
+              <div class="avatar-sm">
+                <div class="avatar-title bg-light rounded">
+                  <img src="assets/images/companies/img-9.png" alt="" class="avatar-xxs companyLogo-img">
+                </div>
+              </div>
+              <div class="ms-3 flex-grow-1">
+                <a>
+                  <h5 class="job-title">GSTR2B Filters</h5>
+                </a>
+
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-3">
+                <label for="websiteUrl" class="form-label madatroy"> Field</label>
+              </div>
+              <div class="col-lg-4">
+                <label for="websiteUrl" class="form-label madatroy"> Operator</label>
+              </div>
+              <div class="col-lg-4">
+                <label for="websiteUrl" class="form-label madatroy"> Value</label>
+              </div>
+            </div>
+            <div formArrayName="listOfGSTR2BFilter">
+              <div class="row mb-3" *ngFor="let item of listOfGSTR2BFilter.controls; let i = index" [formGroupName]="i">
+                <div class="col-lg-3">
+                  <select  formControlName="fieldName"  class="form-select" id="inlineFormSelectPref">
+                    <option value=""> Select Field</option>
+                    <option [value]="item.columnName" *ngFor="let item of columns">{{item.columnName}}</option>                   
+                  </select>
+                </div>
+                <div class="col-lg-4">
+                  <select  formControlName="operatorType" class="form-select" id="inlineFormSelectPref">
+                    <option value="">Select Operator</option>
+                    <option [value]="item.operatorType"  *ngFor="let item of operators">{{item.operatorType}}</option>
+                  
+                  </select>
+                </div>
+                <div class="col-lg-4">
+                  <input formControlName="value" type="url" appNumberOnly class="form-control" appTrimValidator id="websiteUrl"
+                    placeholder="Value"  minlength="3" maxlength="30" name="lastName">
+                </div>
+                <div class="col-md-1">
+                  <div class="mb-3 delete-icon" (click)="removeGSTR2BFilter(i)">
+                    <i class="ri-delete-bin-fill text-muted"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-12">
+                <button type="submit" class="btn btn-primary" (click)="addNewGSTR2BFilter()">+ Add GSTR2B Filter
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div  *ngIf="type == 'MATCHING'"  class="card joblist-card">
+          <div *ngIf="matchingType == 'ONE_TO_ONE'" class="card-body">
+            <div class="d-flex mb-4">
+              <div class="avatar-sm">
+                <div class="avatar-title bg-light rounded">
+                  <img src="assets/images/companies/img-7.png" alt="" class="avatar-xxs companyLogo-img">
+                </div>
+              </div>
+              <div class="ms-3 flex-grow-1"> <img src="assets/images/small/img-8.jpg" alt="" class="d-none cover-img">
+                <a href="#!">
+                  <h5 class="job-title">Matching
+                    Conditions</h5>
+                </a>
+
+              </div>
+
+
+            </div>
+            <div class="row">
+              <div class="col-lg-3">
+                <label for="websiteUrl" class="form-label madatroy"> ITC (Column)</label>
+              </div>
+              <div class="col-lg-4">
+                <label for="websiteUrl" class="form-label madatroy ">  Operator</label>
+              </div>
+              <div class="col-lg-4">
+                <label for="websiteUrl" class="form-label madatroy "> GSTR2B (Column)</label>
+              </div>
+
+            </div>
+            <div formArrayName="listOfMatchingConditionsFilter">
+            <div *ngFor="let item of listOfMatchingConditionsFilter.controls; let i = index" [formGroupName]="i" class="row">
+
+              <div  class="col-md-3">
+                <select class="form-select" formControlName="fieldNameITC" id="inlineFormSelectPref">
+                  <option value="">Select ITC(Column)</option>
+                  <option *ngFor="let type of itcColums" [value]="type.columnName">{{type.columnName}}
+                  </option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <select class="form-select" formControlName="operatorType" id="inlineFormSelectPref">
+                  <option value="">Select Operator</option>
+                  <option [value]="item.operatorType"  *ngFor="let item of operators">{{item.operatorType}}</option>
+                </select>
+              </div>
+
+              <div class="col-md-4">
+                <select class="form-select" formControlName="fieldNameGSTR2B" id="inlineFormSelectPref">
+                  <option value="">Select GSTR2B(Column)</option>
+                  <option *ngFor="let type of gstr2bColumns" [value]="type.columnName">{{type.columnName}}
+                  </option>
+                </select>
+              </div>
+              <div class="col-md-1">
+                <div class="mb-3 delete-icon" (click)="removeMatchingCodition(i)">
+                  <i class="ri-delete-bin-fill text-muted"></i>
+                </div>
+              </div>
+              <!--end col-->
+            </div>
+          </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <button type="submit" class="btn btn-primary" (click)="addMatchingConditionsFilter()">+ Add </button>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="matchingType == 'ONE_TO_MANY'" class="card-body">
+            <div class="d-flex mb-4">
+              <div class="avatar-sm">
+                <div class="avatar-title bg-light rounded">
+                  <img src="assets/images/companies/img-7.png" alt="" class="avatar-xxs companyLogo-img">
+                </div>
+              </div>
+              <div class="ms-3 flex-grow-1"> <img src="assets/images/small/img-8.jpg" alt="" class="d-none cover-img">
+                <a href="#!">
+                  <h5 class="job-title">Grouping
+                    Conditions</h5>
+                </a>
+
+              </div>
+
+
+            </div>
+            <div class="row">
+              <div class="col-lg-3">
+                <label for="websiteUrl" class="form-label"> Group By Fields</label>
+              </div>
+
+
+            </div>
+              <div class="col-md-3">
+                <select   formControlName="groupByField" class="form-select" id="inlineFormSelectPref">
+                  <option value="">Choose...</option>
+                  <option *ngFor="let type of columns" [value]="type.columnName">{{type.columnName}}
+                  </option>
+                </select>
+              </div>
+          </div>
+          <div *ngIf="matchingType == 'MANY_TO_MANY'" class="card-body">
+            <div class="d-flex mb-4">
+              <div class="avatar-sm">
+                <div class="avatar-title bg-light rounded">
+                  <img src="assets/images/companies/img-7.png" alt="" class="avatar-xxs companyLogo-img">
+                </div>
+              </div>
+              <div class="ms-3 flex-grow-1"> <img src="assets/images/small/img-8.jpg" alt="" class="d-none cover-img">
+                <a href="#!">
+                  <h5 class="job-title">Grouping
+                    Conditions</h5>
+                </a>
+
+              </div>
+
+
+            </div>
+            <div class="row">
+              <div class="col-lg-6">
+                <label for="websiteUrl" class="form-label">ITC Group By Fields</label>
+              </div>
+              <div class="col-lg-6">
+                <label for="websiteUrl" class="form-label">GSTR2B Group By Fields</label>
+              </div>
+
+            </div>
+            <div *ngFor="let item of matchingConditions; let i=index" class="row">
+
+              <div class="col-md-6">
+                <select class="form-select" formControlName="itcGroupByField" id="inlineFormSelectPref">
+                  <option value="">Choose...</option>
+                  <option *ngFor="let type of itcColums" [value]="type.columnName">{{type.columnName}}
+                  </option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <select class="form-select" formControlName="gstr2bGroupByField" id="inlineFormSelectPref">
+                  <option value="">Choose...</option>
+                  <option *ngFor="let type of gstr2bColumns" [value]="type.columnName">{{type.columnName}}
+                  </option>
+                </select>
+              </div>
+              <!--end col-->
+            </div>
+
+          </div>
+        </div>
+        <div *ngIf="type == 'SAME_SIDE_REVERSAL'" class="card joblist-card">
+          <div *ngIf="matchingType == 'ONE_TO_ONE'" class="card-body">
+            <div class="d-flex mb-4">
+              <div class="avatar-sm">
+                <div class="avatar-title bg-light rounded">
+                  <img src="assets/images/companies/img-7.png" alt="" class="avatar-xxs companyLogo-img">
+                </div>
+              </div>
+              <div class="ms-3 flex-grow-1"> <img src="assets/images/small/img-8.jpg" alt="" class="d-none cover-img">
+                <a href="#!">
+                  <h5 class="job-title">Matching
+                    Conditions</h5>
+                </a>
+
+              </div>
+
+
+            </div>
+            <div class="row">
+              <div class="col-lg-3">
+                <label for="websiteUrl" class="form-label madatroy"> {{fileType}} (Column)</label>
+              </div>
+              <div class="col-lg-4">
+                <label for="websiteUrl" class="form-label madatroy ">  Operator</label>
+              </div>
+              <div class="col-lg-3">
+                <label for="websiteUrl" class="form-label madatroy"> {{fileType}} (Column)</label>
+              </div>
+
+            </div>
+            <div formArrayName="listOfSameSideRevesalFilter">
+            <div *ngFor="let item of listOfSameSideRevesalFilter.controls; let i = index" [formGroupName]="i" class="row">
+
+              <div *ngIf="fileType=='ITC'" class="col-md-3">
+                <select class="form-select" formControlName="leftField" id="inlineFormSelectPref">
+                  <option value="">Select ITC(Column)</option>
+                  <option *ngFor="let type of itcColums" [value]="type.columnName">{{type.columnName}}
+                  </option>
+                </select>
+              </div>
+              <div *ngIf="fileType=='GSTR2B'" class="col-md-3">
+                <select class="form-select" formControlName="leftField" id="inlineFormSelectPref">
+                  <option value="">Select GSTR2B(Column)</option>
+                  <option *ngFor="let type of gstr2bColumns" [value]="type.columnName">{{type.columnName}}
+                  </option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <select class="form-select" formControlName="operatorType" id="inlineFormSelectPref">
+                  <option value="">Select Operator</option>
+                  <option [value]="item.operatorType"  *ngFor="let item of operators">{{item.operatorType}}</option>
+                </select>
+              </div>
+
+              <div class="col-md-4">
+                <select *ngIf="fileType=='ITC'" class="form-select" formControlName="rightField" id="inlineFormSelectPref">
+                  <option value="">Select ITC(Column)</option>
+                  <option *ngFor="let type of itcColums" [value]="type.columnName">{{type.columnName}}
+                  </option>
+                </select>
+                <select *ngIf="fileType=='GSTR2B'" class="form-select" formControlName="rightField" id="inlineFormSelectPref">
+                  <option value="">Select GSTR2B(Column)</option>
+                  <option *ngFor="let type of gstr2bColumns" [value]="type.columnName">{{type.columnName}}
+                  </option>
+                </select>
+              </div>
+              <div class="col-md-1">
+                <div class="mb-3 delete-icon" (click)="removeSameSideReversal(i)">
+                  <i class="ri-delete-bin-fill text-muted"></i>
+                </div>
+              </div>
+              <!--end col-->
+            </div>
+          </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <button type="submit" class="btn btn-primary" (click)="addSameSideReversal()">+ Add </button>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="matchingType == 'ONE_TO_MANY'" class="card-body">
+            <div class="d-flex mb-4">
+              <div class="avatar-sm">
+                <div class="avatar-title bg-light rounded">
+                  <img src="assets/images/companies/img-7.png" alt="" class="avatar-xxs companyLogo-img">
+                </div>
+              </div>
+              <div class="ms-3 flex-grow-1"> <img src="assets/images/small/img-8.jpg" alt="" class="d-none cover-img">
+                <a href="#!">
+                  <h5 class="job-title">Grouping
+                    Conditions</h5>
+                </a>
+
+              </div>
+
+
+            </div>
+            <div class="row">
+              <div class="col-lg-3">
+                <label for="websiteUrl" class="form-label"> Group By Fields</label>
+              </div>
+
+
+            </div>
+              <div class="col-md-3">
+                <select   formControlName="groupByField" class="form-select" id="inlineFormSelectPref">
+                  <option value="">Choose...</option>
+                  <option *ngFor="let type of columns" [value]="type.columnName">{{type.columnName}}
+                  </option>
+                </select>
+              </div>
+          </div>
+          <div *ngIf="matchingType == 'MANY_TO_MANY'" class="card-body">
+            <div class="d-flex mb-4">
+              <div class="avatar-sm">
+                <div class="avatar-title bg-light rounded">
+                  <img src="assets/images/companies/img-7.png" alt="" class="avatar-xxs companyLogo-img">
+                </div>
+              </div>
+              <div class="ms-3 flex-grow-1"> <img src="assets/images/small/img-8.jpg" alt="" class="d-none cover-img">
+                <a href="#!">
+                  <h5 class="job-title">Grouping
+                    Conditions</h5>
+                </a>
+
+              </div>
+
+
+            </div>
+            <div class="row">
+              <div class="col-lg-6">
+                <label for="websiteUrl" class="form-label">ITC Group By Fields</label>
+              </div>
+              <div class="col-lg-6">
+                <label for="websiteUrl" class="form-label">GSTR2B Group By Fields</label>
+              </div>
+
+            </div>
+            <div *ngFor="let item of matchingConditions; let i=index" class="row">
+
+              <div class="col-md-6">
+                <select class="form-select" formControlName="itcGroupByField" id="inlineFormSelectPref">
+                  <option value="">Choose...</option>
+                  <option *ngFor="let type of itcColums" [value]="type.columnName">{{type.columnName}}
+                  </option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <select class="form-select" formControlName="gstr2bGroupByField" id="inlineFormSelectPref">
+                  <option value="">Choose...</option>
+                  <option *ngFor="let type of gstr2bColumns" [value]="type.columnName">{{type.columnName}}
+                  </option>
+                </select>
+              </div>
+              <!--end col-->
+            </div>
+
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 text-right">
+            <button type="button" class="btn btn-danger" (click)="navigate()">Cancel</button>
+            <button type="submit" class="btn btn-primary" style="margin-left: 5px;" 
+              (click)="addNewRule()">{{editMode ? 'Edit ' : 'Save' }}</button>
+
+          </div>
+        </div>
+      </form>
+      <!--end col-->
+    </div>
+  </div>
+
+</div>

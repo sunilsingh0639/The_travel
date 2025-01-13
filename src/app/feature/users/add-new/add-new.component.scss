@@ -1,0 +1,30 @@
+.card{
+    padding: 1rem;
+}
+.text-right{
+    text-align: right;
+}
+// input.ng-invalid.ng-touched {
+//   border: red 1px solid;
+// }
+
+// input.ng-valid.ng-touched {
+//   border: green 1px solid;
+// }
+.madatroy::after {
+    content: "*";
+    color: red;
+    margin-left: 5px;
+  }
+  .fontsize{
+    font-size: smaller;
+    padding:5px ;
+  }
+.active{
+  color: green;
+  font-size: 20px;
+}
+.inactive{
+  color: red;
+  font-size: 20px;
+}

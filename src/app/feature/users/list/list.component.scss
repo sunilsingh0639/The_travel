@@ -1,0 +1,18 @@
+.page-layout-header{
+    align-items: center;
+    background-color: 99, 102, 241;;
+    box-sizing: content-box!important;
+    display: flex;
+    flex-direction: row;
+    height: calc(var(--page-layout-header-height) - var(--page-layout-toolbar-height));
+    padding-left: var(--padding);
+    padding-right: var(--padding);
+    place-content: center flex-start;
+}
+.filter-row{
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    background-color: #ebebee;
+    height: 4rem;
+    position: sticky;
+}

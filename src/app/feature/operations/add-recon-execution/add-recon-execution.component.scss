@@ -1,0 +1,11 @@
+.card{
+    padding: 1rem;
+}
+.text-right{
+    text-align: right;
+}
+.madatroy::after {
+    content: "*";
+    color: red;
+    margin-left: 5px;
+  }

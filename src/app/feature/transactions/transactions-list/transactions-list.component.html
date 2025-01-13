@@ -1,0 +1,552 @@
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- start page title -->
+            <div class="row" style="width:100%">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0">Transactions</h4>
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <li class="breadcrumb-item"><a href="javascript: void(0);">Transactions</a></li>
+
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+            <div class="row" style="width:100%">
+                <div class="col-2 card card-body">
+                    <div data-simplebar="init">
+                        <div class="">
+                            <ul class="to-do-menu list-unstyled" id="projectlist-data">
+                                <li>
+                                    <a data-bs-toggle="pill" href="#velzonAdmin" (click)="selectedTab='all';filter();listOfReconMatchingVoITC = [];listOfReconMatchingVoGSTR=[]"
+                                        [ngClass]="{'active' : selectedTab=='all'}" class="nav-link fs-14"
+                                        aria-expanded="false">All</a>
+                                    <div class="collapse" id="velzonAdmin">
+
+                                    </div>
+                                </li>
+                                <li>
+                                    <a data-bs-toggle="pill" href="#velzonAdmin"
+                                        (click)="selectedTab='Reconciled';filter();listOfReconMatchingVoITC = [];listOfReconMatchingVoGSTR=[]"
+                                        [ngClass]="{'active' : selectedTab=='Reconciled'}" class="nav-link fs-14"
+                                        aria-expanded="false">Reconciled</a>
+                                    <div class="collapse" id="velzonAdmin">
+
+                                    </div>
+                                </li>
+                                <li>
+                                    <a (click)="selectedTab='unReconciled';filter();listOfReconMatchingVoITC = [];listOfReconMatchingVoGSTR=[]" data-bs-toggle="pill"
+                                        [ngClass]="{'active' : selectedTab=='unReconciled'}" href="#projectManagement"
+                                        class="nav-link fs-14" aria-expanded="true">Unreconciled</a>
+                                    <div class="collapse show" id="projectManagement">
+
+                                    </div>
+                                </li>
+                                <li>
+                                    <a data-bs-toggle="pill" (click)="selectedTab='Knocked';filter();listOfReconMatchingVoITC = [];listOfReconMatchingVoGSTR=[]"
+                                        [ngClass]="{'active' : selectedTab=='Knocked'}" href="#skoteAdmin"
+                                        class="nav-link fs-14">Knocked Off</a>
+
+                                </li>
+                                <li>
+                                    <a data-bs-toggle="pill" (click)="selectedTab='Duplicate';filter();listOfReconMatchingVoITC = [];listOfReconMatchingVoGSTR=[]"
+                                        [ngClass]="{'active' : selectedTab=='Duplicate'}" href="#ecommerceProject"
+                                        class="nav-link fs-14" aria-expanded="true">Duplicate</a>
+
+                                </li>
+
+                                <li>
+                                    <a data-bs-toggle="pill" (click)="selectedTab='IncorrectData';filter();listOfReconMatchingVoITC = [];listOfReconMatchingVoGSTR=[]"
+                                        [ngClass]="{'active' : selectedTab=='IncorrectData'}" href="#ecommerceProject"
+                                        class="nav-link fs-14" aria-expanded="true">Incorrect Data</a>
+                                </li>
+                            </ul>
+                            <!-- <div class="simplebar-placeholder" style="width: auto; height: 460px;"></div> -->
+                        </div>
+                        <div class="simplebar-track simplebar-horizontal" style="visibility: hidden;">
+                            <div class="simplebar-scrollbar" style="width: 0px; display: none;"></div>
+                        </div>
+                        <div class="simplebar-track simplebar-vertical" style="visibility: visible;">
+                            <div class="simplebar-scrollbar"
+                                style="height: 25px; transform: translate3d(0px, 0px, 0px); display: block;"></div>
+                        </div>
+                    </div>
+
+                    <!-- 
+                    <div class="mt-auto text-center">
+                        <img src="assets/images/task.png" alt="Task" class="img-fluid">
+                    </div> -->
+                </div>
+                <!--end side content-->
+                <div class="col-lg-10 card card-body">
+                    <div class="">
+                        <div class="row">
+                            <div class="col-4 order-1">
+
+                                <button *ngIf="selectedTab=='Reconciled'" type="button" class="btn btn-primary"
+                                    data-bs-toggle="dropdown" aria-haspopup="true" (click)="transistionUnMatch()"
+                                    aria-expanded="false">
+                                    <span>UnMatch</span>
+
+                                </button>
+                                <button *ngIf="selectedTab=='unReconciled'" type="button" class="btn btn-primary"
+                                    (click)="reconMatching()">
+                                    <span>Match</span>
+                                </button>
+                                <button *ngIf="(selectedTab=='unReconciled' || selectedTab=='Reconciled') && listOfReconMatchingVoITC.length>0"
+                                    type="button" class="btn btn-primary" (click)="openDialog()"
+                                    style="margin-left: 5px;">
+                                    <span>Review </span> <span
+                                        class="badge rounded-pill bg-success">{{listOfReconMatchingVoITC.length}}</span>
+                                </button>
+                                <button
+                                    *ngIf="selectedTab=='Knocked' || selectedTab =='Duplicate'|| selectedTab =='IncorrectData'"
+                                    type="button" class="btn btn-primary" [disabled]="(listOfReconMatchingVoITC.length == 0 && selectedType=='ITC') || (selectedType == 'GSTR' && listOfReconMatchingVoGSTR.length == 0)" data-bs-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false" data-bs-toggle="modal" data-bs-target="#myModal">
+                                    <span>Discard</span>
+
+                                </button>
+                                <button type="button"
+                                    *ngIf="(selectedTab =='Duplicate' || selectedTab=='Knocked'|| selectedTab =='IncorrectData') && (selectedType == 'ITC') "
+                                    class="btn btn-primary" data-bs-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false" style="margin-left: 5px;" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModalScrollable">
+                                    Edit
+                                </button>
+
+                                <button type="button"
+                                    *ngIf="(selectedTab =='Duplicate' || selectedTab=='Knocked'|| selectedTab =='IncorrectData') && (selectedType == 'GSTR') "
+                                    class="btn btn-primary" data-bs-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false" style="margin-left: 5px;" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModalScrollables">
+                                    Edit
+                                </button>
+                                <button type="button" (click)="exportTransaction()" class="btn btn-primary"
+                                    style="margin-left: 5px;">Export
+                                </button>
+                            </div>
+                            <div class="col-5 order-2">
+                                <form [formGroup]="filterForm">
+                                    <div class="row">
+                                        <div class="col">
+                                            <input readonly formControlName="startDate" [max]="today" matInput
+                                                [matDatepicker]="datepicker" (dateChange)="filter()" (click)="datepicker.open()"
+                                                placeholder="Start date"
+                                                class="form-control search bg-light border-light">
+                                            <!-- <mat-datepicker-toggle matIconSuffix
+                                                [for]="datepicker"></mat-datepicker-toggle> -->
+                                            <mat-datepicker #datepicker>
+
+                                            </mat-datepicker>
+                                        </div>
+                                        <div class="col">
+                                            <input readonly formControlName="endDate" matInput [matDatepicker]="picker"
+                                                (click)="picker.open()" (dateChange)="filter()"
+                                                [min]="filterForm.value.startDate" [max]="today" placeholder="End date"
+                                                class="form-control search bg-light border-light">
+
+                                            <!-- <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle> -->
+
+                                            <mat-datepicker #picker>
+
+                                            </mat-datepicker>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div>
+
+                            <div class="col-1 order-3" [formGroup]="reconForm">
+                                <div class="btn-group">
+                                    <!-- <label>Client</label> -->
+                                    <!-- <div class="dropdown">                                                                                 
+                                        <label>Client</label>
+                                        <select formControlName="clientId" name="clientId" class="form-control select2 dropbtn">
+                                            <option>Select Client</option>
+                                           <option (click)="filterRecon(client.id)" *ngFor="let client of allClients" [value]="client.id">
+                                            {{client.clientName}}
+                                        </option>
+                                        </select>
+                                        </div>
+                                        <div class="dropdown">                                                                                 
+                                            <label>Recon</label>
+                                            <select formControlName="reconId" name="recon" class="form-control select2 dropbtn">
+                                                <option>Select Recon</option>
+                                               <option *ngFor="let recon of allRecons" value="{{recon.id}}">
+                                                {{recon.clientName}}
+                                            </option>
+                                            </select>
+                                            </div> -->
+                                    <div *ngIf="hideClient ==false" class="btn-group" role="group"
+                                        aria-label="Basic example">
+
+                                        <button type="button" class="btn btn-primary dropdown-toggle"
+                                            data-bs-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">Client</button>
+                                        <div class="dropdown-menu">
+                                            <input type="text" class="search" #selectedOption placeholder="Search...">
+
+                                            <select class="form-select" id="inlineFormSelectPref"
+                                                formControlName="clientId">
+                                                <option value="" selected>Select Client</option>
+                                                <option
+                                                    *ngFor="let client of allClients  | filter: selectedOption.value "
+                                                    value="{{client.id}}">
+                                                    {{client.clientName}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-primary dropdown-toggle"
+                                            data-bs-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">Recon</button>
+                                        <div class="dropdown-menu">
+                                            <input type="text" class="search" #selectedOption placeholder="Search...">
+                                            <select class="form-select" id="inlineFormSelectPref"
+                                                formControlName="reconId">
+                                                <option (click)="filter()" *ngFor="let recon of allRecons"
+                                                    value="{{recon.id}}">
+                                                    {{recon.name}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <!-- </div> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs nav-tabs-custom nav-primary nav-justified row" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link active" (click)="selectedType='ITC';filter()" data-bs-toggle="tab"
+                                    href="#nav-border-justified-home" role="tab" aria-selected="true">
+                                    <i class="rounded-circle"></i> ITC
+                                </a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link" data-bs-toggle="tab" (click)="selectedType='GSTR';filter()"
+                                    href="#nav-border-justified-profile" role="tab" aria-selected="false" tabindex="-1">
+                                    GSTR2B
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content text-muted">
+                            <div class="tab-pane active show" id="nav-border-justified-home" role="tabpanel">
+                                <div class="todo-task" id="todo-task">
+                                    <form [formGroup]="filterForm">
+                                        <div class="row mb-3">
+                                            <div class="col-3">
+                                                <div class="search-box">
+                                                    <input type="text" (blur)="filter()" formControlName="gstin"
+                                                        class="form-control search bg-light border-light"
+                                                        placeholder="GSTIN">
+
+                                                </div>
+                                            </div>
+                                            <!--end col-->
+                                            <div class="col-3">
+                                                <div class="search-box">
+                                                    <input type="text" (blur)="filter()" formControlName="supplierName"
+                                                        class="form-control search bg-light border-light"
+                                                        placeholder="Supplier Name">
+
+                                                </div>
+                                            </div>
+                                            <div class="col-3">
+                                                <div class="search-box">
+                                                    <input type="text" (blur)="filter()" formControlName="amount"
+                                                        appNumberOnly class="form-control search bg-light border-light"
+                                                        placeholder="From Amount">
+
+                                                </div>
+                                            </div>
+                                            <div class="col-3">
+                                                <div class="search-box">
+                                                    <input type="text" (blur)="filter()" formControlName="amountTo"
+                                                        appNumberOnly class="form-control search bg-light border-light"
+                                                        placeholder="To Amount">
+
+                                                </div>
+                                            </div>
+                                            <!--end col-->
+                                            <div class="col-3">
+                                                <div class="search-box">
+                                                    <input type="text" (blur)="filter()" formControlName="invoiceNumber"
+                                                         class="form-control search bg-light border-light"
+                                                        placeholder="Invoice Number">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <!-- ITC Table Datalist -->
+
+                                    <div class="row mb-3">
+                                        <div class="table-responsive">
+                                            <table class="table align-middle table-nowrap mb-0">
+                                                <thead class="table-active">
+
+                                                    <tr>
+                                                        <th scope="col">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input"
+                                                                    [checked]="isAllSelectedITC"
+                                                                    (click)="selectAllITC()" type="checkbox"
+                                                                    id="checkAll" value="option">
+                                                            </div>
+                                                        </th>
+                                                        <th scope="col">GSTIN of Supplier</th>
+                                                        <th scope="col">Trade/Legal Name</th>
+                                                        <th scope="col">Invoice Number</th>
+                                                        <th scope="col">Invoice Type</th>
+                                                        <th scope="col">Invoice Date</th>
+                                                        <th scope="col">Invoice Value(₹)</th>
+                                                        <th scope="col">Place of Supply</th>
+                                                        <th scope="col">Rate(%)</th>
+                                                        <th scope="col">Taxable Value (₹)</th>
+                                                        <th scope="col">Integrated Tax(₹)</th>
+                                                        <th scope="col">Central Tax(₹)</th>
+                                                        <th scope="col">State/UT Tax(₹)</th>
+
+                                                      
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody id="task-list">
+                                                    <tr
+                                                        *ngFor="let users of itcDataList | slice : (pageNumber-1)*10 : pageNumber*10;let i=index">
+                                                        <th scope="col">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                    [checked]="isSelected(users)"
+                                                                    (click)="selectRowITC(users)">
+                                                            </div>
+                                                        </th>
+                                                        <td>{{ users.gstinOfSupplier }}</td>
+                                                        <td>{{ users.legalName }}</td>
+                                                        <td>{{ users.invoiceNumber }}</td>
+                                                        <td>{{ users.invoiceType}}</td>
+                                                        <td>{{ users.invoiceDate }}</td>
+                                                        <td>{{ users.invoiceValue }}</td>
+                                                        <td>{{ users.placeOfSupply}}</td>
+                                                        <td>{{ users.rate }}</td>
+                                                        <td>{{ users.taxableValue }}</td>
+                                                        <td>{{ users.integratedTax }}</td>
+                                                        <td>{{ users.centralTax }}</td>
+                                                        <td>{{ users.stateTax }}</td>
+
+
+                                                    </tr>
+
+                                                </tbody>
+                                            </table>
+                                            <div *ngIf="itcDataList.length==0" class="py-4 mt-4 text-center"
+                                                id="noresult">
+                                                <h5 class="mt-4">Sorry! No Result Found</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex justify-content-end mt-3">
+                                    <div class="pagination-wrap hstack gap-2" style="display: flex;">
+                                        <button class="page-item pagination-prev" [disabled]="pageNumber==1"
+                                            [ngClass]="{'disabled' : pageNumber == 1}"
+                                            (click)="pageNumber=pageNumber-1">
+                                            Previous
+                                        </button>
+                                        <ul class="pagination listjs-pagination mb-0">
+                                            <li [ngClass]="{'active': page === pageNumber}"
+                                                *ngFor="let page of itcPages | slice : startFrom : end">
+                                                <a class="page" (click)="pageNumber=page" data-i="1"
+                                                    data-page="8">{{page}}</a>
+                                            </li>
+                                        </ul>
+                                        <button class="page-item pagination-next"
+                                            [disabled]="pageNumber==itcPages[pages.length - 1]"
+                                            (click)="pageNumber=pageNumber+1">
+                                            Next
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="nav-border-justified-profile" role="tabpanel">
+                                <div class="todo-task" id="todo-task" style="display: block;">
+                                    <form [formGroup]="filterForm">
+                                        <div class="row mb-3">
+                                            <div class="col-3">
+                                                <div class="search-box">
+                                                    <input type="text" (blur)="filter()" formControlName="gstin"
+                                                        class="form-control search bg-light border-light"
+                                                        placeholder="GSTIN">
+
+                                                </div>
+                                            </div>
+                                            <!--end col-->
+                                            <div class="col-3">
+                                                <div class="search-box">
+                                                    <input type="text" (blur)="filter()" formControlName="supplierName"
+                                                        class="form-control search bg-light border-light"
+                                                        placeholder="Supplier Name">
+
+                                                </div>
+                                            </div>
+                                            <div class="col-3">
+                                                <div class="search-box">
+                                                    <input type="text" (blur)="filter()" formControlName="amount"
+                                                        appNumberOnly class="form-control search bg-light border-light"
+                                                        placeholder="From Amount">
+
+                                                </div>
+                                            </div>
+                                            <div class="col-3">
+                                                <div class="search-box">
+                                                    <input type="text" (blur)="filter()" formControlName="amountTo"
+                                                        appNumberOnly class="form-control search bg-light border-light"
+                                                        placeholder="To Amount">
+
+                                                </div>
+                                            </div>
+
+
+                                            <!--end col-->
+                                            <div class="col-3">
+                                                <div class="search-box">
+                                                    <input type="text" (blur)="filter()" formControlName="invoiceNumber"
+                                                        appNumberOnly class="form-control search bg-light border-light"
+                                                        placeholder="Invoice Number">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                    <!-- GSTR Transactiondata list -->
+
+
+                                    <div class="row mb-3">
+                                        <div class="table-responsive">
+                                            <table class="table align-middle position-relative table-nowrap">
+                                                <thead class="table-active">
+                                                    <tr>
+                                                        <th scope="col" style="width: 50px;">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input"
+                                                                    [checked]="isAllSelectedGSTR" type="checkbox"
+                                                                    (click)="selectAllGSTR()" id="checkAll"
+                                                                    value="option">
+                                                            </div>
+                                                        </th>
+                                                        <th scope="col">GSTIN of supplier</th>
+                                                        <th scope="col">Trade/Legal name</th>
+                                                        <th scope="col">Invoice number</th>
+                                                        <th scope="col">Invoice type</th>
+                                                        <th scope="col">Invoice Date</th>
+                                                        <th scope="col">Invoice Value(₹)</th>
+                                                        <th scope="col">Place of supply</th>
+                                                        <td scope="col">Supply Attract Reverse Charge</td>
+                                                        <th scope="col">Rate(%)</th>
+                                                        <th scope="col">Taxable Value (₹)</th>
+                                                        <th scope="col">Integrated Tax(₹)</th>
+                                                        <th scope="col">Central Tax(₹)</th>
+                                                        <th scope="col">State/UT Tax(₹)</th>
+                                                        <th scope="col">Cess(₹)</th>
+                                                        <th scope="col">GSTR-1/IFF/GSTR-5 Period</th>
+                                                        <th scope="col">GSTR-1/IFF/GSTR-5 Filing Date</th>
+                                                        <th scope="col">ITC Availability</th>
+                                                        <th scope="col">Reason</th>
+                                                        <th scope="col">Applicable % of Tax Rate</th>
+                                                        <th scope="col">Source</th>
+                                                        <th scope="col">IRN</th>
+                                                        <th scope="col">IRN Date</th>
+                                                      
+
+                                                        
+
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody id="task-list">
+                                                    <tr
+                                                        *ngFor="let users of gstrDataList | slice : (pageNumber-1)*10 : pageNumber*10;let i=index">
+                                                        <th scope="col" style="width: 50px;">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                    [checked]="isSelectedGSTR(users)"
+                                                                    (click)="selectRowGSTR(users)">
+                                                            </div>
+                                                        </th>
+                                                        <td>{{users.gstinOfSupplier }}</td>
+                                                        <td>{{ users.legalName }}</td>
+                                                        <td>{{ users.invoiceNumber }}</td>
+                                                        <td>{{ users.invoiceType }}</td>
+                                                        <td>{{ users.invoiceDate }}</td>
+                                                        <td>{{ users.invoiceValue }}</td>
+                                                        <td>{{ users.placeOfSupply }}</td>
+                                                        <td>{{ users.reverseCharge }}</td>
+                                                        <td>{{ users.rate }}</td>
+                                                        <td>{{ users.taxableValue }}</td>
+                                                        <td>{{ users.integratedTax }}</td>
+                                                        <td>{{ users.centralTax }}</td>
+                                                        <td>{{ users.stateTax }}</td>
+                                                        <td>{{ users.cess }}</td>
+                                                        <td>{{ users.period }}</td>
+                                                        <td>{{ users.fillingDate }}</td>
+                                                        <td>{{ users.itcAvailability }}</td>
+                                                        <td>{{ users.reason }}</td>
+                                                        <td>{{ users.applicableTax }}</td>
+                                                        <td>{{ users.source }}</td>
+                                                        <td>{{ users.irn }}</td>
+                                                        <td>{{ users.irnDate }}</td>
+                                                      
+
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <div *ngIf="gstrDataList.length==0" class="py-4 mt-4 text-center"
+                                                id="noresult">
+                                                <h5 class="mt-4">Sorry! No Result Found</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div *ngIf="pages.length > 0" class="d-flex justify-content-end mt-3">
+                                    <div class="pagination-wrap hstack gap-2" style="display: flex;">
+                                        <button class="page-item pagination-prev" [disabled]="pageNumber==1"
+                                            [ngClass]="{'disabled' : pageNumber == 1}"
+                                            (click)="pageNumber=pageNumber-1">
+                                            Previous
+                                        </button>
+                                        <ul class="pagination listjs-pagination mb-0">
+                                            <li [ngClass]="{'active': page === pageNumber}"
+                                                *ngFor="let page of pages | slice : startFrom : end">
+                                                <a class="page" (click)="pageNumber=page" data-i="1"
+                                                    data-page="8">{{page}}</a>
+                                            </li>
+                                        </ul>
+                                        <button class="page-item pagination-next"
+                                            [disabled]="pageNumber==pages[pages.length - 1]"
+                                            (click)="pageNumber=pageNumber+1">
+                                            Next
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- end card-body -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-dialog-box [listOfReconMatchingVoGSTR2B]="listOfReconMatchingVoGSTR" (discard)="discard($event)" (updateGstr2BData)="updateGstr2BData($event)" [listOfReconMatchingVoITC]="listOfReconMatchingVoITC" (updateItcData)="updateItcData($event)"></app-dialog-box>

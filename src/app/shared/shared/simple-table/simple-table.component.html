@@ -1,0 +1,85 @@
+    <div class="card">
+        <div class="card-header align-items-center d-flex">
+            <h4 class="card-title mb-0 flex-grow-1"><small> {{title}}</small></h4>
+            <div *ngIf="sortBy" class="flex-shrink-0">
+                <div class="dropdown card-header-dropdown">
+                    <a class="text-reset dropdown-btn"  data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="fw-semibold text-uppercase fs-12">Sort by:
+                        </span><span class="text-muted">Today<i class="mdi mdi-chevron-down ms-1"></i></span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end">
+                        <a class="dropdown-item" >Today</a>
+                        <a class="dropdown-item" >Yesterday</a>
+                        <a class="dropdown-item" >Last 7 Days</a>
+                        <a class="dropdown-item" >Last 30 Days</a>
+                        <a class="dropdown-item" >This Month</a>
+                        <a class="dropdown-item" >Last Month</a>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="reportBy" class="flex-shrink-0">
+                <div class="dropdown card-header-dropdown">
+                    <a class="text-reset dropdown-btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="text-muted">Report<i class="mdi mdi-chevron-down ms-1"></i></span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end">
+                        <a class="dropdown-item">Download Report</a>
+                        <a class="dropdown-item">Export</a>
+                        <a class="dropdown-item">Import</a>
+                    </div>
+                </div>
+            </div>
+        </div><!-- end card header -->
+
+        <div class="card-body">
+            <div class="table-responsive table-card">
+                <table class="table table-hover table-centered align-middle table-nowrap mb-0">
+                    <thead class="text-muted table-light">
+                        <tr>
+                            <th *ngFor="let header of headers" scope="col">{{header.label}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of dataList">
+                         
+                            <td *ngFor="let header of headers">
+                                <div class="d-flex align-items-center">
+                                    <div *ngIf="header.type == 'image'" class="flex-shrink-0 me-2">
+                                        <img src="assets/images/users/avatar-1.jpg" alt="" class="avatar-xs rounded-circle shadow">
+                                    </div>
+                                    <div class="flex-grow-1">{{data[header.key] }}</div>
+                                </div>
+                            </td>
+                           
+                        </tr><!-- end tr -->
+                        <tr class="text-center" *ngIf="dataList?.length == 0">
+                           <td [colSpan]="headers.length"> No Results Found</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div  *ngIf="dataList && dataList.length > 0" class="align-items-center mt-4 pt-2 justify-content-between row text-center text-sm-start">
+                <div class="col-sm">
+                    <div class="text-muted">
+                        Showing <span class="fw-semibold">{{dataList.length}}</span> of <span class="fw-semibold">{{dataList.length}}</span> Results
+                    </div>
+                </div>
+                <div  class="col-sm-auto  mt-3 mt-sm-0">
+                    <ul class="pagination pagination-separated pagination-sm mb-0 justify-content-center">
+                        <li class="page-item"   [ngClass]="{'disabled' : pageNumber == 1}">
+                            <button [disabled]="pageNumber==1" (click)="pageNumber=pageNumber-1" class="page-link">←</button>
+                        </li>
+                        <li  class="page-item" [ngClass]="{'active': page === pageNumber}"
+                              *ngFor="let page of pages | slice : startFrom : end">
+                              <a class="page-link" (click)="pageNumber=page" data-i="1" data-page="5">{{page}}</a>
+                        </li>
+                        <li class="page-item">
+                            <button [disabled]="pageNumber==pages[pages.length - 1]" (click)="pageNumber=pageNumber+1" class="page-link">→</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>

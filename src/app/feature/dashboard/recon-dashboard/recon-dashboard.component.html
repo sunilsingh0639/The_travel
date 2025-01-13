@@ -1,0 +1,384 @@
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <div class="h-100">
+                    <div class="row mb-3 pb-1">
+                        <div class="col-12">
+                            <div class="d-flex align-items-lg-center flex-lg-row flex-column">
+                                <div class="flex-grow-1">
+                                    <h4 class="fs-16 mb-1"> SUPPLIERS RECON DASHBOARD</h4>
+                                </div>
+                                <div class="mt-3 mt-lg-0">
+                                    <form [formGroup]="searchForm">
+                                        <div class="row g-3 mb-0 align-items-center">
+                                            <!--end col-->
+                                            <div class="col-auto">
+                                                <!-- Dropdown Variant -->
+                                                <select style="width:110px;" class=" btn btn-primary "
+                                                    formControlName="month" aria-label="Default select example">
+                                                    <option value="">Month</option>
+                                                    <option *ngFor="let item of months " value="{{item.date}}">
+                                                        {{item.name}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <!--end col-->
+                                            <div *ngIf="hideClient==false" class="col-auto">
+
+                                                <!-- Dropdown Variant -->
+                                                <select style="width:110px;" class=" btn btn-primary "
+                                                (change)="findrecon()"
+                                                    formControlName="client" aria-label="Default select example">
+                                                    <option value="">Client</option>
+                                                    <option *ngFor="let item of allClient "
+                                                        value="{{item.id}}">
+                                                        {{item.clientName}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <!--end col-->
+                                            <div class="col-auto">
+                                                <!-- Dropdown Variant -->
+
+
+                                                <select style="width:110px; color:white; " class=" btn btn-primary "
+                                                    (change)="modo()" formControlName="recon"
+                                                    aria-label="Default select example">
+                                                    <option value="">Recon</option>
+                                                    <option *ngFor="let item of filterRecon " value="{{item.id}}">
+                                                        {{item.name}}
+                                                    </option>
+                                                </select>
+
+
+
+                                            </div>
+                                            <!--end col-->
+                                        </div>
+                                        <!--end row-->
+                                    </form>
+                                </div>
+                            </div><!-- end card header -->
+                        </div>
+                        <!--end col-->
+                    </div>
+                    <!--end row-->
+                    <!--end row-->
+                    <div class="row">
+                        <div class=" col-xl-3">
+                            <!-- card -->
+                            <div class="card card-animate">
+                                <div style="height:100px ;" class="card-body text-center">
+                                    <!-- <p class=" badge bg-primary  fs-5"><b> ITC</b></p> -->
+                                    <p class=" badge bg-primary  text-uppercase  text-truncate  "> Total Suppliers
+                                    </p>
+                                    <div class="text-center fs-18" *ngFor="let totalsuppliers of totalCount">
+                                        {{totalsuppliers.count}}</div>
+
+                                </div><!-- end card body -->
+                            </div><!-- end card -->
+                        </div><!-- end col -->
+                        <div class=" col-xl-3">
+                            <!-- card -->
+                            <div class="card card-animate">
+                                <div style="height:100px ;" class="card-body text-center">
+                                    <!-- <p class=" badge bg-primary   fs-5"><b> GSTR2B</b></p> -->
+                                    <p class=" badge bg-primary  text-uppercase  text-truncate "> SUPPLIERS with No
+                                        mismatch
+                                    </p>
+                                    <div class="text-center fs-18">0</div>
+                                </div><!-- end card body -->
+                            </div><!-- end card -->
+                        </div><!-- end col -->
+                        <div class=" col-xl-3">
+                            <!-- card -->
+                            <!-- card -->
+                            <div class="card card-animate">
+                                <div style="height:100px ;" class="card-body text-center">
+                                    <!-- <p class=" badge bg-primary  fs-5"><b> ITC</b> </p> -->
+                                    <p class=" badge bg-danger  text-uppercase  text-truncate "> supplierS with mismatch
+                                    </p>
+                                    <div class="text-center text-danger fs-18"
+                                       >
+                                       {{totalInvoiceMiss}}</div>
+                                </div><!-- end card body -->
+                            </div><!-- end card -->
+                        </div><!-- end col -->
+                        <div class=" col-xl-3">
+                            <!-- card -->
+                            <div class="card card-animate">
+                                <div style="height:100px ;" class="card-body text-center">
+                                    <!-- <p class="badge bg-primary  fs-5"><b>GSTR2B</b> </p> -->
+                                    <p class=" badge bg-danger  text-uppercase  text-truncate "> total mismatch
+                                        Invoices:
+
+
+                                    </p>
+                                    <div class="text-center text-danger fs-18"
+                                       >
+                                        {{totalAmountMiss}}</div>
+                                </div><!-- end card body -->
+                            </div><!-- end card -->
+                        </div><!-- end col -->
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="card card-height-100">
+                                <div class="card-header align-items-center d-flex">
+                                    <h4 class="card-title mb-0 flex-grow-1"> Suppliers with invoices mismatch
+                                    </h4>
+                                    <div class="flex-shrink-0">
+                                        <div class="dropdown card-header-dropdown">
+                                            <a class="text-reset dropdown-btn" data-bs-toggle="dropdown"
+                                                aria-haspopup="true" aria-expanded="false">
+                                                <span class="text-muted">Report<i
+                                                        class="mdi mdi-chevron-down ms-1"></i></span>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-end">
+                                                <a class="dropdown-item">Download Report</a>
+                                                <a class="dropdown-item">Export</a>
+                                                <a class="dropdown-item">Import</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><!-- end card header -->
+                                <div class="card-body">
+                                    <div class="table-responsive table-card">
+                                        <table class="table table-hover table-centered align-middle table-nowrap mb-0">
+                                            <thead class="text-black text-center table-light">
+                                                <tr>
+                                                    <th colspan="1" scope="col">Supplier</th>
+                                                    <th class="theade" colspan="2" scope="col">GSTR2B </th>
+                                                    <th class="theade" colspan="2" scope="col">ITC</th>
+                                                    <th class="theade" colspan="2" scope="col">Difference</th>
+
+                                                </tr>
+                                            </thead>
+                                            <thead class="text-muted table-light">
+                                                <tr>
+                                                    <th scope="col"> </th>
+                                                    <th class="theade " scope="col">Amount( &#8377;)</th>
+                                                    <th scope="col  "> Tax( &#8377;)</th>
+
+                                                    <th class="theade  " scope="col">Amount( &#8377;)</th>
+                                                    <th scope="col  "> Tax</th>
+                                                    <th class="theade  " scope="col">Amount( &#8377;)</th>
+                                                    <th scope="col  ">Tax( &#8377;)</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor=" let totalSupwithMis of invoiceMis ">
+
+                                                    <td>
+                                                        <div class="d-flex align-items-center">
+                                                            <span class="badge badge-soft-success">
+                                                                {{totalSupwithMis.suppliers}}</span>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <span class="flex-grow-1 text-center ">
+                                                            {{totalSupwithMis.gstAmount}}</span>
+
+
+                                                    </td>
+                                                    <td>
+                                                        <span class="text-success text-center ">
+                                                            {{totalSupwithMis.gstTax}}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="flex-grow-1 text-center ">
+                                                            {{totalSupwithMis.itcAmount}}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="text-success text-center ">
+                                                            {{totalSupwithMis.itcTax}}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="flex-grow-1 text-center ">
+                                                            {{totalSupwithMis.amountDifference}}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="text-success text-center ">
+                                                            {{totalSupwithMis.taxDifference}}</span>
+                                                    </td>
+
+
+
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div
+                                        class="align-items-center mt-4 pt-2 justify-content-between row text-center text-sm-start">
+                                        <div class="col-sm">
+                                            <div class="text-muted">
+                                                Showing <span class="fw-semibold">5</span> of <span
+                                                    class="fw-semibold">25</span> Results
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-auto  mt-3 mt-sm-0">
+                                            <ul
+                                                class="pagination pagination-separated pagination-sm mb-0 justify-content-center">
+                                                <li class="page-item disabled">
+                                                    <a class="page-link">←</a>
+                                                </li>
+                                                <li class="page-item">
+                                                    <a class="page-link">1</a>
+                                                </li>
+                                                <li class="page-item active">
+                                                    <a class="page-link">2</a>
+                                                </li>
+                                                <li class="page-item">
+                                                    <a class="page-link">3</a>
+                                                </li>
+                                                <li class="page-item">
+                                                    <a class="page-link">→</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> <!-- .card-->
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="card card-height-100">
+                                <div class="card-header align-items-center d-flex">
+                                    <h4 class="card-title mb-0 flex-grow-1"> Suppliers with amount mismatch
+                                    </h4>
+                                    <div class="flex-shrink-0">
+                                        <div class="dropdown card-header-dropdown">
+                                            <a class="text-reset dropdown-btn" data-bs-toggle="dropdown"
+                                                aria-haspopup="true" aria-expanded="false">
+                                                <span class="text-muted">Report<i
+                                                        class="mdi mdi-chevron-down ms-1"></i></span>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-end">
+                                                <a class="dropdown-item">Download Report</a>
+                                                <a class="dropdown-item">Export</a>
+                                                <a class="dropdown-item">Import</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><!-- end card header -->
+                                <div class="card-body">
+                                    <div class="table-responsive table-card">
+                                        <table class="table table-hover table-centered align-middle table-nowrap mb-0">
+                                            <thead class="text-black text-center table-light">
+                                                <tr>
+                                                    <th colspan="1" scope="col">Suppliers</th>
+                                                    <th class="theade" colspan="2" scope="col">GSTR2B </th>
+                                                    <th class="theade" colspan="2" scope="col">ITC</th>
+                                                    <th class="theade" colspan="2" scope="col">Difference</th>
+
+                                                </tr>
+                                            </thead>
+                                            <thead class="text-muted table-light">
+                                                <tr>
+                                                    <th scope="col"> </th>
+                                                    <th class="theade" scope="col">Count</th>
+                                                    <th scope="col"> Amount( &#8377;)</th>
+                                                    <th class="theade" scope="col">Count</th>
+                                                    <th scope="col"> Amount( &#8377;)</th>
+                                                    <th class="theade" scope="col">Count</th>
+                                                    <th scope="col"> Amount( &#8377;)</th>
+
+
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor=" let data of suplierAmountMis ">
+
+                                                    <td>
+                                                        <div class="d-flex align-items-center">
+                                                            <span class="badge badge-soft-success">
+                                                                {{data.suppliers}}</span>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <span class="flex-grow-1"> {{data.gstCount}}</span>
+
+
+                                                    </td>
+                                                    <td>
+                                                        <span class="text-success"> {{data.gstAmount}}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="flex-grow-1"> {{data.itcCount}}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="text-success"> {{data.itcAmount}}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="flex-grow-1"> {{data.countDifference}}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="text-success"> {{data.amountDifference}}</span>
+                                                    </td>
+
+
+
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div
+                                        class="align-items-center mt-4 pt-2 justify-content-between row text-center text-sm-start">
+                                        <div class="col-sm">
+                                            <div class="text-muted">
+                                                Showing <span class="fw-semibold">5</span> of <span
+                                                    class="fw-semibold">25</span> Results
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-auto  mt-3 mt-sm-0">
+                                            <ul
+                                                class="pagination pagination-separated pagination-sm mb-0 justify-content-center">
+                                                <li class="page-item disabled">
+                                                    <a class="page-link">←</a>
+                                                </li>
+                                                <li class="page-item">
+                                                    <a class="page-link">1</a>
+                                                </li>
+                                                <li class="page-item active">
+                                                    <a class="page-link">2</a>
+                                                </li>
+                                                <li class="page-item">
+                                                    <a class="page-link">3</a>
+                                                </li>
+                                                <li class="page-item">
+                                                    <a class="page-link">→</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> <!-- .card-->
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-6">
+                            <app-simple-table [title]="'Invoices not in ITC'" [sortBy]="true"
+                                [dataList]="invoiceNotInITC" [headers]="InvoiceINGSTR2B"></app-simple-table>
+                        </div>
+                        <div class="col-xl-6">
+                            <app-simple-table [title]="'Invoices not in GSTR2B'" [sortBy]="true"
+                                [dataList]="invoiceInGSTR2B" [headers]="InvoiceINGSTR2B"></app-simple-table>
+                        </div>
+                    </div><!--row end-->
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <app-simple-table [title]="'Invoice with amount mismatch'" [sortBy]="true"
+                                [dataList]="invoiceAmountMis" [headers]="InvoiceAmountMismatch"></app-simple-table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <!--  first-row-end -->

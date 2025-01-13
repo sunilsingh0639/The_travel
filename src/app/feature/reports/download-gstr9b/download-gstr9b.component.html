@@ -1,0 +1,65 @@
+<div class="page-content">
+    <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0">DOWNLOAD GSTR9B</h4>
+
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Reports</a></li>
+                            <li class="breadcrumb-item active">Download GSTR9B</li>
+                        </ol>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+
+        <form [formGroup]="gstr9bDataForm" >
+        <div class="card">
+                <div *ngIf="hideClient==false" class="row mb-3">
+                    
+                    <div class="col-lg-3">
+                        <label for="nameInput" class="form-label madatroy">Client</label>
+                    </div>
+                    <div class="col-lg-9">
+                        <select class="form-select" id="inlineFormSelectPref" formControlName="client">
+                            <option  value="" >Select Client</option>
+                            <option selected value="{{client.id}}" *ngFor="let client of allClientData?.data;" >{{client.clientName}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-lg-3">
+                        <label for="websiteUrl" class="form-label madatroy">Recon</label>
+                    </div>
+                    <div class="col-lg-9">
+                        <select class="form-select" id="inlineFormSelectPref" formControlName="recon">
+                            <option  value="" >Select Recon</option>
+                            <option selected value="{{recon.id}}" *ngFor="let recon of allReconData?.data;">{{recon.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                
+                
+              
+                <div class="row">
+                    <div class="col-md-12 text-right">
+                        <button type="submit" class="btn btn-danger" (click)="cancel()">Cancel</button>
+                        <button type="submit" class="btn btn-primary" style="margin-left: 5px;" (click)="saveData()">Submit</button>
+            
+                    </div>
+                </div>
+                <!--end col-->
+            </div>
+        </form>
+        <!--end row-->
+
+
+    </div> <!-- container-fluid -->
+</div>
+

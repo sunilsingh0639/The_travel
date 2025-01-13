@@ -1,0 +1,224 @@
+<div class="row justify-content-center">
+    <div class="col-12 card">
+      <div class="" id="demo">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="card-body p-4">
+              <div class="row g-3 p-4">
+                <div class="col-lg-4 col-6">
+                  <p class="text-muted mb-2 text-uppercase fw-semibold">Type</p>
+                  <h5 class="fs-14 mb-0">
+                    <span id="invoice-no"> {{ selected?.ruleType }}</span>
+                  </h5>
+                </div>
+                <!--end col-->
+                <div class="col-lg-4 col-6">
+                  <p class="text-muted mb-2 text-uppercase fw-semibold">
+                    {{selected?.ruleType == 'MATCHING' ? 'Matching Type' : 'Source'}}
+                  </p>
+                  <h5 class="fs-14 mb-0">
+                    <span id="client-name">
+                      {{ selected?.ruleType == 'MATCHING' ? selected?.matchingType : selected?.fileType}}</span>
+                  </h5>
+                </div>
+                <!--end col-->
+                <div class="col-lg-4 col-6">
+                  <p class="text-muted mb-2 text-uppercase fw-semibold">
+                    Name
+                  </p>
+                  <h5 class="fs-14 mb-0">
+                    <span id="gstin"> {{ selected?.name }}</span>
+                  </h5>
+                </div>
+                <!--end col-->
+              </div>
+              <!--end row-->
+              <div class="row g-3 p-4">
+                <div class="col-lg-4 col-6">
+                  <p class="text-muted mb-2 text-uppercase fw-semibold">
+                    Description
+                  </p>
+                  <h5 class="fs-14 mb-0">
+                    <span id="recon">{{ selected?.description }}</span>
+                  </h5>
+                </div>
+           
+              </div>
+            </div>
+            <!--end card-body-->
+          </div>
+          <!--end col-->
+
+          <!--end col-->
+        </div>
+        <!--end row-->
+      </div>
+      <!--end card-->
+    </div>
+    <!--end col-->
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-2 card card-body">
+      <div class="">
+        <ul class="to-do-menu list-unstyled" id="projectlist-data">
+          <li >
+            <a class="nav-link fs-14" (click)="selectedFilter = 'filters'"
+              [ngClass]="{ active: selectedFilter == 'filters' }" id="v-pills-home-tab" data-bs-toggle="pill"
+              data-bs-target="#v-pills-tabContent" type="button" role="tab" aria-controls="v-pills-home"
+              aria-selected="true">Filters</a>
+          </li>
+          <li *ngIf="selected?.ruleType == 'MATCHING'  && selected?.matchingType == 'ONE_TO_ONE'">
+            <a class="nav-link fs-14 collapsed" id="v-pills-home-tab" data-bs-toggle="pill"
+              data-bs-target="#v-pills-tabContent" type="button" role="tab" aria-controls="v-pills-home"
+              aria-selected="true" (click)="selectedFilter = 'matchingConditions'"
+              [ngClass]="{ active: selectedFilter == 'matchingConditions' }">Matching Condition</a>
+          </li>
+          <li *ngIf="selected?.ruleType == 'MATCHING'  && selected?.matchingType == 'ONE_TO_MANY'">
+            <a class="nav-link fs-14 collapsed" id="v-pills-home-tab" data-bs-toggle="pill"
+              data-bs-target="#v-pills-tabContent" type="button" role="tab" aria-controls="v-pills-home"
+              aria-selected="true" (click)="selectedFilter = 'groupingConditions'"
+              [ngClass]="{ active: selectedFilter == 'groupingConditions' }">Grouping Condition</a>
+          </li>
+          <li *ngIf="selected?.ruleType == 'MATCHING'  && selected?.matchingType == 'MANY_TO_MANY'">
+            <a class="nav-link fs-14 collapsed" id="v-pills-home-tab" data-bs-toggle="pill"
+              data-bs-target="#v-pills-tabContent" type="button" role="tab" aria-controls="v-pills-home"
+              aria-selected="true" (click)="selectedFilter = 'groupingCondition'"
+              [ngClass]="{ active: selectedFilter == 'groupingCondition' }">Grouping Condition</a>
+          </li>
+          <!-- <li>
+            <a class="nav-link fs-14 collapsed" id="v-pills-home-tab" data-bs-toggle="pill"
+              data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home"
+              aria-selected="true" (click)="selectedFilter = 'fileDuplicateCheck'"
+              [ngClass]="{ active: selectedFilter == 'fileDuplicateCheck' }">ITC Filters</a>
+          </li>
+          <li>
+            <a class="nav-link fs-14 collapsed" id="v-pills-home-tab" data-bs-toggle="pill"
+              data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home"
+              aria-selected="true" (click)="selectedFilter = 'recordMatching'"
+              [ngClass]="{ active: selectedFilter == 'recordMatching' }">GSTR2B Filters</a>
+          </li> -->
+        </ul>
+      </div>
+    </div>
+    <div class="col-10 card card-body">
+      <div class="">
+        <div class="tab-content" id="v-pills-tabContent">
+          <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+            <div class="row">
+                <div class="table-responsive">
+                  <div *ngIf="selectedFilter == 'filters'">
+                    <table class="table align-middle position-relative table-nowrap">
+                      <thead class="table-active">
+
+                        <tr>
+
+                          <th class="madatroy" scope="col">ID</th>
+                          <th class="madatroy" scope="col">Field Name</th>
+                          <th class="madatroy" scope="col">Field Type</th>
+                          <th class="madatroy" scope="col">Operator Type </th>
+                          <th class="madatroy" scope="col">Value</th>
+                        </tr>
+                      </thead>
+                      <tbody id="task-list">
+                        <tr *ngFor="let item of selected.listOfRulesFilter;let i=index">
+
+                          <td>{{item.id}}</td>
+                          <td>
+                           {{item.fieldName}}
+                         </td>
+                         <td>
+                            {{item.fileType}}
+                          </td>
+                          <td>
+                            {{item.operatorType}}
+                          </td>
+                          <td>
+                            {{item.value}}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div *ngIf="selectedFilter == 'matchingConditions'">
+                    <table class="table align-middle position-relative table-nowrap">
+                      <thead class="table-active">
+
+                        <tr>
+
+                          <th class="madatroy" scope="col">ID</th>
+                          <th class="madatroy" scope="col">ITC Column</th>
+                          <th class="madatroy" scope="col">GSTR2B Column</th>
+                          <th class="madatroy" scope="col">Operator </th>
+                        </tr>
+                      </thead>
+                      <tbody id="task-list">
+                        <tr *ngFor="let item of selected.listOfMatchingCondtions;let i=index">
+
+                          <td>{{item.id}}</td>
+                          <td>
+                           {{item.leftField}}
+                         </td>
+                         <td>
+                            {{item.rightField}}
+                          </td>
+                          <td>
+                            {{item.operatorType}}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div *ngIf="selectedFilter == 'groupingConditions'">
+                    <table class="table align-middle position-relative table-nowrap">
+                      <thead class="table-active">
+
+                        <tr>
+
+                          <th class="madatroy" scope="col">ID</th>
+                          <th class="madatroy" scope="col">Field Name</th>
+                        </tr>
+                      </thead>
+                      <tbody id="task-list">
+                        <tr *ngFor="let item of selected.groupingConditions;let i=index">
+
+                          <td>{{i+1}}</td>
+                          <td>
+                           {{item.fieldName}}
+                         </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div *ngIf="selectedFilter == 'groupingCondition'">
+                    <table class="table align-middle position-relative table-nowrap">
+                      <thead class="table-active">
+
+                        <tr>
+
+                          <th class="madatroy" scope="col">ID</th>
+                          <th class="madatroy" scope="col">Field Name</th>                          <th class="madatroy" scope="col">Field Name</th>
+                          <th class="madatroy" scope="col">File Type</th>
+                        </tr>
+                      </thead>
+                      <tbody id="task-list">
+                        <tr *ngFor="let item of selected.groupingConditions;let i=index">
+
+                          <td>{{item.id}}</td>
+                          <td>
+                           {{item.fieldName}}
+                         </td>
+                         <td>
+                            {{item.fileType}}
+                         </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,170 @@
+<div class="page-content">
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col">
+
+                <div class="h-100">
+                   
+
+                    <div class="row">
+                        <div *ngIf="!isCompany" class="col-xl-3 col-md-6">
+                            <!-- card -->
+                            <div class="card card-animate">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex-grow-1 overflow-hidden">
+                                            <p class="text-uppercase fw-medium text-muted text-truncate mb-0"> Clients</p>
+                                        </div>
+                                        <div class="flex-shrink-0">
+                                            <h5 class="text-success fs-14 mb-0">
+                                                <i class="ri-arrow-right-up-line fs-13 align-middle"></i> +{{countResponse?.clientsRecordsPercentage}} %
+                                            </h5>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-end justify-content-between mt-4">
+                                        <div>
+                                            <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="183.35">{{countResponse?.totalClientsRecords}}</span></h4>
+                                          
+                                        </div>
+                                        <div class="avatar-sm flex-shrink-0">
+                                            <span class="avatar-title bg-warning rounded fs-3">
+                                                <i class="bx bx-user-circle"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div><!-- end card body -->
+                            </div><!-- end card -->
+                        </div><!-- end col -->
+
+                        <div class="col-xl-3 col-md-6" [ngClass]="{'col-xl-4' : isCompany}">
+                            <!-- card -->
+                            <div class="card card-animate">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex-grow-1 overflow-hidden">
+                                            <p class="text-uppercase fw-medium text-muted text-truncate mb-0">Recons</p>
+                                        </div>
+                                        <div class="flex-shrink-0">
+                                            <h5 class="text-danger fs-14 mb-0">
+                                                <i class="ri-arrow-right-down-line fs-13 align-middle"></i> -{{countResponse?.reconsRecordsPercentage}} %
+                                            </h5>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-end justify-content-between mt-4">
+                                        <div>
+                                            <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="183.35">{{countResponse?.totalReconsRecords}}</span> </h4>
+                                            
+                                        </div>
+                                        <div class="avatar-sm flex-shrink-0">
+                                            <span class="avatar-title bg-warning rounded fs-3">
+                                                <i class="bx bx-user-circle"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div><!-- end card body -->
+                            </div><!-- end card -->
+                        </div><!-- end col -->
+
+                        <div class="col-xl-3 col-md-6" [ngClass]="{'col-xl-4' : isCompany}">
+                            <!-- card -->
+                            <div class="card card-animate">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex-grow-1 overflow-hidden">
+                                            <p class="text-uppercase fw-medium text-muted text-truncate mb-0">Finished Recon</p>
+                                        </div>
+                                        <div class="flex-shrink-0">
+                                            <h5 class="text-success fs-14 mb-0">
+                                                <i class="ri-arrow-right-up-line fs-13 align-middle"></i> +{{countResponse?.finishedRecordsPercentage}} %
+                                            </h5>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-end justify-content-between mt-4">
+                                        <div>
+                                            <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="183.35">{{countResponse?.totalFinishedReconsRecord}}</span> </h4>
+                                            
+                                        </div>
+                                        <div class="avatar-sm flex-shrink-0">
+                                            <span class="avatar-title bg-warning rounded fs-3">
+                                                <i class="bx bx-user-circle"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div><!-- end card body -->
+                            </div><!-- end card -->
+                        </div><!-- end col -->
+
+                        <div class="col-xl-3 col-md-6" [ngClass]="{'col-xl-4' : isCompany}">
+                            <!-- card -->
+                            <div class="card card-animate">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex-grow-1 overflow-hidden">
+                                            <p class="text-uppercase fw-medium text-muted text-truncate mb-0"> Pending Recons</p>
+                                        </div>
+                                        <div class="flex-shrink-0">
+                                            <h5 class="text-muted fs-14 mb-0">
+                                                +{{countResponse?.pendingRecordsPercentage}} %
+                                            </h5>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-end justify-content-between mt-4">
+                                        <div>
+                                            <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="165.89">{{countResponse?.totalPendingReconsCount}}</span> </h4>
+                                            
+                                        </div>
+                                        <div class="avatar-sm flex-shrink-0">
+                                            <span class="avatar-title bg-danger rounded fs-3">
+                                                <i class="bx bx-wallet"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div><!-- end card body -->
+                            </div><!-- end card -->
+                        </div><!-- end col -->
+                    </div> <!-- end row-->
+
+              
+
+                    <div class="row">
+                        <div  *ngIf="!isCompany" class="col-xl-6">
+                            <div class="card chart-container">
+                                <canvas  id="MyChart" style="max-height:300px" >{{ chart }}</canvas>
+                          <h5>Client Wise Status</h5>
+                            </div>
+                        </div>
+                        <div class="col-xl-6" [ngClass]="{'col-xl-12' : isCompany}">
+                            <div class="card chart-container">
+                                <canvas  id="MyChart2" style="max-height:300px" >{{ chart2 }}</canvas>
+                                <h5>Recon Wise Status</h5>
+
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div *ngIf="!isCompany" class="col-xl-6">
+                            <app-simple-table [title]="'Pending Recons Client Wise'" [sortBy]="true" [dataList]="pendingReconClientWise" [headers]="pendingReconClientWiseHeader"></app-simple-table>
+                        </div>
+
+                        <div class="col-xl-6">
+                            <app-simple-table [title]="'Pending Recons'" [reportBy]="true" [dataList]="pendingReconWise" [headers]="pendingReconsHeader"></app-simple-table>
+                        </div> <!-- .col-->
+                        <div class="col-xl-6" *ngIf="!isCompany">
+                        <app-simple-table  [title]="'Client Wise Mismatch'" [sortBy]="true" [dataList]="clientWiseMismat" [headers]="clientWiseMismatchHeader"></app-simple-table>
+                        </div>
+                        <div class="col-xl-6">
+                            <app-simple-table [title]="'Recon Wise Mismatch'" [reportBy]="true" [dataList]="reconWiseMismat" [headers]="reconWiseMismatchsHeader"></app-simple-table>
+                        </div> <!-- .col-->
+                    </div> <!-- end row-->
+
+                </div> <!-- end .h-100-->
+
+            </div> <!-- end col -->
+
+        </div>
+
+    </div>
+    <!-- container-fluid -->
+</div>

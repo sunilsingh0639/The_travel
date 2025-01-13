@@ -1,0 +1,135 @@
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0">Subscribers</h4>
+
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <li class="breadcrumb-item"><a href="javascript: void(0);">Subscribers</a></li>
+                         
+                            </ol>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+
+            <div class="row">
+                <div class="col-xl-12">                    
+                    <div class="card">
+                        <div class="d-flex align-items-center">
+                            <div class="card-body">
+                                <form [formGroup]="searchForm">
+                                    <div class="row g-3"  >
+                                        <div class="col-md-4">
+                                            <div class="search-box">
+                                                <input type="text" class="form-control search"
+                                                    placeholder="Search for subscriber..." fdprocssedid="xwpsf" formControlName="keyword" (keyup)="search(searchForm.value.keyword)"  >
+                                                <i class="ri-search-line search-icon"></i>
+                                            </div>
+                                        </div>
+                                        <!--end col-->
+                                        <div class="col-xl-2 col-sm-4">
+                                            <button type="button" class="btn btn-primary"  (click)="search(searchForm.value.keyword)" >
+                                                Search
+                                            </button>
+                                        </div>
+                                        <!--end col-->
+                                    </div>
+                                    <!--end row-->
+                                </form>
+                            </div>            
+                            <div class="flex-shrink-0">
+                            <div style="margin-right: 15px;">
+                                <div class="d-flex gap-2 flex-wrap">
+                                    <button class="btn btn-danger" id="remove-actions" onclick="deleteMultiple()"><i
+                                            class="ri-delete-bin-2-line"></i></button>
+                                    <a  class="btn btn-primary"><i
+                                            class="ri-add-line align-bottom me-1"></i>Add Subscriber</a>
+                                </div>
+                            </div>
+                            </div>                                              
+                        </div>
+                    </div>
+                </div>
+                <!--end col-->
+                <div class="col-lg-9">
+                    <app-list-view [title]="'Users'" (viewEvent)="viewSubscriber($event)" (deleteEvent)="delete($event)" [data]="subscriberList" [headers]="headers" [showCheckbox]="false" [showMultipleDelete]="false" [addNewLabel]="'Client'" [hideSearchForm]="true" (editEvent)="editSubscriber($event)"   [showAddNewButton]="true"></app-list-view>
+                </div>
+                <!--end col-->
+                <div class="col-xl-3">
+                    <div class="card" id="client-view-detail">
+                        <div class="card-body text-center">
+                            <h5 class="mt-4 mb-1">{{ selectedId?.companyName
+                            }} </h5>
+                        </div>
+                        <div class="card-body">
+                            <h6 class="text-muted text-uppercase fw-semibold mb-3">Subscriber Information</h6>
+                            <div class="table-responsive table-card">
+                                <table class="table table-borderless mb-0">
+                                    <tbody>
+                                        <tr>
+                                            <td class="fw-medium" scope="row">Subscriber Type</td>
+                                            <td>{{ selectedId?.subscriberType }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="fw-medium" scope="row">Subscription Plan</td>
+                                            <td>{{ selectedId?.plan }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="fw-medium" scope="row">Address</td>
+                                            <td>{{ selectedId?.address.addressLine1 }}</td>
+                                            <td>{{ selectedId?.address.addressLine2 }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="fw-medium" scope="row">City</td>
+                                            <td>{{ selectedId?.address.city }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="fw-medium" scope="row">State</td>
+                                            <td>{{ selectedId?.address.state }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="fw-medium" scope="row">Email</td>
+                                            <td>{{ selectedId?.email }}</td>
+                                        </tr>
+                                 
+                                
+                                        <tr>
+                                            <td class="fw-medium" scope="row">Contact Person</td>
+                                            <td>{{ selectedId?.contactPerson
+                                            }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="fw-medium" scope="row">Contact Number</td>
+                                            <td>{{ selectedId?.mobile }}</td>
+    
+                                        </tr>
+                                        <tr>
+                                            <td class="fw-medium" scope="row">Status</td>
+                                            <td>{{ selectedId?.status }}</td>
+    
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end card-->
+                </div>
+            
+            </div>
+            <!--end row-->
+
+        </div>
+        <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+
+</div>

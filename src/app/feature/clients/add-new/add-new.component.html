@@ -1,0 +1,217 @@
+<div class="page-content">
+    <div class="container-fluid">
+
+      <!-- start page title -->
+      <div class="row">
+        <div class="col-lg-12">
+            <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                <h4 class="mb-sm-0">Add New Client</h4>
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a routerLink="/app/clients">Clients</a></li>
+                   
+                        <li class="breadcrumb-item active">Add New Client</li>
+                    </ol>
+                </div>
+
+            </div>
+        </div>
+    </div>
+        <div class="card">
+            <form [formGroup]="addClientForm">
+                <div class="row mb-3">
+                    <div class="col-lg-3">
+                        <label for="nameInput" class="form-label madatroy">Client Name</label>
+                    </div>
+                    <div class="col-lg-9">
+                        <input type="url" appTrimValidator class="form-control" id="clientName" name="clientName"
+                            formControlName="clientName" placeholder="Client name" minlength="4">
+                        <!-- <div *ngIf="editform['clientName'].invalid && (editform['clientName'].dirty || editform['clientName'].touched)"
+                            class="form-text text-danger">
+                            <div *ngIf="editform['clientName'].errors?.['required']">
+                                Field is required
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-lg-3">
+                        <label for="websiteUrl" class="form-label madatroy ">Contact Person</label>
+                    </div>
+                    <div class="col-lg-9">
+                        <input type="url" appTrimValidator class="form-control" id="websiteUrl" formControlName="contactPerson"
+                            placeholder="Contact Person">
+
+                        <!-- <div *ngIf="editform['contactPerson'].invalid && (editform['contactPerson'].dirty || editform['contactPerson'].touched)"
+                            class="form-text text-danger">
+                            <div *ngIf="editform['contactPerson'].errors?.['required']">
+                                Field is required
+                            </div>
+                        </div> -->
+
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-lg-3">
+                        <label for="websiteUrl" class="form-label madatroy">Contact Number</label>
+                    </div>
+                    <div class="col-lg-9">
+
+                        <input type="text" appTrimValidator appNumberOnly class="form-control" id="websiteUrl"
+                            formControlName="contactNumber" placeholder="Contact Number" minlength="10" maxlength="10">
+                        <!-- <div *ngIf="editform['contactNumber'].invalid && (editform['contactNumber'].dirty || editform['contactNumber'].touched)"
+                            class="form-text text-danger">
+                            <div *ngIf="editform['contactNumber'].errors?.['required']">
+                                Field is required
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-lg-3">
+                        <label for="websiteUrl" class="form-label madatroy">Email</label>
+                    </div>
+                    <div class="col-lg-9">
+                        <input type="email" appTrimValidator class="form-control" id="websiteUrl" formControlName="email"
+                            placeholder="Email">
+
+                        <!-- <div *ngIf="email.invalid && (email.dirty || email.touched)" class="form-text text-danger">
+                            <div *ngIf="email.errors?.['required']">
+                                Field is required
+                            </div>
+                            <div *ngIf="email.errors?.['pattern']">
+                                Email pattern is not valid.
+                            </div>
+                        </div> -->
+
+
+                    </div>
+                </div>
+                <div formArrayName="address" class="row">
+                    <div [formGroupName]="0" class="col-12">
+                        <div class="row mb-3">
+                            <div class="col-lg-3">
+                                <label for="websiteUrl" class="form-label madatroy">AddressLine1</label>
+                            </div>
+                            <div class="col-lg-9">
+                                <input type="url" appTrimValidator class="form-control" id="websiteUrl" formControlName="addressLine1"
+                                    placeholder="AddressLine1">
+
+                                <!-- <div *ngIf="editAddressForm['addressLine1'].invalid && (editAddressForm['addressLine1'].dirty || editAddressForm['addressLine1'].touched)"
+                                    class="form-text text-danger">
+                                    <div *ngIf="editAddressForm['addressLine1'].errors?.['required']">
+                                        Field is required
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-lg-3">
+                                <label for="websiteUrl" class="form-label">AddressLine2</label>
+                            </div>
+                            <div class="col-lg-9">
+                                <input type="url" appTrimValidator class="form-control" id="websiteUrl" formControlName="addressLine2"
+                                    placeholder="AddressLine2">
+
+                                <!-- <div *ngIf="editAddressForm['addressLine2'].invalid && (editAddressForm['addressLine2'].dirty || editAddressForm['addressLine2'].touched)"
+                                    class="form-text text-danger">
+                                    <div *ngIf="editAddressForm['addressLine2'].errors?.['required']">
+                                        Field is required
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-lg-3">
+                                <label for="websiteUrl" class="form-label madatroy">area</label>
+                            </div>
+                            <div class="col-lg-9">
+                                <input type="url" appTrimValidator class="form-control" id="websiteUrl" formControlName="area"
+                                    placeholder="Area">
+
+                                <!-- <div *ngIf="editAddressForm['area'].invalid && (editAddressForm['area'].dirty || editAddressForm['area'].touched)"
+                                    class="form-text text-danger">
+                                    <div *ngIf="editAddressForm['area'].errors?.['required']">
+                                        Field is required
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-lg-3">
+                                <label for="nameInput" class="form-label madatroy">State</label>
+                            </div>
+                            <div class="col-lg-9">
+                                <select class="form-control  mb-3" #state
+                                    aria-label="Default select example" (change)="filterCities(state.value)"
+                                    formControlName="state">
+                                    <option value="">Select your state </option>
+                                    <option *ngFor="let state of statesList" [value]="state.state">
+                                        {{state.state}}</option>
+                                </select>
+                                <!-- <div *ngIf="editAddressForm['state'].invalid && (editAddressForm['state'].dirty || editAddressForm['state'].touched)"
+                                class="form-text text-danger">
+                                <div *ngIf="editAddressForm['state'].errors?.['required']">
+                                    Field is required
+                                </div>
+                            </div> -->
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-lg-3">
+                                <label for="websiteUrl" class="form-label madatroy">City</label>
+                            </div>
+                            <div class="col-lg-9">
+                                    <select class="form-control  mb-3" #state
+                                    aria-label="Default select example" (change)="filterCities(state.value)"
+                                    formControlName="city">
+                                    <option  value="">Select your city </option>
+                                    
+                                    <option *ngFor="let city of cities" [value]="city">{{city}}</option>
+                                </select>
+                                <!-- <div *ngIf="editAddressForm['city'].invalid && (editAddressForm['city'].dirty || editAddressForm['city'].touched)"
+                                    class="form-text text-danger">
+                                    <div *ngIf="editAddressForm['city'].errors?.['required']">
+                                        Field is required
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+               
+                     
+                        <div class="row mb-3">
+                            <div class="col-lg-3">
+                                <label for="websiteUrl" class="form-label madatroy">Zip Code</label>
+                            </div>
+                            <div class="col-lg-9">
+
+                                <input type="url" appTrimValidator appNumberOnly class="form-control" id="websiteUrl"
+                                    formControlName="zipCode" placeholder="zip code" minlength="6" maxlength="6">
+                                <!-- <div *ngIf="editAddressForm['zipCode'].invalid && (editAddressForm['zipCode'].dirty || editAddressForm['zipCode'].touched)"
+                                    class="form-text text-danger">
+                                    <div *ngIf="editAddressForm['zipCode'].errors?.['required']">
+                                        Field is required
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-12 text-right">
+                                <button type="button" (click)="cancel()" class="btn btn-danger">Cancel</button>
+                                <button type="submit" (click)="addClientData()"
+                                    [disabled]=" addClientForm.invalid ||  addressForm.invalid" class="btn btn-primary"
+                                    style="margin-left: 5px;"> {{editMode ? 'Edit '
+                                    :'Save' }} </button>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div> <!--end col-->
+    </div> <!-- container-fluid -->
+</div>

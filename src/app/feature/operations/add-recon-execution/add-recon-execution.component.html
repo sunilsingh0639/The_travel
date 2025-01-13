@@ -1,0 +1,85 @@
+<div class="page-content">
+    <div class="container-fluid">
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0">Add New Recon Execution</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a routerLink="/app/operations/recon-executions">Operations</a></li>
+                    <li class="breadcrumb-item"><a routerLink="/app/operations/recon-executions">Recon Executions</a></li>
+                    <li class="breadcrumb-item active">Add New Recon Execution</li>
+
+                </ol>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+<div class="card">
+    <form [formGroup]="executionForm">
+        <div *ngIf="hideClient==false" class="row mb-3">
+            <div class="col-lg-3">
+                <label for="nameInput" class="form-label madatroy">Client</label>
+            </div>
+            <div class="col-lg-9">
+                <select class="form-select" id="inlineFormSelectPref" formControlName="client">
+                    <option  value="">Select Client</option>
+                    <option selected *ngFor="let clients of allClient?.data" [value]="clients.id">{{clients.clientName}}</option>
+                   
+                </select>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-lg-3">
+                <label for="websiteUrl" class="form-label madatroy">Recon</label>
+            </div>
+            <div class="col-lg-9">
+                <select class="form-select" id="inlineFormSelectPref" formControlName="recon">
+                    <option  value="">Select Recon</option>
+                    <option value="1"*ngFor="let recon of allRecons?.data" [value]="recon.id">{{recon.name}}</option>
+                   
+                </select>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-lg-3">
+                <label for="dateInput" class="form-label madatroy">Upload ITC File</label>
+            </div>
+            <div class="col-lg-9">
+                <div class="input-group">
+                    <input type="file" class="form-control" (change)="onFileChange1($event)" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload" formControlName="uplodeITCFilePath">
+                    <button (click)="uploadDocument1()" class="btn btn-outline-primary shadow-none" type="button" id="inputGroupFileAddon04">Upload</button>
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-lg-3">
+                <label for="dateInput" class="form-label madatroy">Upload GSTR2B File</label>
+            </div>
+            <div class="col-lg-9">
+                <div class="input-group">
+                    <input type="file" class="form-control" (change)="onFileChange2($event)" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload" formControlName="uploadGSTRFilePath">
+                    <button (click)="uploadDocument2()" class="btn btn-outline-primary shadow-none" type="button" id="inputGroupFileAddon04">Upload</button>
+                </div>
+                
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <button  routerLink="/app/operations/recon-executions" type="submit" class="btn btn-danger">Cancel</button>                
+                <button type="submit" class="btn btn-primary" style="margin-left: 5px;" [disabled]="!executionForm.valid" (click)="executionRecon()">Save and Execute</button>
+    
+            </div>
+        </div>
+    </form>
+</div>
+    
+    </div> <!-- container-fluid -->
+</div>

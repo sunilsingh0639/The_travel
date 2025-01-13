@@ -1,0 +1,35 @@
+.card{
+   padding: 1rem;
+}
+
+
+.nav-success.nav-tabs-custom .nav-link.active {
+   color: #6691e7 !important;
+   background-color: var(--vz-card-bg-custom);
+}
+.delete-icon{
+   text-align: center;
+   font-size: x-large;
+   cursor: pointer;
+   
+}
+.eye-icon{
+   text-align: center;
+   font-size: x-large;
+   cursor: pointer;
+   
+}
+.madatroy::after {
+   content: "*";
+   color: red;
+   margin-left: 5px;
+ }
+ .badge{
+   background: #6691e7;
+   color: white;
+   padding: 8px;
+   margin: 5px;
+ }
+ .link{
+   color: #6691e7;
+ }
