@@ -59,7 +59,7 @@ export class LoginComponent implements OnInit {
    ***************************/
   login() {
     this._spinner.show();
-    this._router.navigate(['app/home/admin-home'])
+    this._router.navigate(['/app/dashboard'])
     return
     this._service.login(this.loginForm.value)
     if (this.loginForm.valid) {
