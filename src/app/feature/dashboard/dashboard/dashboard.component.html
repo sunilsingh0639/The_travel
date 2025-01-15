@@ -15,7 +15,7 @@
                                             <div class="col-lg-12">
                                                 <div class="card overflow-hidden m-0 card-bg-fill galaxy-border-none">
                                                     <div class="row justify-content-center g-0">
-                                                        <div class="col-lg-5">
+                                                        <div class="col-lg-4">
                                                             <div class="p-lg-5 p-4 auth-one-bg h-100">
                                                                 <div class="bg-overlay"></div>
                                                                 <div class="position-relative h-100 d-flex flex-column">
@@ -77,50 +77,91 @@
                                                             </div>
                                                         </div>
 
-                                                        <div class="col-lg-7">
-                                                            <div class="p-lg-5 p-4">
-                                                                <div>
-                                                                    <h5 class="text-primary">DESTINATIONS</h5>
-                                                                    <p class="text-muted">
-                                                                        Enter the cities in the order in which they be
-                                                                        verified for the itinerary
-                                                                    </p>
-                                                                </div>
-
-                                                                <div class="row g-3">
-                                                                    <div class="col-lg-6">
-                                                                        <div class="mt-3">
-                                                                            <div data-input-flag=""
-                                                                                data-option-flag-img-name="">
-                                                                                <input type="text"
-                                                                                    class="form-control rounded-end flag-input"
-                                                                                    readonly="" value="India" disabled
-                                                                                    placeholder="Select country"
-                                                                                    data-bs-toggle="dropdown"
-                                                                                    aria-expanded="false">
-                                                                                <div class="dropdown-menu w-100">
-                                                                                    <ul
+                                                        <div class="col-lg-8">
+                                                            <div class="row">
+                                                                <div class="p-lg-5">
+                                                                    <div class="col-12">
+                                                                        <h5 class="text-primary">DESTINATIONS</h5>
+                                                                        <p class="text-muted">
+                                                                            Enter the cities in the order in which they
+                                                                            be
+                                                                            verified for the itinerary
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="col-12">
+                                                                        <div *ngFor="let city of cities; let i = index" class="row align-items-center">
+                                                                            <div class="col-6">
+                                                                              <input
+                                                                                type="text"
+                                                                                class="form-control rounded-end flag-input mb-3"
+                                                                                placeholder="Select City"
+                                                                                [(ngModel)]="city.name"
+                                                                              />
+                                                                            </div>
+                                                                            <div class="col-4">
+                                                                              <select
+                                                                                class="form-select mb-3"
+                                                                                [(ngModel)]="city.night"
+                                                                                aria-label="Default select example"
+                                                                              >
+                                                                                <option value="">Select Night</option>
+                                                                                <option value="1">1 night</option>
+                                                                                <option value="2">2 nights</option>
+                                                                                <option value="3">3 nights</option>
+                                                                              </select>
+                                                                            </div>
+                                                                            <div class="col-2">
+                                                                              <button
+                                                                                type="button"
+                                                                                class="btn btn-danger mb-3"
+                                                                                (click)="removeCity(i)"
+                                                                              >
+                                                                                Delete
+                                                                              </button>
+                                                                            </div>
+                                                                          </div>
+                                                                          
+                                                                          <div class="col-12 mt-3">
+                                                                            <a
+                                                                              class="text-primary"
+                                                                              style="cursor: pointer;"
+                                                                              (click)="addCity()"
+                                                                            >
+                                                                              + Add Another City
+                                                                            </a>
+                                                                          </div>
+                                                                          
+                                                                    </div>
+                                                                    <div class="col-6">
+                                                                        <div data-input-flag=""
+                                                                            data-option-flag-img-name="">
+                                                                            <input type="text"
+                                                                                class="form-control rounded-end flag-input flag-inputs"
+                                                                                readonly="" value="India" disabled
+                                                                                placeholder="Select country"
+                                                                                data-bs-toggle="dropdown"
+                                                                                aria-expanded="false">
+                                                                            <div class="dropdown-menu w-100">
+                                                                                <ul
                                                                                     class="list-unstyled dropdown-menu-list mb-0">
-                                                                                <li
-                                                                                class="dropdown-item d-flex active">
-                                                                                <div
-                                                                                    class="flex-shrink-0 me-2">
-                                                                                    <img src="assets/images/flags/in.svg"
-                                                                                        alt="country flag"
-                                                                                        class="options-flagimg"
-                                                                                        height="20">
-                                                                                </div>
-                                                                                <div class="flex-grow-1">
-                                                                                    <div class="d-flex">
-                                                                                        <div
-                                                                                            class="country-name me-1">
-                                                                                            India</div><span
-                                                                                            class="countrylist-codeno text-muted">+91</span>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </li>
-                                                                                   </ul>
-                                                                                </div>
+                                                                                    <li
+                                                                                        class="dropdown-item d-flex active">
+                                                                                        <div class="flex-shrink-0 me-2">
+                                                                                            <img src="assets/images/flags/in.svg"
+                                                                                                alt="country flag"
+                                                                                                class="options-flagimg"
+                                                                                                height="20">
+                                                                                        </div>
+                                                                                        <div class="flex-grow-1">
+                                                                                            <div class="d-flex">
+                                                                                                <div
+                                                                                                    class="country-name me-1">
+                                                                                                    India</div><span
+                                                                                                    class="countrylist-codeno text-muted">+91</span>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </li>
+                                                                                </ul>
                                                                             </div>
                                                                         </div>
                                                                     </div>
