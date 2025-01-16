@@ -15,7 +15,7 @@
                                             <div class="col-lg-12">
                                                 <div class="card overflow-hidden m-0 card-bg-fill galaxy-border-none">
                                                     <div class="row justify-content-center g-0">
-                                                        <div class="col-lg-5">
+                                                        <div class="col-lg-4">
                                                             <div class="p-lg-5 p-4 auth-one-bg h-100">
                                                                 <div class="bg-overlay"></div>
                                                                 <div class="position-relative h-100 d-flex flex-column">
@@ -77,52 +77,211 @@
                                                             </div>
                                                         </div>
 
-                                                        <div class="col-lg-7">
-                                                            <div class="p-lg-5 p-4">
-                                                                <div>
+                                                        <div class="col-lg-8">
+                                                            <div class="card">
+                                                                <div class="card-header align-items-center d-flex">
                                                                     <h5 class="text-primary">DESTINATIONS</h5>
+
+                                                                </div><!-- end card header -->
+
+                                                                <div class="card-body">
                                                                     <p class="text-muted">
-                                                                        Enter the cities in the order in which they be
+                                                                        Enter the cities in the order in which they
+                                                                        be
                                                                         verified for the itinerary
                                                                     </p>
-                                                                </div>
 
-                                                                <div class="row g-3">
-                                                                    <div class="col-lg-6">
-                                                                        <div class="mt-3">
-                                                                            <div data-input-flag=""
-                                                                                data-option-flag-img-name="">
-                                                                                <input type="text"
-                                                                                    class="form-control rounded-end flag-input"
-                                                                                    readonly="" value="India" disabled
-                                                                                    placeholder="Select country"
-                                                                                    data-bs-toggle="dropdown"
-                                                                                    aria-expanded="false">
-                                                                                <div class="dropdown-menu w-100">
-                                                                                    <ul
-                                                                                    class="list-unstyled dropdown-menu-list mb-0">
-                                                                                <li
-                                                                                class="dropdown-item d-flex active">
-                                                                                <div
-                                                                                    class="flex-shrink-0 me-2">
-                                                                                    <img src="assets/images/flags/in.svg"
-                                                                                        alt="country flag"
-                                                                                        class="options-flagimg"
-                                                                                        height="20">
-                                                                                </div>
-                                                                                <div class="flex-grow-1">
-                                                                                    <div class="d-flex">
-                                                                                        <div
-                                                                                            class="country-name me-1">
-                                                                                            India</div><span
-                                                                                            class="countrylist-codeno text-muted">+91</span>
+                                                                    <div class="live-preview">
+                                                                        <form class="row g-3 needs-validation"
+                                                                            novalidate="">
+                                                                            <div class="col-md-12">
+                                                                                <div *ngFor="let city of cities; let i = index"
+                                                                                    class="row align-items-center">
+                                                                                    <div class="col-md-6">
+                                                                                        <input type="text"
+                                                                                            class="form-control rounded-end flag-input mb-3"
+                                                                                            placeholder="Select City"
+                                                                                            [(ngModel)]="city.name" />
+                                                                                    </div>
+                                                                                    <div class="col-md-4">
+                                                                                        <select class="form-select mb-3"
+                                                                                            [(ngModel)]="city.night"
+                                                                                            aria-label="Default select example">
+                                                                                            <option value="">Select
+                                                                                                Night
+                                                                                            </option>
+                                                                                            <option value="1">1 night
+                                                                                            </option>
+                                                                                            <option value="2">2 nights
+                                                                                            </option>
+                                                                                            <option value="3">3 nights
+                                                                                            </option>
+                                                                                        </select>
+                                                                                    </div>
+                                                                                    <div class="col-md-2">
+                                                                                        <button type="button"
+                                                                                            class="btn btn-danger mb-3"
+                                                                                            (click)="removeCity(i)">
+                                                                                            Delete
+                                                                                        </button>
                                                                                     </div>
                                                                                 </div>
-                                                                            </li>
-                                                                                   </ul>
+
+                                                                                <div class="col-12">
+                                                                                    <a class="text-primary"
+                                                                                        style="cursor: pointer;"
+                                                                                        (click)="addCity()">
+                                                                                        + Add Another City
+                                                                                    </a>
                                                                                 </div>
                                                                             </div>
-                                                                        </div>
+                                                                            <div class="col-md-12">
+                                                                                <h5 class="text-primary">TRIP DETAILS
+                                                                                </h5>
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <label for="validationDefault01"
+                                                                                    class="form-label">Leaving
+                                                                                    From</label>
+                                                                                <input type="text" class="form-control"
+                                                                                    id="validationDefault01"
+                                                                                    value="Mark" required="">
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <label for="validationDefault01"
+                                                                                    class="form-label">Nationality</label>
+                                                                                <div data-input-flag=""
+                                                                                    data-option-flag-img-name="">
+                                                                                    <input type="text"
+                                                                                        class="form-control rounded-end flag-input flag-inputs"
+                                                                                        readonly="" value="India"
+                                                                                        disabled
+                                                                                        placeholder="Select country"
+                                                                                        data-bs-toggle="dropdown"
+                                                                                        aria-expanded="false">
+                                                                                    <div class="dropdown-menu w-100">
+                                                                                        <ul
+                                                                                            class="list-unstyled dropdown-menu-list mb-0">
+                                                                                            <li
+                                                                                                class="dropdown-item d-flex active">
+                                                                                                <div
+                                                                                                    class="flex-shrink-0 me-2">
+                                                                                                    <img src="assets/images/flags/in.svg"
+                                                                                                        alt="country flag"
+                                                                                                        class="options-flagimg"
+                                                                                                        height="20">
+                                                                                                </div>
+                                                                                                <div
+                                                                                                    class="flex-grow-1">
+                                                                                                    <div class="d-flex">
+                                                                                                        <div
+                                                                                                            class="country-name me-1">
+                                                                                                            India</div>
+                                                                                                        <span
+                                                                                                            class="countrylist-codeno text-muted">+91</span>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="col-md-6">
+                                                                                <div class="mb-3">
+                                                                                    <label for="JoiningdatInput"
+                                                                                        class="form-label">Joining
+                                                                                        Date</label>
+                                                                                    <input type="text"
+                                                                                        class="form-control flatpickr-input"
+                                                                                        data-provider="flatpickr"
+                                                                                        id="JoiningdatInput"
+                                                                                        data-date-format="d M, Y"
+                                                                                        data-deafult-date="24 Nov, 2021"
+                                                                                        placeholder="Select date"
+                                                                                        readonly="readonly">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <label for="JoiningdatInput"
+                                                                                    class="form-label">Number of
+                                                                                    Travelers</label>
+                                                                                <select class="form-select mb-3"
+                                                                                    aria-label="Default select example">
+                                                                                    <option value="">Select
+                                                                                        Night
+                                                                                    </option>
+                                                                                    <option value="1">1 night
+                                                                                    </option>
+                                                                                    <option value="2">2 nights
+                                                                                    </option>
+                                                                                    <option value="3">3 nights
+                                                                                    </option>
+                                                                                </select>
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <label for="JoiningdatInput"
+                                                                                    class="form-label">Interests</label>
+                                                                                <select class="form-select mb-3"
+                                                                                    aria-label="Default select example">
+                                                                                    <option value="">Select
+                                                                                        Night
+                                                                                    </option>
+                                                                                    <option value="1">1 night
+                                                                                    </option>
+                                                                                    <option value="2">2 nights
+                                                                                    </option>
+                                                                                    <option value="3">3 nights
+                                                                                    </option>
+                                                                                </select>
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <label for="JoiningdatInput"
+                                                                                    class="form-label">Who is Traveling</label>
+                                                                                <select class="form-select mb-3"
+                                                                                    aria-label="Default select example">
+                                                                                    <option value="">Select
+                                                                                        Night
+                                                                                    </option>
+                                                                                    <option value="1">1 night
+                                                                                    </option>
+                                                                                    <option value="2">2 nights
+                                                                                    </option>
+                                                                                    <option value="3">3 nights
+                                                                                    </option>
+                                                                                </select>
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <label for="JoiningdatInput"
+                                                                                    class="form-label">Star rating</label>
+                                                                                <select class="form-select mb-3"
+                                                                                    aria-label="Default select example">
+                                                                                    <option value="">Select
+                                                                                        Night
+                                                                                    </option>
+                                                                                    <option value="1">1 night
+                                                                                    </option>
+                                                                                    <option value="2">2 nights
+                                                                                    </option>
+                                                                                    <option value="3">3 nights
+                                                                                    </option>
+                                                                                </select>
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <div class="form-check mt-1">
+                                                                                    <input class="form-check-input" type="checkbox" value="" id="auth-remember-check">
+                                                                                    <label class="form-check-label" for="auth-remember-check">Add Transfers</label>
+                                                                                </div>
+                                                                                <div class="form-check mt-2">
+                                                                                    <input class="form-check-input" type="checkbox" value="" id="auth-remember-check">
+                                                                                    <label class="form-check-label" for="auth-remember-check">Land Only (no stay required)</label>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-12">
+                                                                                <button class="btn btn-primary w-25"
+                                                                                    type="submit">Create Proposal</button>
+                                                                            </div>
+                                                                        </form>
                                                                     </div>
                                                                 </div>
                                                             </div>
