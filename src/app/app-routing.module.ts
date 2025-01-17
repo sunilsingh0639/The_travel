@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from './layout/layout.component';
+import { PdfComponent } from './feature/pdf/pdf.component';
 
 const routes: Routes = [
   {
@@ -67,6 +68,10 @@ const routes: Routes = [
           import('./feature/profile/profile.module').then(
             (mod) => mod.ProfileModule
           ),
+      },
+      {
+        path: 'pdf',
+        component: PdfComponent
       },
       // {
       //   path: 'audit-logs',

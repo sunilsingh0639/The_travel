@@ -16,6 +16,7 @@ import { SharedModule } from './shared/shared/shared.module';
 import { ErrorInterceptor } from './core/interceptors/error/error.interceptor';
 import { ToastrModule } from 'ngx-toastr';
 import { FilterPipe } from './shared/shared/pipe/filter-options';
+import { PdfComponent } from './feature/pdf/pdf.component';
 
 
 
@@ -26,6 +27,7 @@ import { FilterPipe } from './shared/shared/pipe/filter-options';
     LayoutComponent,
     NotificationComponent,
     DownloadNotificationComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -38,6 +40,7 @@ import { FilterPipe } from './shared/shared/pipe/filter-options';
     MatCommonModule,
     ReactiveFormsModule,
     HttpClientModule,
+    PdfComponent,
     ToastrModule.forRoot(), // ToastrModule added
   ],
   providers: [ 
