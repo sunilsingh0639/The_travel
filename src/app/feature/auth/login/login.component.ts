@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
   initlizationLoginForm() {
 
     this.loginForm = this.fb.group({
-      userName: ['', [Validators.required]],
+      userName: ['', [ Validators.email, Validators.required]],
       password: ['', [Validators.required, Validators.minLength(5)]]
 
 
@@ -58,18 +58,17 @@ export class LoginComponent implements OnInit {
    * @param : None
    ***************************/
   login() {
-    this._spinner.show();
-    this._router.navigate(['/app/dashboard'])
-    return
-    this._service.login(this.loginForm.value)
+    // this._spinner.show();
+    // return
+    // this._service.login(this.loginForm.value)
     if (this.loginForm.valid) {
-      if (this.loginForm.controls['userName'].value == "sunilsingh" && this.loginForm.controls['password'].value == "Sunil@123") {
-        alert('success');
+      if (this.loginForm.controls['userName'].value == "any101t5@gmail.com" && this.loginForm.controls['password'].value == "Any@123") {
+        this._router.navigate(['/app/dashboard'])
       }
       else {
         alert('invalid user name or password');
+        this._spinner.hide();
       }
-      this._spinner.hide();
     }
     // .subscribe((res: any) => {
     //   this._common.setToken(res.authToken);

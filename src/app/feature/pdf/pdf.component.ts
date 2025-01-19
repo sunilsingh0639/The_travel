@@ -11,12 +11,14 @@ import html2canvas from 'html2canvas';
   styleUrls: ['./pdf.component.scss'],
   standalone:true
 })
+
 export class PdfComponent {
 
   downloadPDF() {
     const element = document.getElementById('pdf-content');
-  
+    
     if (element) {
+      
       const pdf = new jsPDF('p', 'mm', 'a4');
       const options = { scale: 2, useCORS: true };
   

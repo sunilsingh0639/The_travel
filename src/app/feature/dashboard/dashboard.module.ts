@@ -7,6 +7,7 @@ import { SupplierDashboardComponent } from './supplier-dashboard/supplier-dashbo
 import { ReconDashboardComponent } from './recon-dashboard/recon-dashboard.component';
 import { YearlyReconDashboardComponent } from './yearly-recon-dashboard/yearly-recon-dashboard.component';
 import { SharedModule } from 'src/app/shared/shared/shared.module';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -21,7 +22,8 @@ import { SharedModule } from 'src/app/shared/shared/shared.module';
   imports: [
     CommonModule,
     DashboardRoutingModule,
-    SharedModule
+    SharedModule,
+    FormsModule
   ]
 })
 export class DashboardModule { }
