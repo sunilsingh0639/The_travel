@@ -107,14 +107,7 @@
                                                                                         <select class="form-select mb-3"
                                                                                             [(ngModel)]="city.night"
                                                                                             aria-label="Default select example">
-                                                                                            <option value="">Select
-                                                                                                Night
-                                                                                            </option>
-                                                                                            <option value="1">1 night
-                                                                                            </option>
-                                                                                            <option value="2">2 nights
-                                                                                            </option>
-                                                                                            <option value="3">3 nights
+                                                                                            <option [value]="data.id" *ngFor="let data of numberOfNightList">{{data.label}}
                                                                                             </option>
                                                                                         </select>
                                                                                     </div>
@@ -127,7 +120,7 @@
                                                                                     </div>
                                                                                 </div>
 
-                                                                                <div class="col-12">
+                                                                                <div class="col-12" *ngIf="cities.length !== 15">
                                                                                     <a class="text-primary"
                                                                                         style="cursor: pointer;"
                                                                                         (click)="addCity()">
@@ -206,50 +199,33 @@
                                                                                 <label for="JoiningdatInput"
                                                                                     class="form-label">Number of
                                                                                     Travelers</label>
-                                                                                <select class="form-select mb-3"
-                                                                                    aria-label="Default select example">
-                                                                                    <option value="">Select
-                                                                                        Night
-                                                                                    </option>
-                                                                                    <option value="1">1 night
-                                                                                    </option>
-                                                                                    <option value="2">2 nights
-                                                                                    </option>
-                                                                                    <option value="3">3 nights
-                                                                                    </option>
-                                                                                </select>
+                                                                                    <input type="text" appNumberOnly maxlength="2"
+                                                                                    class="form-control rounded-end flag-input mb-3"
+                                                                                    placeholder="Enter number of Travelers"/>
                                                                             </div>
                                                                             <div class="col-md-6">
                                                                                 <label for="JoiningdatInput"
                                                                                     class="form-label">Interests</label>
                                                                                 <select class="form-select mb-3"
                                                                                     aria-label="Default select example">
-                                                                                    <option value="">Select
-                                                                                        Night
+                                                                                    <option value="">
+                                                                                        Family Trips
                                                                                     </option>
-                                                                                    <option value="1">1 night
-                                                                                    </option>
-                                                                                    <option value="2">2 nights
-                                                                                    </option>
-                                                                                    <option value="3">3 nights
-                                                                                    </option>
+                                                                                    <option value="">Friends Trips</option>
+                                                                                    <option value="">Couple’s Getaway</option>
+                                                                                    <option value="">Solo Travel</option>
+                                                                                    <option value="">Group Tours</option>
+                                                                                    <option value="">School or College Trips</option>
+                                                                                    <option value="">Corporate Trips</option>
+                                                                                    <option value="">Reunion Trips</option>
                                                                                 </select>
                                                                             </div>
                                                                             <div class="col-md-6">
                                                                                 <label for="JoiningdatInput"
                                                                                     class="form-label">Who is Traveling</label>
-                                                                                <select class="form-select mb-3"
-                                                                                    aria-label="Default select example">
-                                                                                    <option value="">Select
-                                                                                        Night
-                                                                                    </option>
-                                                                                    <option value="1">1 night
-                                                                                    </option>
-                                                                                    <option value="2">2 nights
-                                                                                    </option>
-                                                                                    <option value="3">3 nights
-                                                                                    </option>
-                                                                                </select>
+                                                                                    <input type="text" appNumberOnly maxlength="2"
+                                                                                    class="form-control rounded-end flag-input mb-3"
+                                                                                    placeholder="Enter number of Travelers"/>
                                                                             </div>
                                                                             <div class="col-md-6">
                                                                                 <label for="JoiningdatInput"
@@ -257,17 +233,15 @@
                                                                                 <select class="form-select mb-3"
                                                                                     aria-label="Default select example">
                                                                                     <option value="">Select
-                                                                                        Night
+                                                                                        Star
                                                                                     </option>
-                                                                                    <option value="1">1 night
-                                                                                    </option>
-                                                                                    <option value="2">2 nights
-                                                                                    </option>
-                                                                                    <option value="3">3 nights
-                                                                                    </option>
+                                                                                   <option value="">2-Star</option>
+                                                                                   <option value="">3-Star</option>
+                                                                                   <option value="">4-Star</option>
+                                                                                   <option value="">5-Star</option>
                                                                                 </select>
                                                                             </div>
-                                                                            <div class="col-md-6">
+                                                                            <!-- <div class="col-md-6">
                                                                                 <div class="form-check mt-1">
                                                                                     <input class="form-check-input" type="checkbox" value="" id="auth-remember-check">
                                                                                     <label class="form-check-label" for="auth-remember-check">Add Transfers</label>
@@ -276,10 +250,15 @@
                                                                                     <input class="form-check-input" type="checkbox" value="" id="auth-remember-check">
                                                                                     <label class="form-check-label" for="auth-remember-check">Land Only (no stay required)</label>
                                                                                 </div>
-                                                                            </div>
+                                                                            </div> -->
+                                                                            
                                                                             <div class="col-md-12">
-                                                                                <button class="btn btn-primary w-25"
-                                                                                    type="submit">Create Proposal</button>
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-4">
+                                                                                            <button class="btn btn-primary w-100"
+                                                                                            type="submit">Countinue</button>
+                                                                                        </div>
+                                                                                </div>
                                                                             </div>
                                                                         </form>
                                                                     </div>

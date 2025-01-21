@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NumberOfNightList } from 'src/app/modal/menu';
 
 @Component({
   selector: 'app-dashboard',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+  numberOfNightList : any[] = NumberOfNightList;
   cities = [{ name: '', night: '' }];
 
   ngOnInit(): void {
@@ -15,11 +17,15 @@ export class DashboardComponent implements OnInit {
 
   // Add a new city row
   addCity() {
-    this.cities.push({ name: '', night: '' });
+    if(this.cities.length <= 15) {
+      this.cities.push({ name: '', night: '' });
+    }    
   }
 
   // Remove a city row
   removeCity(index: number) {
-    this.cities.splice(index, 1);
+    if(this.cities.length !== 1) {
+      this.cities.splice(index, 1);
+    }
   }
 }
