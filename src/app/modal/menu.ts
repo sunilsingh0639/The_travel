@@ -6,7 +6,7 @@ export const AdminMenuList = [
         childrens: [],
         privilegeCode: 'managehome'
     },
-   
+
     {
         label: 'Users',
         link: '/app/users',
@@ -31,11 +31,11 @@ export const AdminMenuList = [
         label: 'Subscribers ',
         link: '/app/subscribers',
         icon: 'mdi mdi-sticker-text-outline',
-        childrens: [        ],
+        childrens: [],
         privilegeCode: 'managesubscribers',
     },
-   
-] 
+
+]
 export const SubscribersMenuList = [
     {
         label: 'Home',
@@ -43,7 +43,7 @@ export const SubscribersMenuList = [
         icon: 'mdi mdi-home',
         privilegeCode: 'managehome',
         childrens: [
-           
+
         ]
     },
     {
@@ -58,7 +58,7 @@ export const SubscribersMenuList = [
                 icon: null,
                 privilegeCode: 'manageyearlydashboard'
             },
-       
+
             {
                 label: 'Monthly Recon ',
                 link: '/app/dashboard/Monthly-Recon-Dashboard',
@@ -78,7 +78,7 @@ export const SubscribersMenuList = [
         link: '/app/clients',
         icon: 'mdi mdi-home',
         childrens: [
-          
+
         ],
         privilegeCode: `manageclients`
 
@@ -103,14 +103,14 @@ export const SubscribersMenuList = [
             }
         ]
     },
-    
-    
+
+
     {
         label: 'Transactions',
         link: '/app/transactions',
         icon: 'mdi mdi-sticker-text-outline',
         privilegeCode: 'managetransactions',
-        childrens: [       
+        childrens: [
         ]
     },
     {
@@ -119,14 +119,14 @@ export const SubscribersMenuList = [
         icon: 'mdi mdi-message-text-outline',
         privilegeCode: 'manageoperations',
         childrens: [
-                {
-                label: 'Rules' ,
+            {
+                label: 'Rules',
                 link: '/app/operations/rule-list',
                 icon: null,
                 privilegeCode: 'manageoperations',
             },
             {
-                label: 'File Uploads' ,
+                label: 'File Uploads',
                 link: '/app/operations/file-upload',
                 icon: null,
                 privilegeCode: 'manageoperations',
@@ -158,24 +158,24 @@ export const SubscribersMenuList = [
         privilegeCode: 'managereports',
         childrens: [
             {
-                label: 'GSTR9B Report' ,
+                label: 'GSTR9B Report',
                 link: '/app/reports/download-gstr9b',
                 icon: null,
                 privilegeCode: 'managedownloadgstr9',
             },
-      
+
         ]
     }
-   
-   
+
+
 ]
-export const SubscribersIndividualMenuList =  [
+export const SubscribersIndividualMenuList = [
     {
         label: 'Home',
         link: '/app/home',
         icon: 'mdi mdi-home',
         childrens: [
-           
+
         ],
         privilegeCode: 'managehome'
     },
@@ -191,7 +191,7 @@ export const SubscribersIndividualMenuList =  [
                 icon: null,
                 privilegeCode: 'manageyearlydashboard'
             },
-       
+
             {
                 label: 'Monthly Recon ',
                 link: '/app/dashboard/Monthly-Recon-Dashboard',
@@ -226,13 +226,13 @@ export const SubscribersIndividualMenuList =  [
             }
         ]
     },
-    
+
     {
         label: 'Transactions',
         link: '/app/transactions',
         icon: 'mdi mdi-sticker-text-outline',
         privilegeCode: 'managetransactions',
-        childrens: [       
+        childrens: [
         ]
     },
     {
@@ -241,14 +241,14 @@ export const SubscribersIndividualMenuList =  [
         icon: 'mdi mdi-message-text-outline',
         privilegeCode: 'manageoperations',
         childrens: [
-                {
-                label: 'Rules' ,
+            {
+                label: 'Rules',
                 link: '/app/operations/rule-list',
                 icon: null,
                 privilegeCode: 'manageoperations',
             },
             {
-                label: 'File Uploads' ,
+                label: 'File Uploads',
                 link: '/app/operations',
                 icon: null,
                 privilegeCode: 'manageoperations',
@@ -280,14 +280,78 @@ export const SubscribersIndividualMenuList =  [
         privilegeCode: 'managereports',
         childrens: [
             {
-                label: 'GSTR9B Report' ,
+                label: 'GSTR9B Report',
                 link: '/app/reports/download-gstr9b',
                 icon: null,
                 privilegeCode: 'managedownloadgstr9',
             },
-      
+
         ]
     },
-   
-   
+
+
+]
+
+export const NumberOfNightList = [
+    {
+        id: 1,
+        label: '1 Night',
+    },
+    {
+        id: 2,
+        label: '2 Nights',
+    },
+    {
+        id: 3,
+        label: '3 Nights',
+    },
+    {
+        id: 4,
+        label: '4 Nights',
+    },
+    {
+        id: 5,
+        label: '5 Nights',
+    },
+    {
+        id: 6,
+        label: '6 Nights',
+    },
+    {
+        id: 7,
+        label: '7 Nights',
+    },
+    {
+        id: 8,
+        label: '8 Nights',
+    },
+    {
+        id: 9,
+        label: '9 Nights',
+    },
+    {
+        id: 10,
+        label: '10 Nights',
+    },
+    {
+        id: 11,
+        label: '11 Nights',
+    },
+    {
+        id: 12,
+        label: '12 Nights',
+    },
+    {
+        id: 13,
+        label: '13 Nights',
+    },
+    {
+        id: 14,
+        label: '14 Nights',
+    },
+    {
+        id: 15,
+        label: '15 Nights',
+    }
+
 ]
