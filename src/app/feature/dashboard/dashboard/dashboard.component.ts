@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NumberOfNightList } from 'src/app/modal/menu';
 
 @Component({
@@ -7,25 +8,47 @@ import { NumberOfNightList } from 'src/app/modal/menu';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  numberOfNightList : any[] = NumberOfNightList;
-  cities = [{ name: '', night: '' }];
+  numberOfNightList: any[] = NumberOfNightList;
+  tripDetailsForm!: FormGroup;
+
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
-
+    this.initializeTripDetailsForm();
   }
 
+  initializeTripDetailsForm() {
+    this.tripDetailsForm = this.fb.group({
+      cities: this.fb.array([]), 
+    });
+    this.addCity(); 
+  }
 
-  // Add a new city row
+  get cities(): FormArray {
+    return this.tripDetailsForm.get('cities') as FormArray;
+  }
+
   addCity() {
-    if(this.cities.length <= 15) {
-      this.cities.push({ name: '', night: '' });
-    }    
+    if (this.cities.length < 15) {
+      const cityGroup = this.fb.group({
+        cityName: ['', Validators.required],
+        numberOfNights: [null, Validators.required],
+      });
+      this.cities.push(cityGroup);
+    }
   }
 
-  // Remove a city row
   removeCity(index: number) {
-    if(this.cities.length !== 1) {
-      this.cities.splice(index, 1);
+    if (this.cities.length > 1) {
+      this.cities.removeAt(index);
+    }
+  }
+
+  submitForm() {
+    if (this.tripDetailsForm.valid) {
+      console.log(this.tripDetailsForm.value);
+    } else {
+     
     }
   }
 }

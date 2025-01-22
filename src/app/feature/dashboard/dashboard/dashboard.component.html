@@ -92,42 +92,35 @@
                                                                     </p>
 
                                                                     <div class="live-preview">
-                                                                        <form class="row g-3 needs-validation"
-                                                                            novalidate="">
-                                                                            <div class="col-md-12">
-                                                                                <div *ngFor="let city of cities; let i = index"
-                                                                                    class="row align-items-center">
-                                                                                    <div class="col-md-6">
-                                                                                        <input type="text"
-                                                                                            class="form-control rounded-end flag-input mb-3"
-                                                                                            placeholder="Select City"
-                                                                                            [(ngModel)]="city.name" />
-                                                                                    </div>
-                                                                                    <div class="col-md-4">
-                                                                                        <select class="form-select mb-3"
-                                                                                            [(ngModel)]="city.night"
-                                                                                            aria-label="Default select example">
-                                                                                            <option [value]="data.id" *ngFor="let data of numberOfNightList">{{data.label}}
-                                                                                            </option>
-                                                                                        </select>
-                                                                                    </div>
-                                                                                    <div class="col-md-2">
-                                                                                        <button type="button"
-                                                                                            class="btn btn-danger mb-3"
-                                                                                            (click)="removeCity(i)">
-                                                                                            Delete
-                                                                                        </button>
-                                                                                    </div>
+                                                                        <form [formGroup]="tripDetailsForm" class="row g-3 needs-validation"
+                                                                            novalidate="" (ngSubmit)="submitForm()">
+                                                                            <div formArrayName="cities" class="col-md-12">
+                                                                                <div *ngFor="let city of cities.controls; let i = index" [formGroupName]="i" class="row align-items-center">
+                                                                                  <div class="col-md-6">
+                                                                                    <input
+                                                                                      type="text"
+                                                                                      formControlName="cityName"
+                                                                                      class="form-control rounded-end flag-input mb-3"
+                                                                                      placeholder="Select City"
+                                                                                    />
+                                                                                  </div>
+                                                                                  <div class="col-md-4">
+                                                                                    <select
+                                                                                      formControlName="numberOfNights"
+                                                                                      class="form-select mb-3"
+                                                                                      aria-label="Default select example"
+                                                                                    >
+                                                                                      <option *ngFor="let data of numberOfNightList" [value]="data.id">{{ data.label }}</option>
+                                                                                    </select>
+                                                                                  </div>
+                                                                                  <div class="col-md-2">
+                                                                                    <button type="button" class="btn btn-danger mb-3" (click)="removeCity(i)">Delete</button>
+                                                                                  </div>
                                                                                 </div>
-
-                                                                                <div class="col-12" *ngIf="cities.length !== 15">
-                                                                                    <a class="text-primary"
-                                                                                        style="cursor: pointer;"
-                                                                                        (click)="addCity()">
-                                                                                        + Add Another City
-                                                                                    </a>
+                                                                                <div class="col-12" *ngIf="cities.length < 15">
+                                                                                  <a class="text-primary" style="cursor: pointer;" (click)="addCity()">+ Add Another City</a>
                                                                                 </div>
-                                                                            </div>
+                                                                              </div>
                                                                             <div class="col-md-12">
                                                                                 <h5 class="text-primary">TRIP DETAILS
                                                                                 </h5>
@@ -136,7 +129,7 @@
                                                                                 <label for="validationDefault01"
                                                                                     class="form-label">Leaving
                                                                                     From</label>
-                                                                                <input type="text" class="form-control"
+                                                                                <input type="date" class="form-control"
                                                                                     id="validationDefault01"
                                                                                     value="Mark" required="">
                                                                             </div>
