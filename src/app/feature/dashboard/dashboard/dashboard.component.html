@@ -92,40 +92,49 @@
                                                                     </p>
 
                                                                     <div class="live-preview">
-                                                                        <form class="row g-3 needs-validation"
-                                                                            novalidate="">
-                                                                            <div class="col-md-12">
-                                                                                <div *ngFor="let city of cities; let i = index"
+                                                                        <form [formGroup]="tripDetailsForm"
+                                                                            class="row g-3 needs-validation"
+                                                                            novalidate="" (ngSubmit)="submitForm()">
+                                                                            <div formArrayName="cities"
+                                                                                class="col-md-12">
+                                                                                <div *ngFor="let city of cities.controls; let i = index"
+                                                                                    [formGroupName]="i"
                                                                                     class="row align-items-center">
-                                                                                    <div class="col-md-6">
+                                                                                    <div class="col-md-4">
                                                                                         <input type="text"
+                                                                                            formControlName="cityName"
                                                                                             class="form-control rounded-end flag-input mb-3"
-                                                                                            placeholder="Select City"
-                                                                                            [(ngModel)]="city.name" />
+                                                                                            placeholder="Enter City Name" />
                                                                                     </div>
                                                                                     <div class="col-md-4">
-                                                                                        <select class="form-select mb-3"
-                                                                                            [(ngModel)]="city.night"
+                                                                                        <input type="text"
+                                                                                            formControlName="hotelName"
+                                                                                            class="form-control rounded-end flag-input mb-3"
+                                                                                            placeholder="Enter Hotel Name" />
+                                                                                    </div>
+                                                                                    <div class="col-md-2">
+                                                                                        <select
+                                                                                            formControlName="numberOfNights"
+                                                                                            class="form-select mb-3"
                                                                                             aria-label="Default select example">
-                                                                                            <option [value]="data.id" *ngFor="let data of numberOfNightList">{{data.label}}
-                                                                                            </option>
+                                                                                            <option
+                                                                                                *ngFor="let data of numberOfNightList"
+                                                                                                [value]="data.id">{{
+                                                                                                data.label }}</option>
                                                                                         </select>
                                                                                     </div>
                                                                                     <div class="col-md-2">
                                                                                         <button type="button"
                                                                                             class="btn btn-danger mb-3"
-                                                                                            (click)="removeCity(i)">
-                                                                                            Delete
-                                                                                        </button>
+                                                                                            (click)="removeCity(i)">Delete</button>
                                                                                     </div>
                                                                                 </div>
-
-                                                                                <div class="col-12" *ngIf="cities.length !== 15">
+                                                                                <div class="col-12"
+                                                                                    *ngIf="cities.length < 15">
                                                                                     <a class="text-primary"
                                                                                         style="cursor: pointer;"
-                                                                                        (click)="addCity()">
-                                                                                        + Add Another City
-                                                                                    </a>
+                                                                                        (click)="addCity()">+ Add
+                                                                                        Another City</a>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-md-12">
@@ -136,9 +145,25 @@
                                                                                 <label for="validationDefault01"
                                                                                     class="form-label">Leaving
                                                                                     From</label>
-                                                                                <input type="text" class="form-control"
-                                                                                    id="validationDefault01"
-                                                                                    value="Mark" required="">
+                                                                                <mat-form-field
+                                                                                    class="no-underline custom-date-picker w-100">
+                                                                                    <input matInput
+                                                                                        formControlName="leavingDate"
+                                                                                        [matDatepicker]="picker"
+                                                                                        readonly="true"
+                                                                                        [required]="true"
+                                                                                        (click)="picker.open()">
+                                                                                    <mat-datepicker-toggle matIconSuffix
+                                                                                        [for]="picker" touchUi>
+                                                                                    </mat-datepicker-toggle>
+                                                                                    <mat-datepicker touchUi
+                                                                                        #picker></mat-datepicker>
+                                                                                </mat-form-field>
+                                                                                <div *ngIf="leavingDate.touched && leavingDate.invalid"
+                                                                                    class="text-danger"
+                                                                                    style="margin-top: -15px;">Leaving
+                                                                                    Date
+                                                                                    is Required </div>
                                                                             </div>
                                                                             <div class="col-md-6">
                                                                                 <label for="validationDefault01"
@@ -152,112 +177,127 @@
                                                                                         placeholder="Select country"
                                                                                         data-bs-toggle="dropdown"
                                                                                         aria-expanded="false">
-                                                                                    <div class="dropdown-menu w-100">
-                                                                                        <ul
-                                                                                            class="list-unstyled dropdown-menu-list mb-0">
-                                                                                            <li
-                                                                                                class="dropdown-item d-flex active">
-                                                                                                <div
-                                                                                                    class="flex-shrink-0 me-2">
-                                                                                                    <img src="assets/images/flags/in.svg"
-                                                                                                        alt="country flag"
-                                                                                                        class="options-flagimg"
-                                                                                                        height="20">
-                                                                                                </div>
-                                                                                                <div
-                                                                                                    class="flex-grow-1">
-                                                                                                    <div class="d-flex">
-                                                                                                        <div
-                                                                                                            class="country-name me-1">
-                                                                                                            India</div>
-                                                                                                        <span
-                                                                                                            class="countrylist-codeno text-muted">+91</span>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                            </li>
-                                                                                        </ul>
-                                                                                    </div>
+
                                                                                 </div>
                                                                             </div>
 
                                                                             <div class="col-md-6">
-                                                                                <div class="mb-3">
-                                                                                    <label for="JoiningdatInput"
-                                                                                        class="form-label">Joining
-                                                                                        Date</label>
-                                                                                    <input type="text"
-                                                                                        class="form-control flatpickr-input"
-                                                                                        data-provider="flatpickr"
-                                                                                        id="JoiningdatInput"
-                                                                                        data-date-format="d M, Y"
-                                                                                        data-deafult-date="24 Nov, 2021"
-                                                                                        placeholder="Select date"
-                                                                                        readonly="readonly">
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-md-6">
-                                                                                <label for="JoiningdatInput"
-                                                                                    class="form-label">Number of
-                                                                                    Travelers</label>
-                                                                                    <input type="text" appNumberOnly maxlength="2"
-                                                                                    class="form-control rounded-end flag-input mb-3"
-                                                                                    placeholder="Enter number of Travelers"/>
-                                                                            </div>
-                                                                            <div class="col-md-6">
                                                                                 <label for="JoiningdatInput"
                                                                                     class="form-label">Interests</label>
                                                                                 <select class="form-select mb-3"
+                                                                                    formControlName="interests"
                                                                                     aria-label="Default select example">
-                                                                                    <option value="">
+                                                                                    <option value="Family Trips">
                                                                                         Family Trips
                                                                                     </option>
-                                                                                    <option value="">Friends Trips</option>
-                                                                                    <option value="">Couple’s Getaway</option>
-                                                                                    <option value="">Solo Travel</option>
-                                                                                    <option value="">Group Tours</option>
-                                                                                    <option value="">School or College Trips</option>
-                                                                                    <option value="">Corporate Trips</option>
-                                                                                    <option value="">Reunion Trips</option>
+                                                                                    <option value="Friends Trips">
+                                                                                        Friends Trips
+                                                                                    </option>
+                                                                                    <option value="Couple’s Getaway">
+                                                                                        Couple’s Getaway
+                                                                                    </option>
+                                                                                    <option value="Solo Travel">Solo
+                                                                                        Travel
+                                                                                    </option>
+                                                                                    <option value="Group Tours">Group
+                                                                                        Tours
+                                                                                    </option>
+                                                                                    <option
+                                                                                        value="School or College Trips">
+                                                                                        School or College
+                                                                                        Trips</option>
+                                                                                    <option value="Corporate Trips">
+                                                                                        Corporate Trips
+                                                                                    </option>
+                                                                                    <option value="Reunion Trips">
+                                                                                        Reunion Trips
+                                                                                    </option>
                                                                                 </select>
+                                                                                <span
+                                                                                    *ngIf="interests.touched && interests.invalid"
+                                                                                    class="text-danger">Interests
+                                                                                    is Required </span>
                                                                             </div>
+
                                                                             <div class="col-md-6">
                                                                                 <label for="JoiningdatInput"
-                                                                                    class="form-label">Who is Traveling</label>
-                                                                                    <input type="text" appNumberOnly maxlength="2"
-                                                                                    class="form-control rounded-end flag-input mb-3"
-                                                                                    placeholder="Enter number of Travelers"/>
-                                                                            </div>
-                                                                            <div class="col-md-6">
-                                                                                <label for="JoiningdatInput"
-                                                                                    class="form-label">Star rating</label>
+                                                                                    class="form-label">Star
+                                                                                    rating</label>
                                                                                 <select class="form-select mb-3"
+                                                                                    formControlName="hotelRating"
                                                                                     aria-label="Default select example">
                                                                                     <option value="">Select
                                                                                         Star
                                                                                     </option>
-                                                                                   <option value="">2-Star</option>
-                                                                                   <option value="">3-Star</option>
-                                                                                   <option value="">4-Star</option>
-                                                                                   <option value="">5-Star</option>
+                                                                                    <option value="2-Star">2-Star
+                                                                                    </option>
+                                                                                    <option value="3-Star">3-Star
+                                                                                    </option>
+                                                                                    <option value="4-Star">4-Star
+                                                                                    </option>
+                                                                                    <option value="5-Star">5-Star
+                                                                                    </option>
                                                                                 </select>
+                                                                                <span
+                                                                                    *ngIf="hotelRating.touched && hotelRating.invalid"
+                                                                                    class="text-danger">Star Rating
+                                                                                    is Required </span>
                                                                             </div>
-                                                                            <!-- <div class="col-md-6">
-                                                                                <div class="form-check mt-1">
-                                                                                    <input class="form-check-input" type="checkbox" value="" id="auth-remember-check">
-                                                                                    <label class="form-check-label" for="auth-remember-check">Add Transfers</label>
-                                                                                </div>
-                                                                                <div class="form-check mt-2">
-                                                                                    <input class="form-check-input" type="checkbox" value="" id="auth-remember-check">
-                                                                                    <label class="form-check-label" for="auth-remember-check">Land Only (no stay required)</label>
-                                                                                </div>
-                                                                            </div> -->
-                                                                            
                                                                             <div class="col-md-12">
-                                                                                    <div class="row">
-                                                                                        <div class="col-md-4">
-                                                                                            <button class="btn btn-primary w-100"
+                                                                                <label for="JoiningdatInput"
+                                                                                    class="form-label">Number of
+                                                                                    Travelers</label>
+                                                                                <div class="input-group">
+                                                                                    <input type="text"
+                                                                                        class="form-control"
+                                                                                        placeholder="Adults"
+                                                                                        appNumberOnly
+                                                                                        formControlName="adults"
+                                                                                        maxlength="2">
+                                                                                    <input type="text"
+                                                                                        class="form-control"
+                                                                                        placeholder="Infants"
+                                                                                        appNumberOnly
+                                                                                        formControlName="infants"
+                                                                                        maxlength="2">
+                                                                                    <input type="text"
+                                                                                        class="form-control"
+                                                                                        placeholder="Children"
+                                                                                        appNumberOnly
+                                                                                        formControlName="childrens"
+                                                                                        maxlength="2">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-12">
+                                                                                <div class="row">
+                                                                                    <div class="col-4">
+                                                                                        <span
+                                                                                        *ngIf="adults.touched && adults.invalid"
+                                                                                        class="text-danger">Number of Adult
+                                                                                        is Required </span>
+                                                                                    </div>
+                                                                                    <div class="col-4">
+                                                                                        <span
+                                                                                        *ngIf="infants.touched && infants.invalid"
+                                                                                        class="text-danger">Number of Infants
+                                                                                        is Required </span>
+                                                                                    </div>
+                                                                                    <div class="col-4">
+                                                                                        <span
+                                                                                        *ngIf="childrens.touched && childrens.invalid"
+                                                                                        class="text-danger">Number of Childrens
+                                                                                        is Required </span>
+                                                                                    </div>
+                                                                                    
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-12">
+                                                                                <div class="row">
+                                                                                    <div class="col-md-4">
+                                                                                        <button
+                                                                                            class="btn btn-primary w-100"
                                                                                             type="submit">Countinue</button>
-                                                                                        </div>
+                                                                                    </div>
                                                                                 </div>
                                                                             </div>
                                                                         </form>
