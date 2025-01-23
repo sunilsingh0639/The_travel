@@ -8,22 +8,33 @@ import { ReconDashboardComponent } from './recon-dashboard/recon-dashboard.compo
 import { YearlyReconDashboardComponent } from './yearly-recon-dashboard/yearly-recon-dashboard.component';
 import { SharedModule } from 'src/app/shared/shared/shared.module';
 import { FormsModule } from '@angular/forms';
-
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
 
 
 @NgModule({
   declarations: [
     DashboardComponent,
     SupplierDashboardComponent,
-    
+
     ReconDashboardComponent,
-          YearlyReconDashboardComponent
+    YearlyReconDashboardComponent
   ],
   imports: [
     CommonModule,
     DashboardRoutingModule,
     SharedModule,
-    FormsModule
+    FormsModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
+    MatInputModule
   ]
 })
 export class DashboardModule { }
