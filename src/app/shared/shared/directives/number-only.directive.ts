@@ -7,10 +7,10 @@ export class NumberOnlyDirective {
   constructor(private _el: ElementRef) { }
 
   @HostListener('input', ['$event']) onInputChange(event: any) {
-    const initalValue = this._el.nativeElement.value;
+    const initalValue = event.target.value;
 
-    this._el.nativeElement.value = initalValue.replace(/[^0-9]*/g, '');
-    if ( initalValue !== this._el.nativeElement.value) {
+    event.target.value = initalValue.replace(/[^0-9]*/g, '');
+    if (initalValue !== event.target.value) {
       event.stopPropagation();
     }
   }

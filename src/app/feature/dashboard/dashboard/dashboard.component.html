@@ -171,7 +171,7 @@
                                                                                     <mat-datepicker touchUi
                                                                                         #picker></mat-datepicker>
                                                                                 </mat-form-field>
-                                                                                <div *ngIf="leavingDate.touched && leavingDate.invalid"
+                                                                                <div *ngIf="tripDetailsForm.get('leavingDate')?.touched && tripDetailsForm.get('leavingDate')?.hasError('required') && tripDetailsForm.get('leavingDate')?.value === ''"
                                                                                     class="text-danger"
                                                                                     style="margin-top: -15px;">Leaving
                                                                                     Date
@@ -226,7 +226,7 @@
                                                                                     </option>
                                                                                 </select>
                                                                                 <span
-                                                                                    *ngIf="interests.touched && interests.invalid"
+                                                                                    *ngIf="tripDetailsForm.get('interests')?.touched && tripDetailsForm.get('interests')?.hasError('required') && tripDetailsForm.get('interests')?.value === ''"
                                                                                     class="text-danger">Interests
                                                                                     is Required </span>
                                                                             </div>
@@ -251,7 +251,7 @@
                                                                                     </option>
                                                                                 </select>
                                                                                 <span
-                                                                                    *ngIf="hotelRating.touched && hotelRating.invalid"
+                                                                                    *ngIf="tripDetailsForm.get('hotelRating')?.touched && tripDetailsForm.get('hotelRating')?.hasError('required') && tripDetailsForm.get('hotelRating')?.value === ''"
                                                                                     class="text-danger">Star Rating
                                                                                     is Required </span>
                                                                             </div>
@@ -284,21 +284,21 @@
                                                                                 <div class="row">
                                                                                     <div class="col-4">
                                                                                         <span
-                                                                                            *ngIf="adults.touched && adults.invalid"
+                                                                                            *ngIf="tripDetailsForm.get('adults')?.touched && tripDetailsForm.get('adults')?.hasError('required') && tripDetailsForm.get('adults')?.value === ''"
                                                                                             class="text-danger">Number
                                                                                             of Adult
                                                                                             is Required </span>
                                                                                     </div>
                                                                                     <div class="col-4">
                                                                                         <span
-                                                                                            *ngIf="infants.touched && infants.invalid"
+                                                                                            *ngIf="tripDetailsForm.get('infants')?.touched && tripDetailsForm.get('infants')?.hasError('required') && tripDetailsForm.get('infants')?.value === ''"
                                                                                             class="text-danger">Number
                                                                                             of Infants
                                                                                             is Required </span>
                                                                                     </div>
                                                                                     <div class="col-4">
                                                                                         <span
-                                                                                            *ngIf="childrens.touched && childrens.invalid"
+                                                                                            *ngIf="tripDetailsForm.get('childrens')?.touched && tripDetailsForm.get('childrens')?.hasError('required') && tripDetailsForm.get('childrens')?.value === ''"
                                                                                             class="text-danger">Number
                                                                                             of Childrens
                                                                                             is Required </span>

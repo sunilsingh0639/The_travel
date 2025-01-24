@@ -37,19 +37,19 @@ export class DashboardComponent implements OnInit {
     return this.tripDetailsForm.controls['leavingDate'];
   }
   get interests() {
-    return this.tripDetailsForm.controls['leavingDate'];
+    return this.tripDetailsForm.controls['interests'];
   }
   get hotelRating() {
-    return this.tripDetailsForm.controls['leavingDate'];
+    return this.tripDetailsForm.controls['hotelRating'];
   }
   get adults() {
-    return this.tripDetailsForm.controls['leavingDate'];
+    return this.tripDetailsForm.controls['adults'];
   }
   get infants() {
-    return this.tripDetailsForm.controls['leavingDate'];
+    return this.tripDetailsForm.controls['infants'];
   }
   get childrens() {
-    return this.tripDetailsForm.controls['leavingDate'];
+    return this.tripDetailsForm.controls['childrens'];
   }
 
   addCity() {
@@ -70,12 +70,13 @@ export class DashboardComponent implements OnInit {
   }
 
   submitForm() {
-    if(!this.tripDetailsForm.valid) {
+    if (!this.tripDetailsForm.valid) {
       this.tripDetailsForm.markAllAsTouched();
     }
     console.log(this.tripDetailsForm.value);
-    
+
     if (this.tripDetailsForm.valid) {
+      alert('ok')
       console.log(this.tripDetailsForm.value);
     } else {
 
