@@ -100,32 +100,44 @@
                                                                                 <div *ngFor="let city of cities.controls; let i = index"
                                                                                     [formGroupName]="i"
                                                                                     class="row align-items-center">
-                                                                                    <div class="col-md-4">
+                                                                                    <div class="col-md-4 mt-2">
                                                                                         <input type="text"
                                                                                             formControlName="cityName"
-                                                                                            class="form-control rounded-end flag-input mb-3"
+                                                                                            class="form-control rounded-end flag-input mb-2"
                                                                                             placeholder="Enter City Name" />
+                                                                                        <span
+                                                                                            *ngIf="city.get('cityName')?.touched && city.get('cityName')?.hasError('required')"
+                                                                                            class="text-danger">City
+                                                                                            name is required.</span>
                                                                                     </div>
-                                                                                    <div class="col-md-4">
+                                                                                    <div class="col-md-4 mt-2">
                                                                                         <input type="text"
                                                                                             formControlName="hotelName"
-                                                                                            class="form-control rounded-end flag-input mb-3"
+                                                                                            class="form-control rounded-end flag-input mb-2"
                                                                                             placeholder="Enter Hotel Name" />
+                                                                                        <span
+                                                                                            *ngIf="city.get('hotelName')?.touched && city.get('hotelName')?.hasError('required')"
+                                                                                            class="text-danger">Hotel
+                                                                                            name is required.</span>
                                                                                     </div>
-                                                                                    <div class="col-md-2">
+                                                                                    <div class="col-md-2 mt-2">
                                                                                         <select
                                                                                             formControlName="numberOfNights"
-                                                                                            class="form-select mb-3"
+                                                                                            class="form-select mb-2"
                                                                                             aria-label="Default select example">
                                                                                             <option
                                                                                                 *ngFor="let data of numberOfNightList"
                                                                                                 [value]="data.id">{{
                                                                                                 data.label }}</option>
                                                                                         </select>
+                                                                                        <span
+                                                                                            *ngIf="city.get('numberOfNights')?.touched && city.get('numberOfNights')?.hasError('required')"
+                                                                                            class="text-danger">
+                                                                                            Required field.</span>
                                                                                     </div>
-                                                                                    <div class="col-md-2">
+                                                                                    <div class="col-md-2 mt-2">
                                                                                         <button type="button"
-                                                                                            class="btn btn-danger mb-3"
+                                                                                            class="btn btn-danger w-100 mb-2"
                                                                                             (click)="removeCity(i)">Delete</button>
                                                                                     </div>
                                                                                 </div>
@@ -272,23 +284,26 @@
                                                                                 <div class="row">
                                                                                     <div class="col-4">
                                                                                         <span
-                                                                                        *ngIf="adults.touched && adults.invalid"
-                                                                                        class="text-danger">Number of Adult
-                                                                                        is Required </span>
+                                                                                            *ngIf="adults.touched && adults.invalid"
+                                                                                            class="text-danger">Number
+                                                                                            of Adult
+                                                                                            is Required </span>
                                                                                     </div>
                                                                                     <div class="col-4">
                                                                                         <span
-                                                                                        *ngIf="infants.touched && infants.invalid"
-                                                                                        class="text-danger">Number of Infants
-                                                                                        is Required </span>
+                                                                                            *ngIf="infants.touched && infants.invalid"
+                                                                                            class="text-danger">Number
+                                                                                            of Infants
+                                                                                            is Required </span>
                                                                                     </div>
                                                                                     <div class="col-4">
                                                                                         <span
-                                                                                        *ngIf="childrens.touched && childrens.invalid"
-                                                                                        class="text-danger">Number of Childrens
-                                                                                        is Required </span>
+                                                                                            *ngIf="childrens.touched && childrens.invalid"
+                                                                                            class="text-danger">Number
+                                                                                            of Childrens
+                                                                                            is Required </span>
                                                                                     </div>
-                                                                                    
+
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-md-12">
