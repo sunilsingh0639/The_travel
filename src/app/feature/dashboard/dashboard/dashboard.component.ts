@@ -10,7 +10,7 @@ import { NumberOfNightList } from 'src/app/modal/menu';
 export class DashboardComponent implements OnInit {
   numberOfNightList: any[] = NumberOfNightList;
   tripDetailsForm!: FormGroup;
-
+  step: number = 1;
   constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {

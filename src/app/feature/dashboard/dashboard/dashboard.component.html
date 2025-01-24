@@ -78,244 +78,337 @@
                                                         </div>
 
                                                         <div class="col-lg-8">
-                                                            <div class="card">
-                                                                <div class="card-header align-items-center d-flex">
-                                                                    <h5 class="text-primary">DESTINATIONS</h5>
+                                                            <div *ngIf="step==1">
+                                                                <div class="card">
+                                                                    <div class="card-header align-items-center d-flex">
+                                                                        <h5 class="text-primary mb-0">DESTINATIONS</h5>
 
-                                                                </div><!-- end card header -->
+                                                                    </div><!-- end card header -->
 
-                                                                <div class="card-body">
-                                                                    <p class="text-muted">
-                                                                        Enter the cities in the order in which they
-                                                                        be
-                                                                        verified for the itinerary
-                                                                    </p>
+                                                                    <div class="card-body">
+                                                                        <p class="text-muted">
+                                                                            Enter the cities in the order in which they
+                                                                            be
+                                                                            verified for the itinerary
+                                                                        </p>
 
-                                                                    <div class="live-preview">
-                                                                        <form [formGroup]="tripDetailsForm"
-                                                                            class="row g-3 needs-validation"
-                                                                            novalidate="" (ngSubmit)="submitForm()">
-                                                                            <div formArrayName="cities"
-                                                                                class="col-md-12">
-                                                                                <div *ngFor="let city of cities.controls; let i = index"
-                                                                                    [formGroupName]="i"
-                                                                                    class="row align-items-center">
-                                                                                    <div class="col-md-4 mt-2">
+                                                                        <div class="live-preview">
+                                                                            <form [formGroup]="tripDetailsForm"
+                                                                                class="row g-3 needs-validation"
+                                                                                novalidate="" (ngSubmit)="submitForm()">
+                                                                                <div formArrayName="cities"
+                                                                                    class="col-md-12">
+                                                                                    <div *ngFor="let city of cities.controls; let i = index"
+                                                                                        [formGroupName]="i"
+                                                                                        class="row align-items-center">
+                                                                                        <div class="col-md-4 mt-2">
+                                                                                            <input type="text"
+                                                                                                formControlName="cityName"
+                                                                                                class="form-control rounded-end flag-input mb-2"
+                                                                                                placeholder="Enter City Name" />
+                                                                                            <span
+                                                                                                *ngIf="city.get('cityName')?.touched && city.get('cityName')?.hasError('required')"
+                                                                                                class="text-danger">City
+                                                                                                name is required.</span>
+                                                                                        </div>
+                                                                                        <div class="col-md-4 mt-2">
+                                                                                            <input type="text"
+                                                                                                formControlName="hotelName"
+                                                                                                class="form-control rounded-end flag-input mb-2"
+                                                                                                placeholder="Enter Hotel Name" />
+                                                                                            <span
+                                                                                                *ngIf="city.get('hotelName')?.touched && city.get('hotelName')?.hasError('required')"
+                                                                                                class="text-danger">Hotel
+                                                                                                name is required.</span>
+                                                                                        </div>
+                                                                                        <div class="col-md-2 mt-2">
+                                                                                            <select
+                                                                                                formControlName="numberOfNights"
+                                                                                                class="form-select mb-2"
+                                                                                                aria-label="Default select example">
+                                                                                                <option
+                                                                                                    *ngFor="let data of numberOfNightList"
+                                                                                                    [value]="data.id">{{
+                                                                                                    data.label }}
+                                                                                                </option>
+                                                                                            </select>
+                                                                                            <span
+                                                                                                *ngIf="city.get('numberOfNights')?.touched && city.get('numberOfNights')?.hasError('required')"
+                                                                                                class="text-danger">
+                                                                                                Required field.</span>
+                                                                                        </div>
+                                                                                        <div class="col-md-2 mt-2">
+                                                                                            <button type="button"
+                                                                                                class="btn btn-danger w-100 mb-2"
+                                                                                                (click)="removeCity(i)">Delete</button>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-12"
+                                                                                        *ngIf="cities.length < 15">
+                                                                                        <a class="text-primary"
+                                                                                            style="cursor: pointer;"
+                                                                                            (click)="addCity()">+ Add
+                                                                                            Another City</a>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-md-12">
+                                                                                    <h5 class="text-primary">TRIP
+                                                                                        DETAILS
+                                                                                    </h5>
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <label for="validationDefault01"
+                                                                                        class="form-label">Leaving
+                                                                                        From</label>
+                                                                                    <mat-form-field
+                                                                                        class="no-underline custom-date-picker w-100">
+                                                                                        <input matInput
+                                                                                            formControlName="leavingDate"
+                                                                                            [matDatepicker]="picker"
+                                                                                            readonly="true"
+                                                                                            [required]="true"
+                                                                                            (click)="picker.open()">
+                                                                                        <mat-datepicker-toggle
+                                                                                            matIconSuffix [for]="picker"
+                                                                                            touchUi>
+                                                                                        </mat-datepicker-toggle>
+                                                                                        <mat-datepicker touchUi
+                                                                                            #picker></mat-datepicker>
+                                                                                    </mat-form-field>
+                                                                                    <div *ngIf="tripDetailsForm.get('leavingDate')?.touched && tripDetailsForm.get('leavingDate')?.hasError('required') && tripDetailsForm.get('leavingDate')?.value === ''"
+                                                                                        class="text-danger"
+                                                                                        style="margin-top: -15px;">
+                                                                                        Leaving
+                                                                                        Date
+                                                                                        is Required </div>
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <label for="validationDefault01"
+                                                                                        class="form-label">Nationality</label>
+                                                                                    <div data-input-flag=""
+                                                                                        data-option-flag-img-name="">
                                                                                         <input type="text"
-                                                                                            formControlName="cityName"
-                                                                                            class="form-control rounded-end flag-input mb-2"
-                                                                                            placeholder="Enter City Name" />
-                                                                                        <span
-                                                                                            *ngIf="city.get('cityName')?.touched && city.get('cityName')?.hasError('required')"
-                                                                                            class="text-danger">City
-                                                                                            name is required.</span>
+                                                                                            class="form-control rounded-end flag-input flag-inputs"
+                                                                                            readonly="" value="India"
+                                                                                            disabled
+                                                                                            placeholder="Select country"
+                                                                                            data-bs-toggle="dropdown"
+                                                                                            aria-expanded="false">
+
                                                                                     </div>
-                                                                                    <div class="col-md-4 mt-2">
+                                                                                </div>
+
+                                                                                <div class="col-md-6">
+                                                                                    <label for="JoiningdatInput"
+                                                                                        class="form-label">Interests</label>
+                                                                                    <select class="form-select mb-3"
+                                                                                        formControlName="interests"
+                                                                                        aria-label="Default select example">
+                                                                                        <option value="Family Trips">
+                                                                                            Family Trips
+                                                                                        </option>
+                                                                                        <option value="Friends Trips">
+                                                                                            Friends Trips
+                                                                                        </option>
+                                                                                        <option
+                                                                                            value="Couple’s Getaway">
+                                                                                            Couple’s Getaway
+                                                                                        </option>
+                                                                                        <option value="Solo Travel">Solo
+                                                                                            Travel
+                                                                                        </option>
+                                                                                        <option value="Group Tours">
+                                                                                            Group
+                                                                                            Tours
+                                                                                        </option>
+                                                                                        <option
+                                                                                            value="School or College Trips">
+                                                                                            School or College
+                                                                                            Trips</option>
+                                                                                        <option value="Corporate Trips">
+                                                                                            Corporate Trips
+                                                                                        </option>
+                                                                                        <option value="Reunion Trips">
+                                                                                            Reunion Trips
+                                                                                        </option>
+                                                                                    </select>
+                                                                                    <span
+                                                                                        *ngIf="tripDetailsForm.get('interests')?.touched && tripDetailsForm.get('interests')?.hasError('required') && tripDetailsForm.get('interests')?.value === ''"
+                                                                                        class="text-danger">Interests
+                                                                                        is Required </span>
+                                                                                </div>
+
+                                                                                <div class="col-md-6">
+                                                                                    <label for="JoiningdatInput"
+                                                                                        class="form-label">Star
+                                                                                        rating</label>
+                                                                                    <select class="form-select mb-3"
+                                                                                        formControlName="hotelRating"
+                                                                                        aria-label="Default select example">
+                                                                                        <option value="">Select
+                                                                                            Star
+                                                                                        </option>
+                                                                                        <option value="2-Star">2-Star
+                                                                                        </option>
+                                                                                        <option value="3-Star">3-Star
+                                                                                        </option>
+                                                                                        <option value="4-Star">4-Star
+                                                                                        </option>
+                                                                                        <option value="5-Star">5-Star
+                                                                                        </option>
+                                                                                    </select>
+                                                                                    <span
+                                                                                        *ngIf="tripDetailsForm.get('hotelRating')?.touched && tripDetailsForm.get('hotelRating')?.hasError('required') && tripDetailsForm.get('hotelRating')?.value === ''"
+                                                                                        class="text-danger">Star Rating
+                                                                                        is Required </span>
+                                                                                </div>
+                                                                                <div class="col-md-12">
+                                                                                    <label for="JoiningdatInput"
+                                                                                        class="form-label">Number of
+                                                                                        Travelers</label>
+                                                                                    <div class="input-group">
                                                                                         <input type="text"
-                                                                                            formControlName="hotelName"
-                                                                                            class="form-control rounded-end flag-input mb-2"
-                                                                                            placeholder="Enter Hotel Name" />
-                                                                                        <span
-                                                                                            *ngIf="city.get('hotelName')?.touched && city.get('hotelName')?.hasError('required')"
-                                                                                            class="text-danger">Hotel
-                                                                                            name is required.</span>
-                                                                                    </div>
-                                                                                    <div class="col-md-2 mt-2">
-                                                                                        <select
-                                                                                            formControlName="numberOfNights"
-                                                                                            class="form-select mb-2"
-                                                                                            aria-label="Default select example">
-                                                                                            <option
-                                                                                                *ngFor="let data of numberOfNightList"
-                                                                                                [value]="data.id">{{
-                                                                                                data.label }}</option>
-                                                                                        </select>
-                                                                                        <span
-                                                                                            *ngIf="city.get('numberOfNights')?.touched && city.get('numberOfNights')?.hasError('required')"
-                                                                                            class="text-danger">
-                                                                                            Required field.</span>
-                                                                                    </div>
-                                                                                    <div class="col-md-2 mt-2">
-                                                                                        <button type="button"
-                                                                                            class="btn btn-danger w-100 mb-2"
-                                                                                            (click)="removeCity(i)">Delete</button>
+                                                                                            class="form-control"
+                                                                                            placeholder="Adults"
+                                                                                            appNumberOnly
+                                                                                            formControlName="adults"
+                                                                                            maxlength="2">
+                                                                                        <input type="text"
+                                                                                            class="form-control"
+                                                                                            placeholder="Infants"
+                                                                                            appNumberOnly
+                                                                                            formControlName="infants"
+                                                                                            maxlength="2">
+                                                                                        <input type="text"
+                                                                                            class="form-control"
+                                                                                            placeholder="Children"
+                                                                                            appNumberOnly
+                                                                                            formControlName="childrens"
+                                                                                            maxlength="2">
                                                                                     </div>
                                                                                 </div>
-                                                                                <div class="col-12"
-                                                                                    *ngIf="cities.length < 15">
-                                                                                    <a class="text-primary"
-                                                                                        style="cursor: pointer;"
-                                                                                        (click)="addCity()">+ Add
-                                                                                        Another City</a>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-md-12">
-                                                                                <h5 class="text-primary">TRIP DETAILS
-                                                                                </h5>
-                                                                            </div>
-                                                                            <div class="col-md-6">
-                                                                                <label for="validationDefault01"
-                                                                                    class="form-label">Leaving
-                                                                                    From</label>
-                                                                                <mat-form-field
-                                                                                    class="no-underline custom-date-picker w-100">
-                                                                                    <input matInput
-                                                                                        formControlName="leavingDate"
-                                                                                        [matDatepicker]="picker"
-                                                                                        readonly="true"
-                                                                                        [required]="true"
-                                                                                        (click)="picker.open()">
-                                                                                    <mat-datepicker-toggle matIconSuffix
-                                                                                        [for]="picker" touchUi>
-                                                                                    </mat-datepicker-toggle>
-                                                                                    <mat-datepicker touchUi
-                                                                                        #picker></mat-datepicker>
-                                                                                </mat-form-field>
-                                                                                <div *ngIf="tripDetailsForm.get('leavingDate')?.touched && tripDetailsForm.get('leavingDate')?.hasError('required') && tripDetailsForm.get('leavingDate')?.value === ''"
-                                                                                    class="text-danger"
-                                                                                    style="margin-top: -15px;">Leaving
-                                                                                    Date
-                                                                                    is Required </div>
-                                                                            </div>
-                                                                            <div class="col-md-6">
-                                                                                <label for="validationDefault01"
-                                                                                    class="form-label">Nationality</label>
-                                                                                <div data-input-flag=""
-                                                                                    data-option-flag-img-name="">
-                                                                                    <input type="text"
-                                                                                        class="form-control rounded-end flag-input flag-inputs"
-                                                                                        readonly="" value="India"
-                                                                                        disabled
-                                                                                        placeholder="Select country"
-                                                                                        data-bs-toggle="dropdown"
-                                                                                        aria-expanded="false">
+                                                                                <div class="col-12">
+                                                                                    <div class="row">
+                                                                                        <div class="col-4">
+                                                                                            <span
+                                                                                                *ngIf="tripDetailsForm.get('adults')?.touched && tripDetailsForm.get('adults')?.hasError('required') && tripDetailsForm.get('adults')?.value === ''"
+                                                                                                class="text-danger">Number
+                                                                                                of Adult
+                                                                                                is Required </span>
+                                                                                        </div>
+                                                                                        <div class="col-4">
+                                                                                            <span
+                                                                                                *ngIf="tripDetailsForm.get('infants')?.touched && tripDetailsForm.get('infants')?.hasError('required') && tripDetailsForm.get('infants')?.value === ''"
+                                                                                                class="text-danger">Number
+                                                                                                of Infants
+                                                                                                is Required </span>
+                                                                                        </div>
+                                                                                        <div class="col-4">
+                                                                                            <span
+                                                                                                *ngIf="tripDetailsForm.get('childrens')?.touched && tripDetailsForm.get('childrens')?.hasError('required') && tripDetailsForm.get('childrens')?.value === ''"
+                                                                                                class="text-danger">Number
+                                                                                                of Childrens
+                                                                                                is Required </span>
+                                                                                        </div>
 
+                                                                                    </div>
                                                                                 </div>
-                                                                            </div>
+                                                                                <div class="col-md-12">
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-4">
+                                                                                            <button
+                                                                                                class="btn btn-primary w-100"
+                                                                                                type="submit">Countinue</button>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </form>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div *ngIf="step==2">
+                                                                <div class="card">
+                                                                    <div class="card-header align-items-center d-flex">
+                                                                        <h5 class="text-primary mb-0">ITINERARY</h5>
 
-                                                                            <div class="col-md-6">
-                                                                                <label for="JoiningdatInput"
-                                                                                    class="form-label">Interests</label>
-                                                                                <select class="form-select mb-3"
-                                                                                    formControlName="interests"
-                                                                                    aria-label="Default select example">
-                                                                                    <option value="Family Trips">
-                                                                                        Family Trips
-                                                                                    </option>
-                                                                                    <option value="Friends Trips">
-                                                                                        Friends Trips
-                                                                                    </option>
-                                                                                    <option value="Couple’s Getaway">
-                                                                                        Couple’s Getaway
-                                                                                    </option>
-                                                                                    <option value="Solo Travel">Solo
-                                                                                        Travel
-                                                                                    </option>
-                                                                                    <option value="Group Tours">Group
-                                                                                        Tours
-                                                                                    </option>
-                                                                                    <option
-                                                                                        value="School or College Trips">
-                                                                                        School or College
-                                                                                        Trips</option>
-                                                                                    <option value="Corporate Trips">
-                                                                                        Corporate Trips
-                                                                                    </option>
-                                                                                    <option value="Reunion Trips">
-                                                                                        Reunion Trips
-                                                                                    </option>
-                                                                                </select>
-                                                                                <span
-                                                                                    *ngIf="tripDetailsForm.get('interests')?.touched && tripDetailsForm.get('interests')?.hasError('required') && tripDetailsForm.get('interests')?.value === ''"
-                                                                                    class="text-danger">Interests
-                                                                                    is Required </span>
-                                                                            </div>
+                                                                    </div><!-- end card header -->
 
-                                                                            <div class="col-md-6">
-                                                                                <label for="JoiningdatInput"
-                                                                                    class="form-label">Star
-                                                                                    rating</label>
-                                                                                <select class="form-select mb-3"
-                                                                                    formControlName="hotelRating"
-                                                                                    aria-label="Default select example">
-                                                                                    <option value="">Select
-                                                                                        Star
-                                                                                    </option>
-                                                                                    <option value="2-Star">2-Star
-                                                                                    </option>
-                                                                                    <option value="3-Star">3-Star
-                                                                                    </option>
-                                                                                    <option value="4-Star">4-Star
-                                                                                    </option>
-                                                                                    <option value="5-Star">5-Star
-                                                                                    </option>
-                                                                                </select>
-                                                                                <span
-                                                                                    *ngIf="tripDetailsForm.get('hotelRating')?.touched && tripDetailsForm.get('hotelRating')?.hasError('required') && tripDetailsForm.get('hotelRating')?.value === ''"
-                                                                                    class="text-danger">Star Rating
-                                                                                    is Required </span>
-                                                                            </div>
-                                                                            <div class="col-md-12">
-                                                                                <label for="JoiningdatInput"
-                                                                                    class="form-label">Number of
-                                                                                    Travelers</label>
-                                                                                <div class="input-group">
-                                                                                    <input type="text"
-                                                                                        class="form-control"
-                                                                                        placeholder="Adults"
-                                                                                        appNumberOnly
-                                                                                        formControlName="adults"
-                                                                                        maxlength="2">
-                                                                                    <input type="text"
-                                                                                        class="form-control"
-                                                                                        placeholder="Infants"
-                                                                                        appNumberOnly
-                                                                                        formControlName="infants"
-                                                                                        maxlength="2">
-                                                                                    <input type="text"
-                                                                                        class="form-control"
-                                                                                        placeholder="Children"
-                                                                                        appNumberOnly
-                                                                                        formControlName="childrens"
-                                                                                        maxlength="2">
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-12">
-                                                                                <div class="row">
-                                                                                    <div class="col-4">
-                                                                                        <span
-                                                                                            *ngIf="tripDetailsForm.get('adults')?.touched && tripDetailsForm.get('adults')?.hasError('required') && tripDetailsForm.get('adults')?.value === ''"
-                                                                                            class="text-danger">Number
-                                                                                            of Adult
-                                                                                            is Required </span>
-                                                                                    </div>
-                                                                                    <div class="col-4">
-                                                                                        <span
-                                                                                            *ngIf="tripDetailsForm.get('infants')?.touched && tripDetailsForm.get('infants')?.hasError('required') && tripDetailsForm.get('infants')?.value === ''"
-                                                                                            class="text-danger">Number
-                                                                                            of Infants
-                                                                                            is Required </span>
-                                                                                    </div>
-                                                                                    <div class="col-4">
-                                                                                        <span
-                                                                                            *ngIf="tripDetailsForm.get('childrens')?.touched && tripDetailsForm.get('childrens')?.hasError('required') && tripDetailsForm.get('childrens')?.value === ''"
-                                                                                            class="text-danger">Number
-                                                                                            of Childrens
-                                                                                            is Required </span>
-                                                                                    </div>
+                                                                    <div class="card-body">
+                                                                        <p class="text-muted">
+                                                                            Enter the cities in the order in which they
+                                                                            be
+                                                                            verified for the itinerary
+                                                                        </p>
 
+                                                                        <div class="live-preview">
+                                                                            <form class="row g-3 needs-validation">
+                                                                                <div class="col-md-12">
+                                                                                    <h5 class="text-primary">TRIP
+                                                                                        DETAILS
+                                                                                    </h5>
                                                                                 </div>
-                                                                            </div>
-                                                                            <div class="col-md-12">
-                                                                                <div class="row">
-                                                                                    <div class="col-md-4">
-                                                                                        <button
-                                                                                            class="btn btn-primary w-100"
-                                                                                            type="submit">Countinue</button>
+                                                                                <div class="col-md-6">
+                                                                                    <label for=""
+                                                                                        class="form-label">Nationality</label>
+                                                                                    <div data-input-flag=""
+                                                                                        data-option-flag-img-name="">
+                                                                                        <input type="text"
+                                                                                            class="form-control rounded-end flag-input flag-inputs"
+                                                                                            readonly="" value="India"
+                                                                                            disabled
+                                                                                            placeholder="Select country"
+                                                                                            data-bs-toggle="dropdown"
+                                                                                            aria-expanded="false">
+
                                                                                     </div>
                                                                                 </div>
-                                                                            </div>
-                                                                        </form>
+
+                                                                                <div class="col-md-6">
+                                                                                    <label for=""
+                                                                                        class="form-label">Others</label>
+                                                                                    <select class="form-select mb-3"
+                                                                                        aria-label="Default select example">
+                                                                                        <option value="Family Trips">
+                                                                                            Family Trips
+                                                                                        </option>
+                                                                                        <option value="Friends Trips">
+                                                                                            Friends Trips
+                                                                                        </option>
+                                                                                        <option
+                                                                                            value="Couple’s Getaway">
+                                                                                            Couple’s Getaway
+                                                                                        </option>
+                                                                                        <option value="Solo Travel">Solo
+                                                                                            Travel
+                                                                                        </option>
+                                                                                        <option value="Group Tours">
+                                                                                            Group
+                                                                                            Tours
+                                                                                        </option>
+                                                                                        <option
+                                                                                            value="School or College Trips">
+                                                                                            School or College
+                                                                                            Trips</option>
+                                                                                        <option value="Corporate Trips">
+                                                                                            Corporate Trips
+                                                                                        </option>
+                                                                                        <option value="Reunion Trips">
+                                                                                            Reunion Trips
+                                                                                        </option>
+                                                                                    </select>
+                                                                                </div>
+                                                                                <div class="col-md-12">
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-4">
+                                                                                            <button
+                                                                                                class="btn btn-primary w-100"
+                                                                                                type="submit">Submit</button>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </form>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
