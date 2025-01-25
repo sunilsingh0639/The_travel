@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import { SpinnerService } from 'src/app/core/services/spinner/spinner.service';
 
 @Component({
   selector: 'app-pdf',
@@ -14,11 +15,13 @@ import html2canvas from 'html2canvas';
 
 export class PdfComponent {
 
+  constructor(private _spinner: SpinnerService){}
+
   downloadPDF() {
     const element = document.getElementById('pdf-content');
     
     if (element) {
-      
+      this._spinner.show();
       const pdf = new jsPDF('p', 'mm', 'a4');
       const options = { scale: 2, useCORS: true };
   
@@ -42,6 +45,10 @@ export class PdfComponent {
           heightLeft -= pageHeight;
         }
         pdf.save('itinerary-details.pdf');
+        this._spinner.hide();
+      }).catch((error) => {
+        console.error('Error generating PDF', error);
+        this._spinner.hide();
       });
     }
   }
