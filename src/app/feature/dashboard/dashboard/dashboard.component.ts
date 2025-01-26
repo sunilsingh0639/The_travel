@@ -16,7 +16,14 @@ export class DashboardComponent implements OnInit {
   min: number = 1;
   max: number = 20;
   step: number = 1;
-  constructor(private fb: FormBuilder) { }
+  minDate: Date;
+  maxDate: Date;
+  constructor(private fb: FormBuilder) {
+    const today = new Date();
+    this.minDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1);
+    this.maxDate = new Date(today.getFullYear() + 1, today.getMonth(), today.getDate() + 1);
+ 
+   }
 
   ngOnInit(): void {
     this.initializeTripDetailsForm();

@@ -125,7 +125,8 @@
                                                                                         <input matInput
                                                                                             formControlName="leavingDate"
                                                                                             [matDatepicker]="picker"
-                                                                                            readonly="true"
+                                                                                            readonly="true" [min]="minDate" 
+                                                                                            [max]="maxDate"
                                                                                             [required]="true"
                                                                                             (click)="picker.open()">
                                                                                         <mat-datepicker-toggle
@@ -289,6 +290,15 @@
                                                                                         <div *ngFor="let city of cities.controls; let i = index"
                                                                                             [formGroupName]="i"
                                                                                             class="row align-items-center">
+                                                                                            <!-- <div data-input-flag data-option-flag-name>
+                                                                                                <input type="text" class="form-control rounded-end flag-input" formControlName="cityName" readonly placeholder="Select City" data-bs-toggle="dropdown" aria-expanded="false" />
+                                                                                                <div class="dropdown-menu w-100">
+                                                                                                    <div class="p-2 px-3 pt-1 searchlist-input">
+                                                                                                        <input type="text" class="form-control form-control-sm border search-countryList" placeholder="Search country name or country code..." />
+                                                                                                    </div>
+                                                                                                    <ul class="list-unstyled dropdown-menu-list mb-0"></ul>
+                                                                                                </div>
+                                                                                            </div> -->
                                                                                             <div class="col-md-4 mt-2">
                                                                                                 <input type="text"
                                                                                                     formControlName="cityName"
