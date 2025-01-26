@@ -355,3 +355,66 @@ export const NumberOfNightList = [
     }
 
 ]
+export const numberOfDays = [
+    {
+        id: 1,
+        label: '1 Day',
+    },
+    {
+        id: 2,
+        label: '2 Days',
+    },
+    {
+        id: 3,
+        label: '3 Days',
+    },
+    {
+        id: 4,
+        label: '4 Days',
+    },
+    {
+        id: 5,
+        label: '5 Days',
+    },
+    {
+        id: 6,
+        label: '6 Days',
+    },
+    {
+        id: 7,
+        label: '7 Days',
+    },
+    {
+        id: 8,
+        label: '8 Days',
+    },
+    {
+        id: 9,
+        label: '9 Days',
+    },
+    {
+        id: 10,
+        label: '10 Days',
+    },
+    {
+        id: 11,
+        label: '11 Days',
+    },
+    {
+        id: 12,
+        label: '12 Days',
+    },
+    {
+        id: 13,
+        label: '13 Days',
+    },
+    {
+        id: 14,
+        label: '14 Days',
+    },
+    {
+        id: 15,
+        label: '15 Days',
+    }
+
+]
