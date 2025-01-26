@@ -14,13 +14,14 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
+import { NumberToWordPipe } from 'src/app/shared/shared/directives/number-to-word.pipe';
 
 
 @NgModule({
   declarations: [
     DashboardComponent,
     SupplierDashboardComponent,
-
+    NumberToWordPipe,
     ReconDashboardComponent,
     YearlyReconDashboardComponent
   ],
