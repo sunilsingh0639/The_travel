@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { destination } from 'src/app/modal/destination';
 import { numberOfDays, NumberOfNightList } from 'src/app/modal/menu';
 
 @Component({
@@ -12,15 +14,24 @@ export class DashboardComponent implements OnInit {
   numberOfDays: any[] = numberOfDays;
   tripDetailsForm!: FormGroup;
   tripItineraryForm!: FormGroup;
-  numberOfRoom: number = 1;
+  paymentDetailsForm!: FormGroup;
+  numberOfRoom: number = 0;
   min: number = 1;
   max: number = 20;
   step: number = 1;
-  constructor(private fb: FormBuilder) { }
+  today = new Date();
+  minDate: Date = new Date(this.today.getFullYear(), this.today.getMonth(), this.today.getDate() + 1);;
+  maxDate: Date = new Date(this.today.getFullYear() + 1, this.today.getMonth(), this.today.getDate() + 1);
+  allCities: any[] = [];
+  filteredCities: any[] = [];
+  constructor(private fb: FormBuilder, private router: Router) {
+  }
 
   ngOnInit(): void {
     this.initializeTripDetailsForm();
     this.initializeItineraryForm();
+    this.initializePaytmentGetwayForm();
+    this.extractCities();
   }
 
   initializeTripDetailsForm() {
@@ -67,6 +78,8 @@ export class DashboardComponent implements OnInit {
     if (this.cities.length < 15) {
       const cityGroup = this.fb.group({
         cityName: ['', Validators.required],
+        cityId: [null, Validators.required],
+        cityImages: [[], Validators.required],
         hotelName: ['', Validators.required],
         numberOfNights: [null, Validators.required],
         checkIn: [null, Validators.required],
@@ -88,34 +101,128 @@ export class DashboardComponent implements OnInit {
   }
 
   submitForm() {
-    //  this.step = 2;
-    if (!this.tripDetailsForm.valid) {
-      this.tripDetailsForm.markAllAsTouched();
-    }
-    console.log(this.tripDetailsForm.value);
 
     if (this.tripDetailsForm.valid) {
-      alert('ok')
+      this.step = 2;
       console.log(this.tripDetailsForm.value);
     } else {
-
+      this.tripDetailsForm.markAllAsTouched();
     }
   }
 
   itinerySubmit() {
     console.log('value', this.tripItineraryForm.value);
-    
+    if (this.tripItineraryForm.valid) {
+      this.step = 3
+    }
+    else {
+      this.tripItineraryForm.markAllAsTouched();
+    }
+
+
+  }
+  increment(index: number) {
+    debugger
+    // if (this.numberOfRoom < this.max) {
+    const control = this.cities.at(index).get('numberOfRoom');
+    if (control) {
+      control.setValue((control.value || 0) + 1);
+      // this.numberOfRoom++;
+    }
+    // }
   }
 
-  increment() {
-    if (this.numberOfRoom < this.max) {
-      this.numberOfRoom++;
+  decrement(index: number) {
+    // if (this.numberOfRoom > this.min) {
+    const control = this.cities.at(index).get('numberOfRoom');
+    if (control && control.value > 1) {
+      control.setValue(control.value - 1);
+      // this.numberOfRoom--;
     }
+    // }
   }
 
-  decrement() {
-    if (this.numberOfRoom > this.min) {
-      this.numberOfRoom--;
+  extractCities() {
+    this.allCities = destination[0].India.map((city: any) => ({
+      id: city.id,
+      name: city.city,
+      images: city.images
+    }));
+    this.filteredCities = [...this.allCities];
+  }
+
+  searchCity(event: any) {
+    const searchTerm = event.target.value.toLowerCase();
+    this.filteredCities = this.allCities.filter(city =>
+      city.name.toLowerCase().includes(searchTerm)
+    );
+  }
+
+  selectCity(cityName: string, cityId: number, cityImages: any[], index: number) {
+    this.cities.at(index).patchValue({
+      cityName,
+      cityId,
+      cityImages
+    });
+    //this.filteredCities = [];
+  }
+  toggleDropdown(index: number) {
+    console.log(this.filteredCities);
+
+    if (this.cities.at(index).get('cityName')?.value === '') {
+      this.filteredCities = [...this.allCities];
     }
+  }
+  initializePaytmentGetwayForm() {
+    this.paymentDetailsForm = this.fb.group({
+      price: ['', [Validators.required]],
+      numberOfMember: ['', [Validators.required]],
+      gst: ['', [Validators.required]],
+      total: [{ value: '', disabled: true }]
+    })
+  }
+
+  get price() {
+    return this.paymentDetailsForm.controls['price'];
+  }
+  get numberOfMember() {
+    return this.paymentDetailsForm.controls['numberOfMember'];
+  }
+  get gst() {
+    return this.paymentDetailsForm.controls['gst'];
+  }
+
+  changeEvent() {
+    this.calculateTotal();
+  }
+  calculateTotal() {
+    const pricePerPerson = this.paymentDetailsForm.get('price')?.value;
+    const numberOfMember = this.paymentDetailsForm.get('numberOfMember')?.value;
+    const gstPercentage = this.paymentDetailsForm.get('gst')?.value;
+
+    const totalWithoutGST = pricePerPerson * numberOfMember;
+    const gstAmount = (totalWithoutGST * gstPercentage) / 100;
+    const totalAmount = totalWithoutGST + gstAmount;
+
+    this.paymentDetailsForm.get('total')?.setValue(totalAmount.toFixed(2));
+  }
+  paymentSubmit() {
+    const paymentArray = [
+      { paymentMethod: 'Credit Card', amount: 100 },
+      { paymentMethod: 'Debit Card', amount: 200 }
+    ];
+
+    const allData = {
+      ...this.tripDetailsForm.value,
+      ...this.tripItineraryForm.value,
+      ...this.paymentDetailsForm.value,
+      paymentArray
+    };
+
+    console.log('all', allData);
+
+    this.paymentDetailsForm.markAllAsTouched();
+    console.log(this.paymentDetailsForm.value);
+
   }
 }
