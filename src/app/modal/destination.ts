@@ -973,8 +973,8 @@ export const destination = [
                 "id": 122,
                 "city": "Udaipur",
                 "images": [
-                    "https://upload.wikimedia.org/wikipedia/commons/0/02/Udaipur_City_Palace.jpg",
-                    "https://upload.wikimedia.org/wikipedia/commons/3/38/Udaipur_Lake_View.jpg"
+                    "https://cdn.sanity.io/images/ocl5w36p/prod2/3d010a1e5876782d43c0a1f4c79df391e977a0ee-3840x1860.jpg",
+                    "https://lionsinthepiazza.com/wp-content/uploads/2024/01/udiapur-sunset-scaled.jpg"
                 ]
             },
             {

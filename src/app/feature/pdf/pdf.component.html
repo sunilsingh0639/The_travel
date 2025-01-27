@@ -21,27 +21,31 @@
                             <!-- First Page Content -->
                             <div class="page p-1">
                                 <div class="text-center mb-4">
-                                    <img src="assets/images/slider/rishikesh.jpg" alt="Rishikesh Trip" class="img-fluid" width="100%" />
+                                    <img src="assets/images/slider/rishikesh.jpg" alt="Rishikesh Trip" class="img-fluid"
+                                        width="100%" />
                                 </div>
 
                                 <h2 class="text-center fw-bold mb-3 text-success" style=" line-height: 3;
                                                                         font-weight: bolder;">
-                                    <i class="fa-solid fa-location-dot"></i> Trip to Rishikesh
+                                    <i class="fa-solid fa-location-dot"></i> {{data?.interests}}
                                 </h2>
 
                                 <div class="mx-3 fs-5 lh-base">
                                     <p>
                                         <i class="fa-solid fa-map-marked-alt me-2"></i>
-                                        <strong>Rishikesh 2 nights, Thekkady 1 night, Alleppey 1 night, Kovalam 2
-                                            nights</strong>
+                                        <!-- <strong>Rishikesh 2 nights, Thekkady 1 night, Alleppey 1 night, Kovalam 2
+                                            nights</strong> -->
+                                        <strong *ngFor="let city of data?.cities">{{city.cityName}} - {{ city.numberOfNights ==='1' ? '1 night' :
+                                            city.numberOfNights + ' nights' }}, </strong>
                                     </p>
                                     <p>
                                         <i class="fa-solid fa-calendar me-2"></i>
-                                        <strong>18 Dec 2024 - 6 nights/7 days</strong>
+                                        <strong>{{formattedDate}} - {{totalNumberOfNights }} nights</strong>
                                     </p>
                                     <p>
                                         <i class="fa-solid fa-users me-2"></i>
-                                        <strong>1 room, 2 adults</strong>
+                                        <strong>{{ data?.adults === '1' ? '1 adult' : data?.adults + ' adults'
+                                            }}</strong>
                                     </p>
                                 </div>
 
@@ -62,243 +66,80 @@
                                 <h2 class="fs-4 fw-bold text-center mb-4">
                                     <i class="fa-solid fa-route"></i> Itinerary
                                 </h2>
-
-                                <p class="fs-5 fw-bold bg-primary p-1 text-dark bg-opacity-25 text-center mb-4">
-                                    <strong><i class="fa-solid fa-map-marked-alt me-2"></i> Rishikesh, 2 nights</strong>
-                                </p>
-
-                                <div class="mb-4">
-                                    <h3 class="fs-5 fw-bold mb-3">
-                                        <i class="fa-solid fa-bed"></i> Misty Lake Resort
-                                    </h3>
-                                    <p><i class="fa-solid fa-calendar-check me-2"></i> <strong>Check-in:</strong> 02:00
-                                        PM Wed, 18 Dec
+                                <div *ngFor="let city of data?.cities">
+                                    <p class="fs-5 fw-bold bg-primary p-1 text-dark bg-opacity-25 text-center mb-4">
+                                        <strong><i class="fa-solid fa-map-marked-alt me-2"></i> {{city.cityName}}, {{
+                                            city.numberOfNights ==='1' ? '1 night' : city.numberOfNights + ' nights'
+                                            }}</strong>
                                     </p>
-                                    <p><i class="fa-solid fa-calendar-times me-2"></i> <strong>Check-out:</strong> 11:00
-                                        AM Fri, 20 Dec
-                                    </p>
-                                    <p><i class="fa-solid fa-door-open me-2"></i> <strong>Room:</strong> 1 x Deluxe Room
-                                    </p>
-                                    <p><i class="fa-solid fa-utensils me-2"></i> <strong>Meals included:</strong>
-                                        Breakfast</p>
-                                    <p><i class="fa-solid fa-tags me-2"></i> <strong>Price:</strong> Breakfast, parking,
-                                        express
-                                        check-in, free WiFi, drinking water, limited time offer (20% discount)</p>
-                                </div>
 
-                                <div class="mb-5">
-                                    <h4 class="fs-6 fw-bold mb-3">
-                                        <i class="fa-solid fa-car me-2"></i> Day 1: Arrival at Cochin & Proceed to
-                                        Rishikesh – (130 Kms –
-                                        Approx
-                                        4 Hrs)
-                                    </h4>
-                                    <div class="row">
-                                        <!-- Images Section -->
-                                        <div class="col-md-4 card py-3">
-                                            <img src="https://images.unsplash.com/photo-1496851002542-2fe43ae0ef15?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8d2F0ZXJmYWxsc3xlbnwwfHwwfHx8MA%3D%3D"
-                                                alt="Waterfall" class="img-fluid mb-3" />
-                                            <img src="https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvdXB3azYxNzU2NjU2LXdpa2ltZWRpYS1pbWFnZS1rb3dxc3p3Ny5qcGc.jpg"
-                                                alt="Waterfall" class="img-fluid" />
+                                    <div class="mb-4">
+                                        <h3 class="fs-5 fw-bold mb-3">
+                                            <i class="fa-solid fa-bed"></i> {{city?.hotelName}}
+                                        </h3>
+                                        <p><i class="fa-solid fa-calendar-check me-2"></i> <strong>Check-in:</strong>
+                                            02:00
+                                            PM Wed, 18 Dec
+                                        </p>
+                                        <p><i class="fa-solid fa-calendar-times me-2"></i> <strong>Check-out:</strong>
+                                            11:00
+                                            AM Fri, 20 Dec
+                                        </p>
+                                        <p><i class="fa-solid fa-door-open me-2"></i> <strong>Room:</strong>
+                                            {{city.numberOfRoom}}
+                                        </p>
+                                        <p *ngFor="let meal of city.meals"><i class="fa-solid fa-utensils me-2"></i>
+                                            <strong>Meals included:</strong>
+                                            {{ meal.name }} - {{ meal.description }}
+                                        </p>
+                                    </div>
+
+                                    <div class="mb-5">
+                                        <h4 class="fs-6 fw-bold mb-3">
+                                            <i class="fa-solid fa-car me-2"></i> {{city.visitedDay}}
+                                        </h4>
+                                        <div class="row">
+                                            <!-- Images Section -->
+                                            <div class="col-md-4">
+                                                <div *ngFor="let image of city.cityImages" class="card">
+                                                    <img [src]="image" alt="{{ city.cityName }}"
+                                                        class="city-image w-100" />
+                                                </div>
+                                            </div>
+
+                                            <!-- Paragraph Section -->
+                                            <div class="col-md-8 card">
+                                                <p class="fs-6 lh-base">
+                                                    {{ city.itineryContent }}
+                                                </p>
+                                            </div>
                                         </div>
+                                    </div>
 
-                                        <!-- Paragraph Section -->
-                                        <div class="col-md-8 card">
-                                            <p class="fs-6 lh-base">
-                                                On arrival at Cochin, proceed to Rishikesh. A breathtakingly beautiful -
-                                                haven of peace
-                                                and tranquility which cannot be portrayed in a single canvas. Situated
-                                                at 1,600m
-                                                above sea level with unending expanse of tea plantations - pristine
-                                                valleys and
-                                                mountains, you're often up above the clouds watching veils of mist
-                                                clinging to the
-                                                mountain tops. Among the exotic flora found in the forests and
-                                                grasslands here is the
-                                                Neelakurinji/Strobilanthes. This flower which bathes the hills in blue
-                                                once in every
-                                                twelve years, will bloom next in 2018. On the way to Rishikesh visit
-                                                Cheeyappara &
-                                                Valara waterfalls. The Cheeyappara Waterfall cascades down in seven
-                                                steps. Valara
-                                                has a chain of waterfalls surrounded by thick green forests. Overnight
-                                                stay at Hotel.
-                                            </p>
-                                        </div>
+
+                                    <div class="mb-5">
+                                        <!-- <p><i class="fa-solid fa-plane me-2"></i> <strong>6E-752</strong> - Flight arriving
+                                        on 18 Dec, 2024
+                                        at 09:10 AM - Kochi, Kochi</p> -->
+                                        <p><i class="fa-solid fa-moon me-2"></i> <strong>Overnight stay:</strong>{{
+                                            city?.hotelName }}</p>
                                     </div>
                                 </div>
 
-
-                                <div class="mb-5">
-                                    <p><i class="fa-solid fa-plane me-2"></i> <strong>6E-752</strong> - Flight arriving
-                                        on 18 Dec, 2024
-                                        at 09:10 AM - Kochi, Kochi</p>
-                                    <p><i class="fa-solid fa-moon me-2"></i> <strong>Overnight stay:</strong> Misty Lake
-                                        Resort</p>
-                                </div>
-
-                                <div class="text-center">
+                                <!-- <div class="text-center">
                                     <p><i class="fa-solid fa-utensils me-2"></i> <strong>Dinner:</strong> Not Included
                                     </p>
-                                </div>
+                                </div> -->
 
 
 
 
 
-                                <!-- 3rd page -->
-                                <p class="fs-5 fw-bold bg-primary p-1 text-dark bg-opacity-25 text-center mb-4"
-                                    style="margin-top: 30%;">
-                                    <strong><i class="fa-solid fa-map-marked-alt me-2"></i> Thekkady, 1 nights</strong>
-                                </p>
-
-                                <div class="mb-4">
-                                    <h3 class="fs-5 fw-bold mb-3">
-                                        <i class="fa-solid fa-bed"></i> Jungle Park Resorts
-                                    </h3>
-                                    <p><i class="fa-solid fa-calendar-check me-2"></i> <strong>Check-in:</strong> 02:00
-                                        PM Wed, 18 Dec
-                                    </p>
-                                    <p><i class="fa-solid fa-calendar-times me-2"></i> <strong>Check-out:</strong> 11:00
-                                        AM Fri, 20 Dec
-                                    </p>
-                                    <p><i class="fa-solid fa-door-open me-2"></i> <strong>Room:</strong> 1 x Deluxe Room
-                                    </p>
-                                    <p><i class="fa-solid fa-utensils me-2"></i> <strong>Meals included:</strong>
-                                        Breakfast</p>
-                                    <p><i class="fa-solid fa-tags me-2"></i> <strong>Price:</strong> Breakfast, parking,
-                                        express
-                                        check-in, free WiFi, drinking water, limited time offer (20% discount)</p>
-                                </div>
-
-                                <div class="mb-5">
-                                    <h4 class="fs-6 fw-bold mb-3">
-                                        <i class="fa-solid fa-car me-2"></i> Day 2: Transfer from Thekkady to Alleppey -
-                                        (135 Kms -
-                                        Approx 4
-                                        Hrs)
-
-                                    </h4>
-                                    <div class="row">
-                                        <!-- Images Section -->
-                                        <div class="col-md-4 card py-3">
-                                            <img src="assets/images/galaxy/1.jpg" alt="thekkady"
-                                                class="img-fluid mb-3" />
-                                            <!-- <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/8c/d0/3d/our-iconic-tree-house.jpg?w=700&h=-1&s=1"
-                                            alt="Waterfall" class="img-fluid" /> -->
-                                        </div>
-
-                                        <!-- Paragraph Section -->
-                                        <div class="col-md-8 card">
-                                            <p class="fs-6 lh-base">
-                                                After breakfast, check out from hotel and proceed to Alleppey which has
-                                                an immense
-                                                natural beauty and is also known as the "Venice of the East". It is
-                                                famous for
-                                                backwater cruising and boat race. Check into your hotel/houseboat &
-                                                cruise (if
-                                                staying in houseboat) through the Narrow Canal amidst the Paddy Fields,
-                                                Coconut
-                                                Lagoons and Coir Villages in Alleppey. Overnight stay in Alleppey.
-
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                <div class="mb-5">
-                                    <p><i class="fa-solid fa-plane me-2"></i> <strong>6E-752</strong> - Flight arriving
-                                        on 18 Dec, 2024
-                                        at 09:10 AM - Kochi, Kochi</p>
-                                    <p><i class="fa-solid fa-moon me-2"></i> <strong>Overnight stay:</strong> Misty Lake
-                                        Resort</p>
-                                </div>
-
-                                <div class="text-center">
-                                    <p><i class="fa-solid fa-utensils me-2"></i> <strong>Dinner:</strong> Not Included
-                                    </p>
-                                </div>
 
 
 
 
-                                <!-- 4th page -->
-                                <p class="fs-5 fw-bold bg-primary p-1 text-dark bg-opacity-25 text-center mb-4"
-                                    style="margin-top: 55%;">
-                                    <strong><i class="fa-solid fa-map-marked-alt me-2"></i> Alleppey, 1 nights</strong>
-                                </p>
 
-                                <div class="mb-4">
-                                    <h3 class="fs-5 fw-bold mb-3">
-                                        <i class="fa-solid fa-bed"></i> Cosy Houseboats
-                                    </h3>
-                                    <p><i class="fa-solid fa-calendar-check me-2"></i> <strong>Check-in:</strong> 02:00
-                                        PM Wed, 18 Dec
-                                    </p>
-                                    <p><i class="fa-solid fa-calendar-times me-2"></i> <strong>Check-out:</strong> 11:00
-                                        AM Fri, 20 Dec
-                                    </p>
-                                    <p><i class="fa-solid fa-door-open me-2"></i> <strong>Room:</strong> 1 x Deluxe Room
-                                    </p>
-                                    <p><i class="fa-solid fa-utensils me-2"></i> <strong>Meals included:</strong>
-                                        Breakfast</p>
-                                    <p><i class="fa-solid fa-tags me-2"></i> <strong>Price:</strong> Breakfast, parking,
-                                        express
-                                        check-in, free WiFi, drinking water, limited time offer (20% discount)</p>
-                                </div>
-
-                                <div class="mb-5">
-                                    <h4 class="fs-6 fw-bold mb-3">
-                                        <i class="fa-solid fa-car me-2"></i> Day 3: Transfer from Alleppey to Kovalam
-                                        (160 Kms - Approx 4.5
-                                        Hrs)
-                                    </h4>
-                                    <div class="row">
-                                        <!-- Images Section -->
-                                        <div class="col-md-4 card py-3">
-                                            <img src="assets/images/galaxy/2.jpg" alt="thekkady"
-                                                class="img-fluid mb-3" />
-                                            <img src="assets/images/galaxy/3.jpg" alt="Waterfall" class="img-fluid" />
-                                        </div>
-
-                                        <!-- Paragraph Section -->
-                                        <div class="col-md-8 card">
-                                            <p class="fs-6 lh-base">
-                                                After breakfast, check out from hotel & proceed to Kovalam. Kovalam is
-                                                an
-                                                internationally renowned beach destination with three adjacent crescent
-                                                beaches & also known as the "Paradise of the South".
-                                                On arrival check-in at the hotel & relax for a while amidst the comforts
-                                                of your
-                                                room. By evening explore on your own to see how the everlasting sea
-                                                touches
-                                                the everlasting sky. Kovalam is the place where one can see the golden
-                                                sand at
-                                                the day time & silver sand in the night, with high rock promontory & a
-                                                calm bay of
-                                                blue waters, this beach paradise creates a unique aquarelle on moonlight
-                                                nights.
-                                                Overnight stay at Hotel.
-
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                <div class="mb-5">
-                                    <p><i class="fa-solid fa-plane me-2"></i> <strong>6E-752</strong> - Flight arriving
-                                        on 18 Dec, 2024
-                                        at 09:10 AM - Kochi, Kochi</p>
-                                    <p><i class="fa-solid fa-moon me-2"></i> <strong>Overnight stay:</strong> Misty Lake
-                                        Resort</p>
-                                </div>
-
-                                <div class="text-center">
-                                    <p><i class="fa-solid fa-utensils me-2"></i> <strong>Dinner:</strong> Not Included
-                                    </p>
-                                </div>
 
                                 <!-- 5th page - Inclusions -->
                                 <div class="page p-4" style="margin-top: 30%;">
@@ -319,71 +160,19 @@
                                             are included</p>
                                     </div>
 
-                                    <div class="mb-4">
+                                    <div *ngFor="let city of data?.cities" class="mb-4">
                                         <h3 class="fs-5 mb-3"><i class="fa-solid fa-location-dot "></i>
-                                            Rishikesh <span class="text-muted fs-6">2 nights - Wed, 18 Dec</span>
+                                            {{city.cityName}} <span class="text-muted fs-6">{{
+                                                city.numberOfNights ==='1' ? '1 night' : city.numberOfNights + ' nights'
+                                                }} - Wed, 18 Dec(add-date)</span>
                                         </h3>
                                         <hr>
-                                        <p>Stay for 2 nights at Misty Lake Resort</p>
-                                        <p class="text-muted">1 x Deluxe Room</p>
-                                        <p class="text-muted">Breakfast,parking,express Check-in,free WiFi,drinking
-                                            Water,Limited Time Offer. Price includes 20% discount, Non-refundable</p>
-
-                                        <div class="d-flex justify-content-between mt-3">
-                                            <div>
-                                                <i class="fa-solid fa-utensils"></i> Breakfast
-                                                <p class="text-success">Included on 2 days</p>
-                                            </div>
-                                            <div>
-                                                <i class="fa-solid fa-burger"></i> Lunch
-                                                <p class="text-muted">Not included</p>
-                                            </div>
-                                            <div>
-                                                <i class="fa-solid fa-plate-wheat"></i> Dinner
-                                                <p class="text-muted">Not included</p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="mb-4">
-                                        <h3 class="fs-5 mb-3">
-                                            <i class="fa-solid fa-location-dot"></i> Thekkady <span
-                                                class="text-muted fs-6">2 nights - Wed, 18 Dec</span>
-                                        </h3>
-                                        <hr>
-                                        <p>Stay for 2 nights at Misty Lake Resort</p>
-                                        <p class="text-muted">1 x Deluxe Room</p>
-                                        <p class="text-muted">Breakfast,parking,express Check-in,free WiFi,drinking
-                                            Water,Limited Time Offer. Price includes 20% discount, Non-refundable</p>
-
-                                        <div class="d-flex justify-content-between mt-3">
-                                            <div>
-                                                <i class="fa-solid fa-utensils"></i> Breakfast
-                                                <p class="text-success">Included on 2 days</p>
-                                            </div>
-                                            <div>
-                                                <i class="fa-solid fa-burger"></i> Lunch
-                                                <p class="text-muted">Not included</p>
-                                            </div>
-                                            <div>
-                                                <i class="fa-solid fa-plate-wheat"></i> Dinner
-                                                <p class="text-muted">Not included</p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="mb-4">
-                                        <h3 class="fs-5 mb-3">
-                                            <i class="fa-solid fa-location-dot"></i> Alleppey <span
-                                                class="text-muted fs-6">2 nights - Wed, 18 Dec</span>
-                                        </h3>
-                                        <hr>
-                                        <p>Stay for 2 nights at Misty Lake Resort</p>
-                                        <p class="text-muted">1 x Deluxe Room</p>
-                                        <p class="text-muted">Breakfast,parking,express Check-in,free WiFi,drinking
-                                            Water,Limited Time Offer. Price includes 20% discount, Non-refundable</p>
+                                        <p>Stay for {{
+                                            city.numberOfNights ==='1' ? '1 night' : city.numberOfNights + ' nights'
+                                            }} at {{city?.hotelName }}</p>
+                                        <p class="text-muted">{{city.numberOfRoom}} Room</p>
+                                        <!-- <p class="text-muted">Breakfast,parking,express Check-in,free WiFi,drinking
+                                            Water,Limited Time Offer. Price includes 20% discount, Non-refundable</p> -->
 
                                         <div class="d-flex justify-content-between mt-3">
                                             <div>
@@ -421,20 +210,21 @@
 
                                             <div class="d-flex justify-content-between align-items-center mb-2">
                                                 <span>Price per adult</span>
-                                                <span class="fw-bold">₹ 68,704</span>
+                                                <span class="fw-bold">₹ {{data?.price}}</span>
                                             </div>
 
                                             <hr class="my-3">
 
                                             <div class="d-flex justify-content-between align-items-center mb-2">
                                                 <span class="fw-bold fs-5">Total Price</span>
-                                                <span class="fw-bold fs-5">₹ 137,408</span>
+                                                <span class="fw-bold fs-5">₹ {{totalPrice == 0 ? data?.price : totalPrice}}</span>
                                             </div>
                                             <p class="text-muted small">INCLUDING ALL TAXES</p>
                                         </div>
 
                                         <div class="text-muted small mt-3">
-                                            <p class="mb-1">Total price as calculated on 20 Jan, 2025 at 07:26 PM IST
+                                            <p class="mb-1">Total price as calculated on {{ today | date:'dd MMM, yyyy -
+                                                hh:mm a' }} IST
                                             </p>
                                             <p>Price subject to availability</p>
                                         </div>
@@ -446,9 +236,10 @@
                                         </div>
                                     </div>
 
-                                        <div class="text-center p-5">
-                                            <img src="assets/images/slider/qrcode1.png" alt="Rishikesh Trip" class="shadow rounded-4" width="30%" />
-                                        </div>
+                                    <div class="text-center p-5">
+                                        <img src="assets/images/slider/qrcode1.png" alt="Rishikesh Trip"
+                                            class="shadow rounded-4" width="30%" />
+                                    </div>
                                 </div>
 
 
