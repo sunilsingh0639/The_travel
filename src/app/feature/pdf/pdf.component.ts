@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
@@ -13,10 +13,17 @@ import { SpinnerService } from 'src/app/core/services/spinner/spinner.service';
   standalone:true
 })
 
-export class PdfComponent {
+export class PdfComponent implements OnInit{
 
   constructor(private _spinner: SpinnerService){}
 
+  ngOnInit(): void {
+    const storedData = sessionStorage.getItem('pdfData');
+    const data = storedData ? JSON.parse(storedData) : null;
+console.log(data);
+
+    
+  }
   downloadPDF() {
     const element = document.getElementById('pdf-content');
     

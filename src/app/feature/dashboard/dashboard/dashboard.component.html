@@ -421,10 +421,16 @@
                                                                                                 of Room is
                                                                                                 required.</span>
                                                                                         </div>
-                                                                                        <div class="col-md-6 mt-2">
+                                                                                        <div class="col-md-6 mt-3">
                                                                                             <label for=""
                                                                                                 class="form-label">Meals</label>
-                                                                                            <select
+                                                                                                <mat-form-field class="no-underline custom-date-picker w-100">
+                                                                                                    <mat-select placeholder="Select Meals" multiple formControlName="meals">
+                                                                                                      <mat-option *ngFor="let meals of mealsList" [value]="meals">{{meals.name}}</mat-option>
+                                                                                                    </mat-select>
+                                                                                                  </mat-form-field>
+                                                                                                  
+                                                                                            <!-- <select
                                                                                                 class="form-select mb-2"
                                                                                                 formControlName="meals"
                                                                                                 aria-label="Default select example">
@@ -438,12 +444,11 @@
                                                                                                 <option value="Dinner">
                                                                                                     Dinner
                                                                                                 </option>
-                                                                                            </select>
-                                                                                            <span
-                                                                                                *ngIf="city.get('meals')?.touched && city.get('meals')?.hasError('required')"
-                                                                                                class="text-danger">Meals
+                                                                                            </select> -->
+                                                                                            <div *ngIf="city.get('meals')?.touched && city.get('meals')?.hasError('required')"
+                                                                                                class="text-danger" style="margin-top: -15px;">Meals
                                                                                                 is
-                                                                                                required.</span>
+                                                                                                required.</div>
                                                                                         </div>
                                                                                         <div class="col-md-12 mt-2">
                                                                                             <label for=""
@@ -464,8 +469,7 @@
                                                                                         <div class="col-md-10 mt-2">
                                                                                             <label for=""
                                                                                                 class="form-label">
-                                                                                                {{ i + 1 | numberToWord
-                                                                                                }} Day Visit</label>
+                                                                                                {{ i + 1 | numberToWord}} Day Visit</label>
                                                                                             <input type="text"
                                                                                                 formControlName="visitedDay"
                                                                                                 class="form-control">
@@ -510,11 +514,7 @@
                                                                     <div class="card-header align-items-center d-flex">
                                                                         <h5 class="text-primary mb-0">PAYMENT GETWAY
                                                                         </h5>
-
                                                                     </div>
-
-
-
                                                                     <div class="card-body">
                                                                         <!-- <p class="text-muted">
                                             

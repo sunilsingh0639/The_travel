@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { destination } from 'src/app/modal/destination';
 import { numberOfDays, NumberOfNightList } from 'src/app/modal/menu';
@@ -24,7 +24,14 @@ export class DashboardComponent implements OnInit {
   maxDate: Date = new Date(this.today.getFullYear() + 1, this.today.getMonth(), this.today.getDate() + 1);
   allCities: any[] = [];
   filteredCities: any[] = [];
-  constructor(private fb: FormBuilder, private router: Router) {
+  meals = new FormControl();
+  mealsList =[
+    { name: 'Breakfast', description: 'Delicious morning meal.'},
+    { name: 'Lunch', description: 'Healthy midday meal.'},
+    { name: 'Dinner', description: 'Hearty evening meal.'},
+    { name: 'Snacks', description: 'Tasty treats to enjoy anytime.'},
+  ];
+  constructor(private fb: FormBuilder, private _router: Router) {
   }
 
   ngOnInit(): void {
@@ -219,10 +226,7 @@ export class DashboardComponent implements OnInit {
       paymentArray
     };
 
-    console.log('all', allData);
-
-    this.paymentDetailsForm.markAllAsTouched();
-    console.log(this.paymentDetailsForm.value);
-
+    sessionStorage.setItem('pdfData', JSON.stringify(allData));
+    this._router.navigate(['/app/pdf']);
   }
 }
