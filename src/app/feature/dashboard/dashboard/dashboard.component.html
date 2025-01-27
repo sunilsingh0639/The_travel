@@ -122,7 +122,8 @@
                                                                                         From</label>
                                                                                     <mat-form-field
                                                                                         class="no-underline custom-date-picker w-100">
-                                                                                        <input matInput
+                                                                                        <input matInput [min]="minDate"
+                                                                                            [max]="maxDate"
                                                                                             formControlName="leavingDate"
                                                                                             [matDatepicker]="picker"
                                                                                             readonly="true"
@@ -281,145 +282,316 @@
 
                                                                     <div class="card-body">
                                                                         <div class="live-preview">
-                                                                            <form class="row g-3 needs-validation">
-                                                                                <form [formGroup]="tripItineraryForm" (ngSubmit)="itinerySubmit()"
-                                                                                    class="row g-3">
-                                                                                    <div formArrayName="cities"
-                                                                                        class="col-md-12">
-                                                                                        <div *ngFor="let city of cities.controls; let i = index"
-                                                                                            [formGroupName]="i"
-                                                                                            class="row align-items-center">
-                                                                                            <div class="col-md-4 mt-2">
+                                                                            <form [formGroup]="tripItineraryForm"
+                                                                                (ngSubmit)="itinerySubmit()"
+                                                                                class="row g-3">
+                                                                                <div formArrayName="cities"
+                                                                                    class="col-md-12">
+                                                                                    <div *ngFor="let city of cities.controls; let i = index"
+                                                                                        [formGroupName]="i"
+                                                                                        class="row align-items-center">
+
+
+
+                                                                                        <div
+                                                                                            class="col-md-4 position-relative">
+                                                                                            <label for=""
+                                                                                                class="form-label">City
+                                                                                                Name</label>
+                                                                                            <div data-input-flag
+                                                                                                data-option-flag-name>
                                                                                                 <input type="text"
+                                                                                                    class="form-control rounded-end flag-input"
                                                                                                     formControlName="cityName"
-                                                                                                    class="form-control rounded-end flag-input mb-2"
-                                                                                                    placeholder="Enter City Name" />
+                                                                                                    readonly
+                                                                                                    placeholder="Select City"
+                                                                                                    data-bs-toggle="dropdown"
+                                                                                                    aria-expanded="false"
+                                                                                                    (click)="toggleDropdown(i)" />
                                                                                                 <span
                                                                                                     *ngIf="city.get('cityName')?.touched && city.get('cityName')?.hasError('required')"
                                                                                                     class="text-danger">City
                                                                                                     name is
                                                                                                     required.</span>
-                                                                                            </div>
-                                                                                            <div class="col-md-4 mt-2">
-                                                                                                <input type="text"
-                                                                                                    formControlName="hotelName"
-                                                                                                    class="form-control rounded-end flag-input mb-2"
-                                                                                                    placeholder="Enter Hotel Name" />
-                                                                                                <span
-                                                                                                    *ngIf="city.get('hotelName')?.touched && city.get('hotelName')?.hasError('required')"
-                                                                                                    class="text-danger">Hotel
-                                                                                                    name is
-                                                                                                    required.</span>
-                                                                                            </div>
-                                                                                            <div class="col-md-2 mt-2">
-                                                                                                <select
-                                                                                                    formControlName="numberOfNights"
-                                                                                                    class="form-select mb-2"
-                                                                                                    aria-label="Default select example">
-                                                                                                    <option
-                                                                                                        *ngFor="let data of numberOfNightList"
-                                                                                                        [value]="data.id">
-                                                                                                        {{
-                                                                                                        data.label }}
-                                                                                                    </option>
-                                                                                                </select>
-                                                                                                <span
-                                                                                                    *ngIf="city.get('numberOfNights')?.touched && city.get('numberOfNights')?.hasError('required')"
-                                                                                                    class="text-danger">
-                                                                                                    Required
-                                                                                                    field.</span>
-                                                                                            </div>
-                                                                                            <div class="col-md-2 mt-2">
-                                                                                                <button type="button"
-                                                                                                    class="btn btn-danger w-100 mb-2"
-                                                                                                    (click)="removeCity(i)">Delete</button>
-                                                                                            </div>
+                                                                                                <!-- Bind to the current index for toggling -->
 
-                                                                                            <div class="col-md-5">
-                                                                                                <label for=""
-                                                                                                    class="form-label">CHECK
-                                                                                                    IN</label>
-                                                                                                <input type="time" formControlName="checkIn"
-                                                                                                    class="form-control">
-                                                                                            </div>
-                                                                                            <div class="col-md-5">
-                                                                                                <label for=""
-                                                                                                    class="form-label">CHECK
-                                                                                                    OUT</label>
-                                                                                                <input type="time" formControlName="checkOut"
-                                                                                                    class="form-control">
-                                                                                            </div>
-                                                                                            <div class="col-md-5">
-                                                                                                <label for=""
-                                                                                                    class="form-label">ROOM</label>
-                                                                                                <div
-                                                                                                    class="input-step form-control full-width">
-                                                                                                    <button
-                                                                                                        type="button"
-                                                                                                        class="minus shadow"
-                                                                                                        (click)="decrement()">–</button>
-                                                                                                    <input type="number" formControlName="numberOfRoom"
-                                                                                                        class="product-quantity"
-                                                                                                        [value]="numberOfRoom"
-                                                                                                        readonly />
-                                                                                                    <button
-                                                                                                        type="button"
-                                                                                                        class="plus shadow"
-                                                                                                        (click)="increment()">+</button>
+                                                                                                <div class="dropdown-menu w-100"
+                                                                                                    *ngIf="filteredCities.length > 0">
+                                                                                                    <div
+                                                                                                        class="p-2 px-3 pt-1 searchlist-input">
+                                                                                                        <input
+                                                                                                            type="text"
+                                                                                                            class="form-control form-control-sm border search-countryList"
+                                                                                                            placeholder="Search city name..."
+                                                                                                            (input)="searchCity($event)" />
+                                                                                                    </div>
+
+                                                                                                    <ul
+                                                                                                        class="list-unstyled dropdown-menu-list mb-0">
+                                                                                                        <li *ngFor="let city of filteredCities"
+                                                                                                            (click)="selectCity(city.name, city.id, city.images, i)"
+                                                                                                            class="dropdown-item">
+                                                                                                            {{ city.name
+                                                                                                            }}
+                                                                                                        </li>
+                                                                                                    </ul>
                                                                                                 </div>
                                                                                             </div>
-                                                                                            <div class="col-md-5">
-                                                                                                <label for=""
-                                                                                                    class="form-label">MEALS</label>
-                                                                                                    <select class="form-select mb-3"
-                                                                                                    formControlName="meals"
-                                                                                                    aria-label="Default select example">
-                                                                                                    <option value="Breakfast">
-                                                                                                        Breakfast
-                                                                                                    </option>
-                                                                                                    <option value="Lunch">
-                                                                                                        Lunch
-                                                                                                    </option>
-                                                                                                    <option value="Dinner">
-                                                                                                        Dinner
-                                                                                                    </option>
-                                                                                                </select>
-                                                                                            </div>
-                                                                                            <div class="col-md-10">
-                                                                                                <label for=""
-                                                                                                    class="form-label"> DAY {{ i + 1 | numberToWord }} VISIT</label>
-                                                                                                <input type="text" formControlName="visitedDay"
-                                                                                                    class="form-control">
-                                                                                            </div>
-                                                                                            <div class="col-md-10">
-                                                                                                <label for=""
-                                                                                                    class="form-label">ITINERARY
-                                                                                                    CONTENT</label>
-                                                                                                <textarea
-                                                                                                    class="form-control" formControlName="itineryContent"
-                                                                                                    id="exampleFormControlTextarea1"
-                                                                                                    rows="2"></textarea>
-                                                                                            </div>
                                                                                         </div>
-                                                                                        <div class="col-12"
-                                                                                            *ngIf="cities.length < 15">
-                                                                                            <a class="text-primary"
-                                                                                                style="cursor: pointer;"
-                                                                                                (click)="addCity()">+
-                                                                                                Add
-                                                                                                Another City</a>
+                                                                                        <div class="col-md-5 mt-2">
+                                                                                            <label for=""
+                                                                                                class="form-label">Hotel
+                                                                                                Name</label>
+                                                                                            <input type="text"
+                                                                                                formControlName="hotelName"
+                                                                                                class="form-control rounded-end flag-input mb-2"
+                                                                                                placeholder="Enter Hotel Name" />
+                                                                                            <span
+                                                                                                *ngIf="city.get('hotelName')?.touched && city.get('hotelName')?.hasError('required')"
+                                                                                                class="text-danger">Hotel
+                                                                                                name is
+                                                                                                required.</span>
                                                                                         </div>
-                                                                                        <div class="col-md-12">
-                                                                                            <div class="row">
-                                                                                                <div class="col-md-4">
-                                                                                                    <button
-                                                                                                        class="btn btn-primary w-100"
-                                                                                                        type="submit">Submit</button>
-                                                                                                </div>
+                                                                                        <div class="col-md-3 mt-2">
+                                                                                            <label for=""
+                                                                                                class="form-label">Night</label>
+                                                                                            <select
+                                                                                                formControlName="numberOfNights"
+                                                                                                class="form-select mb-2"
+                                                                                                aria-label="Default select example">
+                                                                                                <option
+                                                                                                    *ngFor="let data of numberOfNightList"
+                                                                                                    [value]="data.id">
+                                                                                                    {{
+                                                                                                    data.label }}
+                                                                                                </option>
+                                                                                            </select>
+                                                                                            <span
+                                                                                                *ngIf="city.get('numberOfNights')?.touched && city.get('numberOfNights')?.hasError('required')"
+                                                                                                class="text-danger">
+                                                                                                Required
+                                                                                                field.</span>
+                                                                                        </div>
+                                                                                        <div class="col-md-6 mt-2">
+                                                                                            <label for=""
+                                                                                                class="form-label">Check
+                                                                                                In</label>
+                                                                                            <input type="time"
+                                                                                                formControlName="checkIn"
+                                                                                                class="form-control mb-2">
+                                                                                            <span
+                                                                                                *ngIf="city.get('checkIn')?.touched && city.get('checkIn')?.hasError('required')"
+                                                                                                class="text-danger">Check
+                                                                                                In Time is
+                                                                                                required.</span>
+                                                                                        </div>
+                                                                                        <div class="col-md-6 mt-2">
+                                                                                            <label for=""
+                                                                                                class="form-label">Check
+                                                                                                Out</label>
+                                                                                            <input type="time"
+                                                                                                formControlName="checkOut"
+                                                                                                class="form-control mb-2">
+                                                                                            <span
+                                                                                                *ngIf="city.get('checkOut')?.touched && city.get('checkOut')?.hasError('required')"
+                                                                                                class="text-danger">Check
+                                                                                                Out Time is
+                                                                                                required.</span>
+                                                                                        </div>
+                                                                                        <div class="col-md-6 mt-2">
+                                                                                            <label for=""
+                                                                                                class="form-label">Number
+                                                                                                of Rooms</label>
+                                                                                            <div
+                                                                                                class="input-step form-control full-width mb-2">
+                                                                                                <button type="button"
+                                                                                                    class="minus shadow"
+                                                                                                    (click)="decrement(i)">–</button>
+                                                                                                <input type="number"
+                                                                                                    formControlName="numberOfRoom"
+                                                                                                    class="product-quantity"
+                                                                                                    readonly />
+                                                                                                <button type="button"
+                                                                                                    class="plus shadow"
+                                                                                                    (click)="increment(i)">+</button>
+                                                                                            </div>
+                                                                                            <span
+                                                                                                *ngIf="city.get('numberOfRoom')?.touched && city.get('numberOfRoom')?.hasError('required')"
+                                                                                                class="text-danger">Number
+                                                                                                of Room is
+                                                                                                required.</span>
+                                                                                        </div>
+                                                                                        <div class="col-md-6 mt-2">
+                                                                                            <label for=""
+                                                                                                class="form-label">Meals</label>
+                                                                                            <select
+                                                                                                class="form-select mb-2"
+                                                                                                formControlName="meals"
+                                                                                                aria-label="Default select example">
+                                                                                                <option
+                                                                                                    value="Breakfast">
+                                                                                                    Breakfast
+                                                                                                </option>
+                                                                                                <option value="Lunch">
+                                                                                                    Lunch
+                                                                                                </option>
+                                                                                                <option value="Dinner">
+                                                                                                    Dinner
+                                                                                                </option>
+                                                                                            </select>
+                                                                                            <span
+                                                                                                *ngIf="city.get('meals')?.touched && city.get('meals')?.hasError('required')"
+                                                                                                class="text-danger">Meals
+                                                                                                is
+                                                                                                required.</span>
+                                                                                        </div>
+                                                                                        <div class="col-md-12 mt-2">
+                                                                                            <label for=""
+                                                                                                class="form-label">Itinerary
+                                                                                                Content</label>
+                                                                                            <textarea
+                                                                                                class="form-control mb-2"
+                                                                                                formControlName="itineryContent"
+                                                                                                id="exampleFormControlTextarea1"
+                                                                                                rows="2"></textarea>
+                                                                                            <span
+                                                                                                *ngIf="city.get('itineryContent')?.touched && city.get('itineryContent')?.hasError('required')"
+                                                                                                class="text-danger">Itinerary
+                                                                                                Content
+                                                                                                is
+                                                                                                required.</span>
+                                                                                        </div>
+                                                                                        <div class="col-md-10 mt-2">
+                                                                                            <label for=""
+                                                                                                class="form-label">
+                                                                                                {{ i + 1 | numberToWord
+                                                                                                }} Day Visit</label>
+                                                                                            <input type="text"
+                                                                                                formControlName="visitedDay"
+                                                                                                class="form-control">
+                                                                                            <div *ngIf="city.get('visitedDay')?.touched && city.get('visitedDay')?.hasError('required')"
+                                                                                                class="text-danger mt-2">
+                                                                                                Visit
+                                                                                                Day
+                                                                                                is
+                                                                                                required.</div>
+                                                                                        </div>
+                                                                                        <div class="col-md-2 mt-4">
+                                                                                            <button type="button"
+                                                                                                class="btn btn-danger w-100 mt-2"
+                                                                                                (click)="removeCity(i)">Delete</button>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-12 mt-2"
+                                                                                        *ngIf="cities.length < 15">
+                                                                                        <a class="text-primary"
+                                                                                            style="cursor: pointer;"
+                                                                                            (click)="addCity()">+
+                                                                                            Add More</a>
+                                                                                    </div>
+                                                                                    <div class="col-md-12 mt-2">
+                                                                                        <div class="row">
+                                                                                            <div class="col-md-4">
+                                                                                                <button
+                                                                                                    class="btn btn-primary w-100"
+                                                                                                    type="submit">Submit</button>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
-                                                                                </form>
+                                                                                </div>
+                                                                            </form>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div *ngIf="step==3">
+                                                                <div class="card">
+                                                                    <div class="card-header align-items-center d-flex">
+                                                                        <h5 class="text-primary mb-0">PAYMENT GETWAY
+                                                                        </h5>
+
+                                                                    </div>
+
+
+
+                                                                    <div class="card-body">
+                                                                        <!-- <p class="text-muted">
+                                            
+                                                                        </p> -->
+
+                                                                        <div class="live-preview">
+                                                                            <form [formGroup]="paymentDetailsForm"
+                                                                                class="row g-3 needs-validation"
+                                                                                novalidate=""
+                                                                                (ngSubmit)="paymentSubmit()">
+                                                                                <div class="col-md-6">
+                                                                                    <label for="validationDefault01"
+                                                                                        class="form-label">Price Per
+                                                                                        Person</label>
+                                                                                    <input type="text"
+                                                                                        class="form-control"
+                                                                                        placeholder="Enter Price"
+                                                                                        appNumberOnly
+                                                                                        formControlName="price"
+                                                                                        maxlength="8"
+                                                                                        (input)="changeEvent()">
+                                                                                    <span
+                                                                                        *ngIf="paymentDetailsForm.get('price')?.touched && paymentDetailsForm.get('price')?.hasError('required') && paymentDetailsForm.get('price')?.value === ''"
+                                                                                        class="text-danger"> Price
+                                                                                        is Required </span>
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <label for="validationDefault01"
+                                                                                        class="form-label">Number of
+                                                                                        Person</label>
+                                                                                    <input type="text"
+                                                                                        class="form-control"
+                                                                                        placeholder="Enter Number of Person"
+                                                                                        appNumberOnly
+                                                                                        formControlName="numberOfMember"
+                                                                                        maxlength="2"
+                                                                                        (input)="changeEvent()">
+                                                                                    <span
+                                                                                        *ngIf="paymentDetailsForm.get('numberOfMember')?.touched && paymentDetailsForm.get('numberOfMember')?.hasError('required') && paymentDetailsForm.get('numberOfMember')?.value === ''"
+                                                                                        class="text-danger"> Number of
+                                                                                        Person
+                                                                                        is Required </span>
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <label for="validationDefault01"
+                                                                                        class="form-label">GST (In
+                                                                                        Percentage)</label>
+                                                                                    <input type="text"
+                                                                                        class="form-control"
+                                                                                        placeholder="Enter GST In Percentage"
+                                                                                        appNumberOnly
+                                                                                        formControlName="gst"
+                                                                                        maxlength="2"
+                                                                                        (input)="changeEvent()">
+                                                                                    <span
+                                                                                        *ngIf="paymentDetailsForm.get('gst')?.touched && paymentDetailsForm.get('gst')?.hasError('required') && paymentDetailsForm.get('gst')?.value === ''"
+                                                                                        class="text-danger"> Number of
+                                                                                        Person
+                                                                                        is Required </span>
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <label for="validationDefault01"
+                                                                                        class="form-label">Total</label>
+                                                                                    <input type="text"
+                                                                                        class="form-control"
+                                                                                        formControlName="total"
+                                                                                        placeholder="Total Amount">
+                                                                                </div>
+                                                                                <div class="col-md-12">
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-4">
+                                                                                            <button
+                                                                                                class="btn btn-primary w-100"
+                                                                                                type="submit">Submit</button>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
                                                                             </form>
                                                                         </div>
                                                                     </div>
