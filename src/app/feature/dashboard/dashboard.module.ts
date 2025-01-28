@@ -15,7 +15,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { NumberToWordPipe } from 'src/app/shared/shared/directives/number-to-word.pipe';
-
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -35,7 +35,8 @@ import { NumberToWordPipe } from 'src/app/shared/shared/directives/number-to-wor
     MatFormFieldModule,
     MatNativeDateModule,
     MatDatepickerModule,
-    MatInputModule
+    MatInputModule,
+    MatSelectModule
   ]
 })
 export class DashboardModule { }

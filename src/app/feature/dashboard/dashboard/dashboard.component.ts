@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { destination } from 'src/app/modal/destination';
 import { numberOfDays, NumberOfNightList } from 'src/app/modal/menu';
 
 @Component({
@@ -12,22 +14,32 @@ export class DashboardComponent implements OnInit {
   numberOfDays: any[] = numberOfDays;
   tripDetailsForm!: FormGroup;
   tripItineraryForm!: FormGroup;
-  numberOfRoom: number = 1;
+  paymentDetailsForm!: FormGroup;
+  numberOfRoom: number = 0;
   min: number = 1;
   max: number = 20;
-  step: number = 1;
-  minDate: Date;
-  maxDate: Date;
-  constructor(private fb: FormBuilder) {
-    const today = new Date();
-    this.minDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1);
-    this.maxDate = new Date(today.getFullYear() + 1, today.getMonth(), today.getDate() + 1);
- 
-   }
+  step: number = 2;
+  today = new Date();
+  minDate: Date = new Date(this.today.getFullYear(), this.today.getMonth(), this.today.getDate() + 1);;
+  maxDate: Date = new Date(this.today.getFullYear() + 1, this.today.getMonth(), this.today.getDate() + 1);
+  allCities: any[] = [];
+  filteredCities: any[] = [];
+  meals = new FormControl();
+  mealsList = [
+    { name: 'Breakfast', description: 'Delicious morning meal.' },
+    { name: 'Lunch', description: 'Healthy midday meal.' },
+    { name: 'Dinner', description: 'Hearty evening meal.' },
+    { name: 'Snacks', description: 'Tasty treats to enjoy anytime.' },
+    { name: 'Not Included', description: 'Not Included' },
+  ];
+  constructor(private fb: FormBuilder, private _router: Router) {
+  }
 
   ngOnInit(): void {
     this.initializeTripDetailsForm();
     this.initializeItineraryForm();
+    this.initializePaytmentGetwayForm();
+    this.extractCities();
   }
 
   initializeTripDetailsForm() {
@@ -36,8 +48,8 @@ export class DashboardComponent implements OnInit {
       interests: ['', Validators.required],
       hotelRating: ['', Validators.required],
       adults: ['', Validators.required],
-      infants: ['', Validators.required],
-      childrens: ['', Validators.required],
+      infants: [''],
+      childrens: [''],
     });
   }
   initializeItineraryForm() {
@@ -63,23 +75,19 @@ export class DashboardComponent implements OnInit {
   get adults() {
     return this.tripDetailsForm.controls['adults'];
   }
-  get infants() {
-    return this.tripDetailsForm.controls['infants'];
-  }
-  get childrens() {
-    return this.tripDetailsForm.controls['childrens'];
-  }
 
   addCity() {
     if (this.cities.length < 15) {
       const cityGroup = this.fb.group({
         cityName: ['', Validators.required],
+        cityId: [null, Validators.required],
+        cityImages: [[], Validators.required],
         hotelName: ['', Validators.required],
         numberOfNights: [null, Validators.required],
         checkIn: [null, Validators.required],
         checkOut: [null, Validators.required],
         numberOfRoom: [null, Validators.required],
-        meals: [null, Validators.required],
+        meals: [[], Validators.required],
         visitedDay: [null, Validators.required],
         itineryContent: [null, Validators.required],
       });
@@ -95,34 +103,144 @@ export class DashboardComponent implements OnInit {
   }
 
   submitForm() {
-    //  this.step = 2;
-    if (!this.tripDetailsForm.valid) {
-      this.tripDetailsForm.markAllAsTouched();
-    }
-    console.log(this.tripDetailsForm.value);
 
     if (this.tripDetailsForm.valid) {
-      alert('ok')
+      this.step = 2;
       console.log(this.tripDetailsForm.value);
     } else {
-
+      this.tripDetailsForm.markAllAsTouched();
     }
   }
 
   itinerySubmit() {
     console.log('value', this.tripItineraryForm.value);
-    
+    if (this.tripItineraryForm.valid) {
+      this.step = 3
+    }
+    else {
+      this.tripItineraryForm.markAllAsTouched();
+    }
+
+
+  }
+  increment(index: number) {
+    debugger
+    // if (this.numberOfRoom < this.max) {
+    const control = this.cities.at(index).get('numberOfRoom');
+    if (control && control.value < 20) {
+      control.setValue((control.value || 0) + 1);
+      // this.numberOfRoom++;
+    }
+    // }
   }
 
-  increment() {
-    if (this.numberOfRoom < this.max) {
-      this.numberOfRoom++;
+  decrement(index: number) {
+    // if (this.numberOfRoom > this.min) {
+    const control = this.cities.at(index).get('numberOfRoom');
+    if (control && control.value > 1) {
+      control.setValue(control.value - 1);
+      // this.numberOfRoom--;
+    }
+    // }
+  }
+
+  extractCities() {
+    this.allCities = destination[0].India.map((city: any) => ({
+      id: city.id,
+      name: city.city,
+      images: city.images
+    }));
+    this.filteredCities = [...this.allCities];
+  }
+
+  searchCity(event: any) {
+    const searchTerm = event.target.value.toLowerCase();
+    this.filteredCities = this.allCities.filter(city =>
+      city.name.toLowerCase().includes(searchTerm)
+    );
+
+  }
+
+  selectCity(cityName: string, cityId: number, cityImages: any[], index: number) {
+    this.cities.at(index).patchValue({
+      cityName,
+      cityId,
+      cityImages
+    });
+    //this.filteredCities = [];
+  }
+  toggleDropdown(index: number) {
+    console.log(this.filteredCities);
+
+    if (this.cities.at(index).get('cityName')?.value === '') {
+      this.filteredCities = [...this.allCities];
+    }
+  }
+  initializePaytmentGetwayForm() {
+    this.paymentDetailsForm = this.fb.group({
+      price: ['', [Validators.required]],
+      numberOfMember: ['', [Validators.required]],
+      gst: ['', [Validators.required]],
+      total: [{ value: '', disabled: true }]
+    })
+  }
+
+  get price() {
+    return this.paymentDetailsForm.controls['price'];
+  }
+  get numberOfMember() {
+    return this.paymentDetailsForm.controls['numberOfMember'];
+  }
+  get gst() {
+    return this.paymentDetailsForm.controls['gst'];
+  }
+
+  changeEvent() {
+    this.calculateTotal();
+  }
+  calculateTotal() {
+    const pricePerPerson = this.paymentDetailsForm.get('price')?.value;
+    const numberOfMember = this.paymentDetailsForm.get('numberOfMember')?.value;
+    const gstPercentage = this.paymentDetailsForm.get('gst')?.value;
+
+    const totalWithoutGST = pricePerPerson * numberOfMember;
+    const gstAmount = (totalWithoutGST * gstPercentage) / 100;
+    const totalAmount = totalWithoutGST + gstAmount;
+
+    this.paymentDetailsForm.get('total')?.setValue(totalAmount.toFixed(2));
+  }
+  paymentSubmit() {
+    const paymentArray = [
+      { paymentMethod: 'Credit Card', amount: 100 },
+      { paymentMethod: 'Debit Card', amount: 200 }
+    ];
+
+    const allData = {
+      ...this.tripDetailsForm.value,
+      ...this.tripItineraryForm.value,
+      ...this.paymentDetailsForm.value,
+      paymentArray
+    };
+
+    sessionStorage.setItem('pdfData', JSON.stringify(allData));
+    this._router.navigate(['/app/pdf']);
+  }
+
+  onMealsSelectionChange(event: any, index: number): void {
+    debugger
+    const selectedMeals = event.value;
+    const notIncluded = 'Not Included';
+    const cityMealsControl = this.cities.at(index).get('meals');
+    const meal = selectedMeals
+      .filter((meal: any) => meal == 'Not Included')
+    if (selectedMeals[0] == notIncluded) {
+      cityMealsControl?.setValue([notIncluded], { emitEvent: false });
+    }
+    else {
+      const filteredMeals = selectedMeals.filter((meal: any) => meal !== notIncluded);
+      cityMealsControl?.setValue(filteredMeals, { emitEvent: false });
     }
   }
 
-  decrement() {
-    if (this.numberOfRoom > this.min) {
-      this.numberOfRoom--;
-    }
-  }
+
 }
