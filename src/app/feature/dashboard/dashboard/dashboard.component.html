@@ -270,7 +270,8 @@
                                                                     </div><!-- end card header -->
 
                                                                     <div class="card-body">
-                                                                        <div class="live-preview">
+                                                                        <div class="live-preview px-3 mx-n3"
+                                                                            style="max-height: 400px; overflow: scroll;">
                                                                             <form [formGroup]="tripItineraryForm"
                                                                                 (ngSubmit)="itinerySubmit()"
                                                                                 class="row g-3">
@@ -279,9 +280,6 @@
                                                                                     <div *ngFor="let city of cities.controls; let i = index"
                                                                                         [formGroupName]="i"
                                                                                         class="row align-items-center">
-
-
-
                                                                                         <div
                                                                                             class="col-md-4 position-relative">
                                                                                             <label for=""
@@ -557,14 +555,18 @@
                                                                                                 class="btn btn-danger w-100 mt-2"
                                                                                                 (click)="removeCity(i)">Delete</button>
                                                                                         </div>
+                                                                                        <div class="col-md-12 mt-2">
+                                                                                            <hr>
+                                                                                        </div>
                                                                                     </div>
-                                                                                    <div class="col-12 mt-2"
+                                                                                    <div class="col-12"
                                                                                         *ngIf="cities.length < 15">
                                                                                         <a class="text-primary"
                                                                                             style="cursor: pointer;"
                                                                                             (click)="addCity()">+
                                                                                             Add More</a>
                                                                                     </div>
+                                                                                    
                                                                                     <div class="col-md-12 mt-2">
                                                                                         <div class="row">
                                                                                             <div class="col-md-4">
@@ -617,7 +619,8 @@
                                                                                         formControlName="roadTransport">
                                                                                     <span
                                                                                         *ngIf="paymentDetailsForm.get('roadTransport')?.touched && paymentDetailsForm.get('roadTransport')?.hasError('required') && paymentDetailsForm.get('roadTransport')?.value === ''"
-                                                                                        class="text-danger"> Road Transport
+                                                                                        class="text-danger"> Road
+                                                                                        Transport
                                                                                         is Required </span>
                                                                                 </div>
                                                                                 <div class="col-md-6">
