@@ -81,7 +81,8 @@
                                                             <div *ngIf="step==1">
                                                                 <div class="card">
                                                                     <div class="card-header align-items-center d-flex">
-                                                                        <h5 class="text-primary mb-0 flex-grow-1">DESTINATIONS</h5>
+                                                                        <h5 class="text-primary mb-0 flex-grow-1">
+                                                                            DESTINATIONS</h5>
                                                                     </div><!-- end card header -->
 
                                                                     <div class="card-body">
@@ -125,7 +126,8 @@
                                                                                             [max]="maxDate"
                                                                                             formControlName="leavingDate"
                                                                                             [matDatepicker]="picker"
-                                                                                            readonly="true" [min]="minDate" 
+                                                                                            readonly="true"
+                                                                                            [min]="minDate"
                                                                                             [max]="maxDate"
                                                                                             [required]="true"
                                                                                             (click)="picker.open()">
@@ -232,10 +234,10 @@
                                                                                 </div>
                                                                                 <div class="col-12">
                                                                                     <span
-                                                                                    *ngIf="tripDetailsForm.get('adults')?.touched && tripDetailsForm.get('adults')?.hasError('required') && tripDetailsForm.get('adults')?.value === ''"
-                                                                                    class="text-danger">Number
-                                                                                    of Adult
-                                                                                    is Required </span>
+                                                                                        *ngIf="tripDetailsForm.get('adults')?.touched && tripDetailsForm.get('adults')?.hasError('required') && tripDetailsForm.get('adults')?.value === ''"
+                                                                                        class="text-danger">Number
+                                                                                        of Adult
+                                                                                        is Required </span>
                                                                                 </div>
                                                                                 <div class="col-md-12">
                                                                                     <div class="row">
@@ -254,11 +256,15 @@
                                                             <div *ngIf="step==2">
                                                                 <div class="card">
                                                                     <div class="card-header align-items-center d-flex">
-                                                                        <h5 class="text-primary mb-0 flex-grow-1">ITINERARY</h5>
+                                                                        <h5 class="text-primary mb-0 flex-grow-1">
+                                                                            ITINERARY</h5>
                                                                         <div class="flex-shrink-0">
-                                                                            <div class="form-check form-switch form-switch-right form-switch-md">
+                                                                            <div
+                                                                                class="form-check form-switch form-switch-right form-switch-md">
                                                                                 <button class="btn btn-primary w-100"
-                                                                                                    type="submit" (click)="step=1"> <i class="ri-arrow-left-s-line ms-1 align-middle lh-1"></i> Back</button>
+                                                                                    type="submit" (click)="step=1"> <i
+                                                                                        class="ri-arrow-left-s-line ms-1 align-middle lh-1"></i>
+                                                                                    Back</button>
                                                                             </div>
                                                                         </div>
                                                                     </div><!-- end card header -->
@@ -298,7 +304,8 @@
                                                                                                     required.</span>
                                                                                                 <!-- Bind to the current index for toggling -->
 
-                                                                                                <div class="dropdown-menu w-100">
+                                                                                                <div
+                                                                                                    class="dropdown-menu w-100">
                                                                                                     <div
                                                                                                         class="p-2 px-3 pt-1 searchlist-input">
                                                                                                         <input
@@ -317,8 +324,12 @@
                                                                                                             }}
                                                                                                         </li>
                                                                                                     </ul>
-                                                                                                    <ul class="list-unstyled dropdown-menu-list mb-0" *ngIf="filteredCities.length == 0">
-                                                                                                        <li class="dropdown-item">City not found</li>
+                                                                                                    <ul class="list-unstyled dropdown-menu-list mb-0"
+                                                                                                        *ngIf="filteredCities.length == 0">
+                                                                                                        <li
+                                                                                                            class="dropdown-item">
+                                                                                                            City not
+                                                                                                            found</li>
                                                                                                     </ul>
                                                                                                 </div>
                                                                                             </div>
@@ -357,28 +368,90 @@
                                                                                                 Required
                                                                                                 field.</span>
                                                                                         </div>
-                                                                                        <div class="col-md-6 mt-2">
+                                                                                        <div class="col-md-6 mt-4">
+                                                                                            <label
+                                                                                                for="validationDefault01"
+                                                                                                class="form-label">Check
+                                                                                                In Date</label>
+                                                                                            <mat-form-field
+                                                                                                class="no-underline custom-date-picker w-100">
+                                                                                                <input matInput
+                                                                                                    [min]="minDate"
+                                                                                                    [max]="maxDate"
+                                                                                                    formControlName="checkInDate"
+                                                                                                    [matDatepicker]="picker1"
+                                                                                                    readonly="true"
+                                                                                                    [min]="minDate"
+                                                                                                    [max]="maxDate"
+                                                                                                    [required]="true"
+                                                                                                    (click)="picker1.open()">
+                                                                                                <mat-datepicker-toggle
+                                                                                                    matIconSuffix
+                                                                                                    [for]="picker1"
+                                                                                                    touchUi1>
+                                                                                                </mat-datepicker-toggle>
+                                                                                                <mat-datepicker touchUi1
+                                                                                                    #picker1></mat-datepicker>
+                                                                                            </mat-form-field>
+                                                                                            <div *ngIf="city.get('checkInDate')?.touched && city.get('checkInDate')?.hasError('required')"
+                                                                                                class="text-danger"
+                                                                                                style="margin-top: -15px;">
+                                                                                                Check In Date
+                                                                                                is Required </div>
+                                                                                        </div>
+                                                                                        <div class="col-md-6">
                                                                                             <label for=""
                                                                                                 class="form-label">Check
-                                                                                                In</label>
+                                                                                                In Time</label>
                                                                                             <input type="time"
-                                                                                                formControlName="checkIn"
-                                                                                                class="form-control mb-2">
+                                                                                                formControlName="checkInTime"
+                                                                                                class="form-control">
                                                                                             <span
-                                                                                                *ngIf="city.get('checkIn')?.touched && city.get('checkIn')?.hasError('required')"
+                                                                                                *ngIf="city.get('checkInTime')?.touched && city.get('checkInTime')?.hasError('required')"
                                                                                                 class="text-danger">Check
                                                                                                 In Time is
                                                                                                 required.</span>
                                                                                         </div>
+                                                                                        <div class="col-md-6 mt-4">
+                                                                                            <label
+                                                                                                for="validationDefault01"
+                                                                                                class="form-label">Check
+                                                                                                Out Date</label>
+                                                                                            <mat-form-field
+                                                                                                class="no-underline custom-date-picker w-100">
+                                                                                                <input matInput
+                                                                                                    [min]="minDate"
+                                                                                                    [max]="maxDate"
+                                                                                                    formControlName="checkOutDate"
+                                                                                                    [matDatepicker]="pickers"
+                                                                                                    readonly="true"
+                                                                                                    [min]="minDate"
+                                                                                                    [max]="maxDate"
+                                                                                                    [required]="true"
+                                                                                                    (click)="pickers.open()">
+                                                                                                <mat-datepicker-toggle
+                                                                                                    matIconSuffix
+                                                                                                    [for]="pickers"
+                                                                                                    touchUis>
+                                                                                                </mat-datepicker-toggle>
+                                                                                                <mat-datepicker touchUis
+                                                                                                    #pickers></mat-datepicker>
+                                                                                            </mat-form-field>
+                                                                                            <div *ngIf="city.get('checkOutDate')?.touched && city.get('checkOutDate')?.hasError('required')"
+                                                                                                class="text-danger"
+                                                                                                style="margin-top: -15px;">
+                                                                                                Check Out Date
+                                                                                                is Required </div>
+                                                                                        </div>
                                                                                         <div class="col-md-6 mt-2">
                                                                                             <label for=""
                                                                                                 class="form-label">Check
-                                                                                                Out</label>
+                                                                                                Out Time</label>
                                                                                             <input type="time"
-                                                                                                formControlName="checkOut"
+                                                                                                formControlName="checkOutTime"
                                                                                                 class="form-control mb-2">
                                                                                             <span
-                                                                                                *ngIf="city.get('checkOut')?.touched && city.get('checkOut')?.hasError('required')"
+                                                                                                *ngIf="city.get('checkOutTime')?.touched && city.get('checkOutTime')?.hasError('required')"
                                                                                                 class="text-danger">Check
                                                                                                 Out Time is
                                                                                                 required.</span>
@@ -409,19 +482,22 @@
                                                                                         <div class="col-md-6 mt-3">
                                                                                             <label for=""
                                                                                                 class="form-label">Meals</label>
-                                                                                                <mat-form-field class="no-underline custom-date-picker w-100">
-                                                                                                    <mat-select 
-                                                                                                      placeholder="Select Meals" 
-                                                                                                      multiple 
-                                                                                                      formControlName="meals" 
-                                                                                                      (selectionChange)="onMealsSelectionChange($event, i)">
-                                                                                                      <mat-option *ngFor="let meal of mealsList" [value]="meal.name">
+                                                                                            <mat-form-field
+                                                                                                class="no-underline custom-date-picker w-100">
+                                                                                                <mat-select
+                                                                                                    placeholder="Select Meals"
+                                                                                                    multiple
+                                                                                                    formControlName="meals"
+                                                                                                    (selectionChange)="onMealsSelectionChange($event, i)">
+                                                                                                    <mat-option
+                                                                                                        *ngFor="let meal of mealsList"
+                                                                                                        [value]="meal.name">
                                                                                                         {{ meal.name }}
-                                                                                                      </mat-option>
-                                                                                                    </mat-select>
-                                                                                                  </mat-form-field>
-                                                                                                  
-                                                                                                  
+                                                                                                    </mat-option>
+                                                                                                </mat-select>
+                                                                                            </mat-form-field>
+
+
                                                                                             <!-- <select
                                                                                                 class="form-select mb-2"
                                                                                                 formControlName="meals"
@@ -438,7 +514,9 @@
                                                                                                 </option>
                                                                                             </select> -->
                                                                                             <div *ngIf="city.get('meals')?.touched && city.get('meals')?.hasError('required')"
-                                                                                                class="text-danger" style="margin-top: -15px;">Meals
+                                                                                                class="text-danger"
+                                                                                                style="margin-top: -15px;">
+                                                                                                Meals
                                                                                                 is
                                                                                                 required.</div>
                                                                                         </div>
@@ -461,7 +539,9 @@
                                                                                         <div class="col-md-10 mt-2">
                                                                                             <label for=""
                                                                                                 class="form-label">
-                                                                                                {{ i + 1 | numberToWord}} Day Visit</label>
+                                                                                                {{ i + 1 |
+                                                                                                numberToWord}} Day
+                                                                                                Visit</label>
                                                                                             <input type="text"
                                                                                                 formControlName="visitedDay"
                                                                                                 class="form-control">
@@ -504,12 +584,16 @@
                                                             <div *ngIf="step==3">
                                                                 <div class="card">
                                                                     <div class="card-header align-items-center d-flex">
-                                                                        <h5 class="text-primary mb-0 flex-grow-1">PAYMENT GETWAY
+                                                                        <h5 class="text-primary mb-0 flex-grow-1">
+                                                                            PAYMENT GETWAY
                                                                         </h5>
                                                                         <div class="flex-shrink-0">
-                                                                            <div class="form-check form-switch form-switch-right form-switch-md">
+                                                                            <div
+                                                                                class="form-check form-switch form-switch-right form-switch-md">
                                                                                 <button class="btn btn-primary w-100"
-                                                                                                    type="submit" (click)="step=2"> <i class="ri-arrow-left-s-line ms-1 align-middle lh-1"></i> Back</button>
+                                                                                    type="submit" (click)="step=2"> <i
+                                                                                        class="ri-arrow-left-s-line ms-1 align-middle lh-1"></i>
+                                                                                    Back</button>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -523,6 +607,19 @@
                                                                                 class="row g-3 needs-validation"
                                                                                 novalidate=""
                                                                                 (ngSubmit)="paymentSubmit()">
+                                                                                <div class="col-md-12">
+                                                                                    <label for="validationDefault01"
+                                                                                        class="form-label">Road
+                                                                                        Transport</label>
+                                                                                    <input type="text"
+                                                                                        class="form-control"
+                                                                                        placeholder="Enter Road Transport"
+                                                                                        formControlName="roadTransport">
+                                                                                    <span
+                                                                                        *ngIf="paymentDetailsForm.get('roadTransport')?.touched && paymentDetailsForm.get('roadTransport')?.hasError('required') && paymentDetailsForm.get('roadTransport')?.value === ''"
+                                                                                        class="text-danger"> Road Transport
+                                                                                        is Required </span>
+                                                                                </div>
                                                                                 <div class="col-md-6">
                                                                                     <label for="validationDefault01"
                                                                                         class="form-label">Price Per
