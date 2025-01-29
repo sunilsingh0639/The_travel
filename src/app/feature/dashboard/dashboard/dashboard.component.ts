@@ -227,20 +227,19 @@ export class DashboardComponent implements OnInit {
   }
 
   onMealsSelectionChange(event: any, index: number): void {
-    debugger
-    const selectedMeals = event.value;
+    let selectedMeals = [...event.value];
     const notIncluded = 'Not Included';
     const cityMealsControl = this.cities.at(index).get('meals');
-    const meal = selectedMeals
-      .filter((meal: any) => meal == 'Not Included')
-    if (selectedMeals[0] == notIncluded) {
+    if (selectedMeals.includes(notIncluded) && selectedMeals.length > 1) {
       cityMealsControl?.setValue([notIncluded], { emitEvent: false });
     }
-    else {
-      const filteredMeals = selectedMeals.filter((meal: any) => meal !== notIncluded);
-      cityMealsControl?.setValue(filteredMeals, { emitEvent: false });
+
+    else if (!selectedMeals.includes(notIncluded)) {
+      cityMealsControl?.setValue(selectedMeals, { emitEvent: false });
     }
   }
+
+
 
 
 }
