@@ -81,8 +81,7 @@
                                                             <div *ngIf="step==1">
                                                                 <div class="card">
                                                                     <div class="card-header align-items-center d-flex">
-                                                                        <h5 class="text-primary mb-0">DESTINATIONS</h5>
-
+                                                                        <h5 class="text-primary mb-0 flex-grow-1">DESTINATIONS</h5>
                                                                     </div><!-- end card header -->
 
                                                                     <div class="card-body">
@@ -126,7 +125,8 @@
                                                                                             [max]="maxDate"
                                                                                             formControlName="leavingDate"
                                                                                             [matDatepicker]="picker"
-                                                                                            readonly="true"
+                                                                                            readonly="true" [min]="minDate" 
+                                                                                            [max]="maxDate"
                                                                                             [required]="true"
                                                                                             (click)="picker.open()">
                                                                                         <mat-datepicker-toggle
@@ -147,7 +147,7 @@
                                                                                 <div class="col-md-6">
                                                                                     <label for="JoiningdatInput"
                                                                                         class="form-label">Interests</label>
-                                                                                    <select class="form-select mb-3"
+                                                                                    <select class="form-select mb-2"
                                                                                         formControlName="interests"
                                                                                         aria-label="Default select example">
                                                                                         <option value="Family Trips">
@@ -188,12 +188,9 @@
                                                                                     <label for="JoiningdatInput"
                                                                                         class="form-label">Star
                                                                                         rating</label>
-                                                                                    <select class="form-select mb-3"
+                                                                                    <select class="form-select mb-2"
                                                                                         formControlName="hotelRating"
                                                                                         aria-label="Default select example">
-                                                                                        <option value="">Select
-                                                                                            Star
-                                                                                        </option>
                                                                                         <option value="2-Star">2-Star
                                                                                         </option>
                                                                                         <option value="3-Star">3-Star
@@ -234,30 +231,11 @@
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="col-12">
-                                                                                    <div class="row">
-                                                                                        <div class="col-4">
-                                                                                            <span
-                                                                                                *ngIf="tripDetailsForm.get('adults')?.touched && tripDetailsForm.get('adults')?.hasError('required') && tripDetailsForm.get('adults')?.value === ''"
-                                                                                                class="text-danger">Number
-                                                                                                of Adult
-                                                                                                is Required </span>
-                                                                                        </div>
-                                                                                        <div class="col-4">
-                                                                                            <span
-                                                                                                *ngIf="tripDetailsForm.get('infants')?.touched && tripDetailsForm.get('infants')?.hasError('required') && tripDetailsForm.get('infants')?.value === ''"
-                                                                                                class="text-danger">Number
-                                                                                                of Infants
-                                                                                                is Required </span>
-                                                                                        </div>
-                                                                                        <div class="col-4">
-                                                                                            <span
-                                                                                                *ngIf="tripDetailsForm.get('childrens')?.touched && tripDetailsForm.get('childrens')?.hasError('required') && tripDetailsForm.get('childrens')?.value === ''"
-                                                                                                class="text-danger">Number
-                                                                                                of Childrens
-                                                                                                is Required </span>
-                                                                                        </div>
-
-                                                                                    </div>
+                                                                                    <span
+                                                                                    *ngIf="tripDetailsForm.get('adults')?.touched && tripDetailsForm.get('adults')?.hasError('required') && tripDetailsForm.get('adults')?.value === ''"
+                                                                                    class="text-danger">Number
+                                                                                    of Adult
+                                                                                    is Required </span>
                                                                                 </div>
                                                                                 <div class="col-md-12">
                                                                                     <div class="row">
@@ -276,8 +254,13 @@
                                                             <div *ngIf="step==2">
                                                                 <div class="card">
                                                                     <div class="card-header align-items-center d-flex">
-                                                                        <h5 class="text-primary mb-0">ITINERARY</h5>
-
+                                                                        <h5 class="text-primary mb-0 flex-grow-1">ITINERARY</h5>
+                                                                        <div class="flex-shrink-0">
+                                                                            <div class="form-check form-switch form-switch-right form-switch-md">
+                                                                                <button class="btn btn-primary w-100"
+                                                                                                    type="submit" (click)="step=1"> <i class="ri-arrow-left-s-line ms-1 align-middle lh-1"></i> Back</button>
+                                                                            </div>
+                                                                        </div>
                                                                     </div><!-- end card header -->
 
                                                                     <div class="card-body">
@@ -315,8 +298,7 @@
                                                                                                     required.</span>
                                                                                                 <!-- Bind to the current index for toggling -->
 
-                                                                                                <div class="dropdown-menu w-100"
-                                                                                                    *ngIf="filteredCities.length > 0">
+                                                                                                <div class="dropdown-menu w-100">
                                                                                                     <div
                                                                                                         class="p-2 px-3 pt-1 searchlist-input">
                                                                                                         <input
@@ -334,6 +316,9 @@
                                                                                                             {{ city.name
                                                                                                             }}
                                                                                                         </li>
+                                                                                                    </ul>
+                                                                                                    <ul class="list-unstyled dropdown-menu-list mb-0" *ngIf="filteredCities.length == 0">
+                                                                                                        <li class="dropdown-item">City not found</li>
                                                                                                     </ul>
                                                                                                 </div>
                                                                                             </div>
@@ -425,10 +410,17 @@
                                                                                             <label for=""
                                                                                                 class="form-label">Meals</label>
                                                                                                 <mat-form-field class="no-underline custom-date-picker w-100">
-                                                                                                    <mat-select placeholder="Select Meals" multiple formControlName="meals">
-                                                                                                      <mat-option *ngFor="let meals of mealsList" [value]="meals">{{meals.name}}</mat-option>
+                                                                                                    <mat-select 
+                                                                                                      placeholder="Select Meals" 
+                                                                                                      multiple 
+                                                                                                      formControlName="meals" 
+                                                                                                      (selectionChange)="onMealsSelectionChange($event, i)">
+                                                                                                      <mat-option *ngFor="let meal of mealsList" [value]="meal.name">
+                                                                                                        {{ meal.name }}
+                                                                                                      </mat-option>
                                                                                                     </mat-select>
                                                                                                   </mat-form-field>
+                                                                                                  
                                                                                                   
                                                                                             <!-- <select
                                                                                                 class="form-select mb-2"
@@ -512,8 +504,14 @@
                                                             <div *ngIf="step==3">
                                                                 <div class="card">
                                                                     <div class="card-header align-items-center d-flex">
-                                                                        <h5 class="text-primary mb-0">PAYMENT GETWAY
+                                                                        <h5 class="text-primary mb-0 flex-grow-1">PAYMENT GETWAY
                                                                         </h5>
+                                                                        <div class="flex-shrink-0">
+                                                                            <div class="form-check form-switch form-switch-right form-switch-md">
+                                                                                <button class="btn btn-primary w-100"
+                                                                                                    type="submit" (click)="step=2"> <i class="ri-arrow-left-s-line ms-1 align-middle lh-1"></i> Back</button>
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
                                                                     <div class="card-body">
                                                                         <!-- <p class="text-muted">

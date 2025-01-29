@@ -18,18 +18,19 @@ export class DashboardComponent implements OnInit {
   numberOfRoom: number = 0;
   min: number = 1;
   max: number = 20;
-  step: number = 1;
+  step: number = 2;
   today = new Date();
   minDate: Date = new Date(this.today.getFullYear(), this.today.getMonth(), this.today.getDate() + 1);;
   maxDate: Date = new Date(this.today.getFullYear() + 1, this.today.getMonth(), this.today.getDate() + 1);
   allCities: any[] = [];
   filteredCities: any[] = [];
   meals = new FormControl();
-  mealsList =[
-    { name: 'Breakfast', description: 'Delicious morning meal.'},
-    { name: 'Lunch', description: 'Healthy midday meal.'},
-    { name: 'Dinner', description: 'Hearty evening meal.'},
-    { name: 'Snacks', description: 'Tasty treats to enjoy anytime.'},
+  mealsList = [
+    { name: 'Breakfast', description: 'Delicious morning meal.' },
+    { name: 'Lunch', description: 'Healthy midday meal.' },
+    { name: 'Dinner', description: 'Hearty evening meal.' },
+    { name: 'Snacks', description: 'Tasty treats to enjoy anytime.' },
+    { name: 'Not Included', description: 'Not Included' },
   ];
   constructor(private fb: FormBuilder, private _router: Router) {
   }
@@ -47,8 +48,8 @@ export class DashboardComponent implements OnInit {
       interests: ['', Validators.required],
       hotelRating: ['', Validators.required],
       adults: ['', Validators.required],
-      infants: ['', Validators.required],
-      childrens: ['', Validators.required],
+      infants: [''],
+      childrens: [''],
     });
   }
   initializeItineraryForm() {
@@ -74,12 +75,6 @@ export class DashboardComponent implements OnInit {
   get adults() {
     return this.tripDetailsForm.controls['adults'];
   }
-  get infants() {
-    return this.tripDetailsForm.controls['infants'];
-  }
-  get childrens() {
-    return this.tripDetailsForm.controls['childrens'];
-  }
 
   addCity() {
     if (this.cities.length < 15) {
@@ -92,7 +87,7 @@ export class DashboardComponent implements OnInit {
         checkIn: [null, Validators.required],
         checkOut: [null, Validators.required],
         numberOfRoom: [null, Validators.required],
-        meals: [null, Validators.required],
+        meals: [[], Validators.required],
         visitedDay: [null, Validators.required],
         itineryContent: [null, Validators.required],
       });
@@ -132,7 +127,7 @@ export class DashboardComponent implements OnInit {
     debugger
     // if (this.numberOfRoom < this.max) {
     const control = this.cities.at(index).get('numberOfRoom');
-    if (control) {
+    if (control && control.value < 20) {
       control.setValue((control.value || 0) + 1);
       // this.numberOfRoom++;
     }
@@ -163,6 +158,7 @@ export class DashboardComponent implements OnInit {
     this.filteredCities = this.allCities.filter(city =>
       city.name.toLowerCase().includes(searchTerm)
     );
+
   }
 
   selectCity(cityName: string, cityId: number, cityImages: any[], index: number) {
@@ -229,4 +225,22 @@ export class DashboardComponent implements OnInit {
     sessionStorage.setItem('pdfData', JSON.stringify(allData));
     this._router.navigate(['/app/pdf']);
   }
+
+  onMealsSelectionChange(event: any, index: number): void {
+    debugger
+    const selectedMeals = event.value;
+    const notIncluded = 'Not Included';
+    const cityMealsControl = this.cities.at(index).get('meals');
+    const meal = selectedMeals
+      .filter((meal: any) => meal == 'Not Included')
+    if (selectedMeals[0] == notIncluded) {
+      cityMealsControl?.setValue([notIncluded], { emitEvent: false });
+    }
+    else {
+      const filteredMeals = selectedMeals.filter((meal: any) => meal !== notIncluded);
+      cityMealsControl?.setValue(filteredMeals, { emitEvent: false });
+    }
+  }
+
+
 }
