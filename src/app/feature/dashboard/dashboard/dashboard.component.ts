@@ -18,7 +18,7 @@ export class DashboardComponent implements OnInit {
   numberOfRoom: number = 0;
   min: number = 1;
   max: number = 20;
-  step: number = 2;
+  step: number = 3;
   today = new Date();
   minDate: Date = new Date(this.today.getFullYear(), this.today.getMonth(), this.today.getDate() + 1);;
   maxDate: Date = new Date(this.today.getFullYear() + 1, this.today.getMonth(), this.today.getDate() + 1);
@@ -84,8 +84,10 @@ export class DashboardComponent implements OnInit {
         cityImages: [[], Validators.required],
         hotelName: ['', Validators.required],
         numberOfNights: [null, Validators.required],
-        checkIn: [null, Validators.required],
-        checkOut: [null, Validators.required],
+        checkInTime: [null, Validators.required],
+        checkInDate: [null, Validators.required],
+        checkOutTime: [null, Validators.required],
+        checkOutDate: [null, Validators.required],
         numberOfRoom: [null, Validators.required],
         meals: [[], Validators.required],
         visitedDay: [null, Validators.required],
@@ -180,6 +182,7 @@ export class DashboardComponent implements OnInit {
     this.paymentDetailsForm = this.fb.group({
       price: ['', [Validators.required]],
       numberOfMember: ['', [Validators.required]],
+      roadTransport: ['', [Validators.required]],
       gst: ['', [Validators.required]],
       total: [{ value: '', disabled: true }]
     })
@@ -215,15 +218,26 @@ export class DashboardComponent implements OnInit {
       { paymentMethod: 'Debit Card', amount: 200 }
     ];
 
-    const allData = {
-      ...this.tripDetailsForm.value,
-      ...this.tripItineraryForm.value,
-      ...this.paymentDetailsForm.value,
-      paymentArray
-    };
+    const allFormData = {
+      tripDetails: [
+        this.tripDetailsForm.value
+      ],
+      tripItinery: this.tripItineraryForm.value,
+      paymentGetway: [
+        this.paymentDetailsForm.value
+      ]
 
-    sessionStorage.setItem('pdfData', JSON.stringify(allData));
-    this._router.navigate(['/app/pdf']);
+    }
+    console.log('allFormData', allFormData);
+
+    if (this.paymentDetailsForm.valid) {
+
+    }
+    else {
+      this.paymentDetailsForm.markAllAsTouched();
+    }
+    sessionStorage.setItem('pdfData', JSON.stringify(allFormData));
+    // this._router.navigate(['/app/pdf']);
   }
 
   onMealsSelectionChange(event: any, index: number): void {
