@@ -18,7 +18,7 @@ export class DashboardComponent implements OnInit {
   numberOfRoom: number = 0;
   min: number = 1;
   max: number = 20;
-  step: number = 3;
+  step: number = 1;
   today = new Date();
   minDate: Date = new Date(this.today.getFullYear(), this.today.getMonth(), this.today.getDate() + 1);;
   maxDate: Date = new Date(this.today.getFullYear() + 1, this.today.getMonth(), this.today.getDate() + 1);
