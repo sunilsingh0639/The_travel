@@ -981,8 +981,8 @@ export const destination = [
                 "id": 123,
                 "city": "Jodhpur",
                 "images": [
-                    "https://upload.wikimedia.org/wikipedia/commons/f/f1/Jodhpur_Meherangarh_Fort.jpg",
-                    "https://upload.wikimedia.org/wikipedia/commons/0/0a/Jodhpur_Fort_View.jpg"
+                    "https://s7ap1.scene7.com/is/image/incredibleindia/2-mehrangarh-fort-jodhpur-rajasthan-city-hero?qlt=82&ts=1726660925514",
+                    "https://sp-ao.shortpixel.ai/client/to_webp,q_glossy,ret_img,w_1024,h_594/https://www.traveltippler.com/wp-content/uploads/2023/09/Jodhpur-travel-itinerary-1024x594.jpeg"
                 ]
             },
             {

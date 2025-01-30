@@ -213,6 +213,7 @@ export class DashboardComponent implements OnInit {
     this.paymentDetailsForm.get('total')?.setValue(totalAmount.toFixed(2));
   }
   paymentSubmit() {
+    const totalAmount = this.paymentDetailsForm.get('total')?.value;
     const paymentArray = [
       { paymentMethod: 'Credit Card', amount: 100 },
       { paymentMethod: 'Debit Card', amount: 200 }
@@ -224,7 +225,8 @@ export class DashboardComponent implements OnInit {
       ],
       tripItinery: this.tripItineraryForm.value,
       paymentGetway: [
-        this.paymentDetailsForm.value
+        this.paymentDetailsForm.value,
+        totalAmount  
       ]
 
     }
