@@ -232,12 +232,12 @@ export class DashboardComponent implements OnInit {
 
     if (this.paymentDetailsForm.valid) {
 
+      sessionStorage.setItem('pdfData', JSON.stringify(allFormData));
+       this._router.navigate(['/app/pdf']);
     }
     else {
       this.paymentDetailsForm.markAllAsTouched();
     }
-    sessionStorage.setItem('pdfData', JSON.stringify(allFormData));
-    // this._router.navigate(['/app/pdf']);
   }
 
   onMealsSelectionChange(event: any, index: number): void {
